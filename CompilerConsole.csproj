@@ -32,15 +32,74 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>C:\Users\Комп\Downloads\CompilerConsole (1)\CompilerConsole\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AstTreeLib">
+      <HintPath>lib\AstTreeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DrawingTreeLib">
+      <HintPath>lib\DrawingTreeLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WFTree">
+      <HintPath>lib\WFTree.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Exceptions.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Content Include="Input.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AntlrGrammarFile Include="Lang2.g" />
+  </ItemGroup>
+  <PropertyGroup>
+    <AntlrLexerFile>@(AntlrGrammarFile->'%(RelativeDir)%(Filename)Lexer.cs')</AntlrLexerFile>
+    <AntlrParserFile>@(AntlrGrammarFile->'%(RelativeDir)%(Filename)Parser.cs')</AntlrParserFile>
+    <AntlrTokensFile>@(AntlrGrammarFile->'%(RelativeDir)%(Filename).tokens')</AntlrTokensFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(AntlrLexerFile)">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>@(AntlrGrammarFile)</DependentUpon>
+    </Compile>
+    <Compile Include="$(AntlrParserFile)">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>@(AntlrGrammarFile)</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(AntlrTokensFile)">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>@(AntlrGrammarFile)</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <JavaHome>C:\Program Files\Java\jdk1.7.0_79</JavaHome>
+  </PropertyGroup>
+  <Target Name="GenerateAntlrCode" Inputs="@(AntlrGrammarFile)" Outputs="$(AntlrLexerFile);$(AntlrParserFile)">
+    <Exec Command="&quot;$(JavaHome)\bin\java&quot; -classpath antlr\java\antlr-3.3-complete.jar org.antlr.Tool -message-format vs2005 @(AntlrGrammarFile)" />
+  </Target>
+  <Target Name="CleanAntlrCode">
+    <Delete Files="$(AntlrLexerFile);$(AntlrParserFile)" />
+  </Target>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <BuildDependsOn>GenerateAntlrCode;$(BuildDependsOn)</BuildDependsOn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RebuildDependsOn>CleanAntlrCode;$(RebuildDependsOn)</RebuildDependsOn>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
