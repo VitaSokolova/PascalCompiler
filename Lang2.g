@@ -50,6 +50,7 @@ tokens{
 	OF='of';
 	ARR_DECL;
 	RANGE;
+	ARR_CALL;
 }
 
 @header{
@@ -85,6 +86,9 @@ arrayTypeDecl	:	OF typeDecl -> ^(TYPE_DECL typeDecl)
 arrayDecl :  ARRAY arrayRange arrayTypeDecl -> ^(ARR_DECL arrayRange arrayTypeDecl )
 			;
 
+arrayCall	:	VARIABLE '['expressions']' -> ^(ARR_CALL VARIABLE expressions)
+			;
+
 //----------------OPERATIONS------------------------//
 ADD		:	'+'
 	;
@@ -114,9 +118,9 @@ boolOperator: MORE|LESS|EQUAL|LESS_OR_EQUAL|GREATER_OR_EQUAL
 			;
 
 //-----------------Math	Operations------------------------//
-mathGroup	:	'('!mathExpr+')'!
+mathGroup	:	'('!expressions+')'!
 			|INT
-			|VAR
+			|VARIABLE
 			|CHAR
 			|FALSE | TRUE
 			|funcCall
@@ -151,13 +155,14 @@ mathExpr
 	
 //---------------------------------------------------//
 
-bodyOper	:	expressions
-				|assExpr OP_END!
+bodyOper	:	assExpr OP_END!
 				|conditionExpr
 				|loopExpr
+				|funcCall
 				;
 
-expressions	:	mathExpr 
+expressions	:	mathExpr
+				|arrayCall
 				;
 funcCallArgs	:	 VARIABLE(',' VARIABLE)* 
 				;
@@ -170,7 +175,7 @@ funcCall	:	VARIABLE '('! funcCallArgsW? ')'! OP_END -> ^(FUNC_CALL VARIABLE func
 argDeclExpr	:	'('! argDeclMany')'! -> ^(FUNC_PROC_ARGS argDeclMany)
 			;
 
-retTypeExpr	:	(T_INT|T_BOOL|T_CHAR)
+retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|arrayDecl)
 			;
 
 retTypeExprWrap	:	retTypeExpr -> ^(FUNC_PROC_RET_TYPE retTypeExpr)
@@ -186,7 +191,7 @@ procedureDeclare: PROCEDURE VARIABLE argDeclExpr OP_END bodyExpr -> ^(PROC_DECL 
 
 conditionElseExpr	:	ELSE! bodyExpr -> ^(ELSE bodyExpr)
 					;
-condExpr	:	'('! mathExpr ')'! -> ^(CONDITION mathExpr)
+condExpr	:	 expressions  -> ^(CONDITION expressions)
 			;
 conditionExpr:	IF condExpr THEN! bodyExpr conditionElseExpr? -> ^(IF condExpr bodyExpr conditionElseExpr?)
 	;
@@ -199,6 +204,7 @@ loopExpr:	WHILE condExpr DO! bodyExpr -> ^(WHILE condExpr bodyExpr)
 		;	
 
 assExpr	:	 VARIABLE ASSIGN^ expressions
+			|arrayCall ASSIGN^ expressions
 	;
 
 argTypeDecl	:	typeDecl -> ^(TYPE_DECL typeDecl)
@@ -216,6 +222,7 @@ typeDecl	:	T_INT|T_CHAR|T_BOOL;
 //----------------VAR Operations-----------------------//
 varTypeDeclW	:	typeDecl|arrayDecl
 				;
+
 varTypeDecl	:	varTypeDeclW OP_END -> ^(TYPE_DECL varTypeDeclW)
 			;
 
