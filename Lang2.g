@@ -1,14 +1,14 @@
 grammar Lang2;
 
 options{
-	language=CSharp3;
+	language=CSharp2;
 	output=AST;
 }
 
 
 
 tokens{
-	PROGRAM;
+	PROGRAM = 'program';
 	WHILE ='while';
 	DO = 'do';
 	FOR = 'for';
@@ -22,6 +22,30 @@ tokens{
 	MOD	= 'mod';
 	NOT	= 'not';
 	TO = 'to';
+	VAR = 'var';
+	T_CHAR = 'char';
+	T_BOOL = 'boolean';
+	T_INT = 'integer';
+	IF='if';
+	BOOL;
+	CHAR;
+	INT;
+	FALSE = 'false';
+	TRUE = 'true';
+	VAR_DECL;
+	BODY_EXPR;
+	VAR_EXPR;
+	FUNC_PROC_EXPR;
+	PROC_DECL;
+	FUNC_DECL;
+	FUNC_CALL;
+	FUNC_CALL_ARGS;
+	FUNC_PROC_ARGS;
+	FUNC_PROC_RET_TYPE;
+	TYPE_DECL;
+	BOOL_MULT ='AND';
+	BOOL_ADD = 'OR';
+	CONDITION;
 }
 
 @header{
@@ -31,6 +55,7 @@ tokens{
 @lexer::namespace{Lang2}
 @parser::namespace{Lang2}
 
+
 OP_END	:	';'
 	;
 
@@ -39,19 +64,16 @@ WS:
     $channel=Hidden;
   }
 ;
+ VARIABLE	:	('a'..'z'|'A'..'Z')+;
 
-VAR	:	('a'..'z'|'A'..'Z')+
+//----------------DATA TYPES------------------------//
 
-//----------------ÒÈÏÛ ÄÀÍÍÛÕ------------------------//
-
-CHAR	:	('a'..'z'|'A'..'Z')
+CHAR	:	'\''! ('a'..'z'|'A'..'Z'|'0'..'9') '\''!
 	;	
 INT		:	('0'..'9')+
 	;
-BOOL	:	'true'|'false'
-	;
 
-//----------------ÎÏÅÐÀÖÈÈ------------------------//
+//----------------OPERATIONS------------------------//
 ADD		:	'+'
 	;
 REM		:	'-'
@@ -60,7 +82,7 @@ MULT	:	'*'
 	;
 DIVIDE	:	'/'
 	;
-ASS		:	':='
+ASSIGN		:	':='
 	;
 GREATER		: '>'
 	;
@@ -75,32 +97,37 @@ GREATER_OR_EQUAL		:	'>='
 
 
 //----------------Boolean Operations-----------------------//
-boolGroup	:	'('VAR boolOperaror VAR')'|'('BOOL')'|boolNegative
-	;
-boolNegative : '('NOT boolGroup')'
-;
-boolOperator: IS_MORE|IS_LESS|IS_EQUAL|LESS_OR_EQUAL|GREATER_OR_EQUAL
-;
-
-
-//----------------Char Operations-----------------------//
-
-charExpr: VAR ASS CHAR
-;
-
+			
+boolOperator: MORE|LESS|EQUAL|LESS_OR_EQUAL|GREATER_OR_EQUAL
+			;
 
 //-----------------Math	Operations------------------------//
 mathGroup	:	'('!mathExpr+')'!
 			|INT
 			|VAR
+			|CHAR
+			|FALSE | TRUE
+			|funcCall
 		;
 
-useDiv	: (DIV|MOD)^
+
+boolMult	:	mathGroup(BOOL_MULT^ mathGroup)*
+			;
+
+boolAdd	:	boolMult(BOOL_ADD^ boolMult)*
+		;
+
+boolElse	:	boolAdd(boolOperator^ boolAdd)*
+			;
+
+boolNegative : boolElse (NOT^ boolElse)*
+			;
+
+useDiv	: boolNegative((DIV|MOD)^ '('! boolNegative ')'! )*
 		;
 
 mathMult	
-	:	mathGroup((MULT|DIVIDE)^mathGroup)*
-		|useDiv'('mathExpr+')'!
+	:	useDiv((MULT|DIVIDE)^useDiv)*
 	;
 	
 mathAdd	:	mathMult((ADD|REM)^mathMult)*
@@ -110,50 +137,94 @@ mathExpr
 	:	mathAdd
 	;	
 	
-//##########################################################################//
+//---------------------------------------------------//
 
-expressions	:	mathExpr|boolExpr|charExpr|funcCall|procCall|assExpr;
+bodyOper	:	expressions
+				|assExpr OP_END!
+				|conditionExpr
+				|loopExpr
+				;
+
+expressions	:	mathExpr 
+				;
+funcCallArgs	:	 VARIABLE(',' VARIABLE)* 
+				;
+funcCallArgsW	:	funcCallArgs -> ^(FUNC_CALL_ARGS funcCallArgs)
+				;
+
+funcCall	:	VARIABLE '('! funcCallArgsW? ')'! OP_END -> ^(FUNC_CALL VARIABLE funcCallArgsW? )
 			;
 
-funcDeclare: FUNCTION VAR '('!')'! ':' INT|BOOL|CHAR BEGIN! expressions+ END OP_END!
+argDeclExpr	:	'('! argDeclMany')'! -> ^(FUNC_PROC_ARGS argDeclMany)
 			;
-procedureDeclare: PROCEDURE VAR '('!')'! BEGIN! expressions+ END OP_END!
 
-conditionExpr:	IF^'('!boolExpr+')' THEN! BEGIN! expressions+ END! (ELSE BEGIN! expressions+ END!)*
+retTypeExpr	:	(T_INT|T_BOOL|T_CHAR)
+			;
+
+retTypeExprWrap	:	retTypeExpr -> ^(FUNC_PROC_RET_TYPE retTypeExpr)
+				;
+
+funcDeclare: FUNCTION VARIABLE argDeclExpr':' retTypeExprWrap OP_END!  bodyExpr -> ^(FUNC_DECL argDeclExpr retTypeExprWrap bodyExpr)
+			;
+
+procedureDeclare: PROCEDURE VARIABLE argDeclExpr OP_END bodyExpr -> ^(PROC_DECL VARIABLE argDeclExpr bodyExpr)
+				;
+
+//-------------------------------IF--------------------------------//
+
+conditionElseExpr	:	ELSE! bodyExpr -> ^(ELSE bodyExpr)
+					;
+condExpr	:	'('! mathExpr ')'! -> ^(CONDITION mathExpr)
+			;
+conditionExpr:	IF condExpr THEN! bodyExpr conditionElseExpr? -> ^(IF condExpr bodyExpr conditionElseExpr?)
 	;
 
-loopExpr:	WHILE^ '('boolExpr+')' DO! BEGIN! expr* END!
-			|FOR^ '('! assExpr OP_END! TO INT OP_END!')'! DO BEGIN! expressions+ END!
+//---------------------------------------------------------------//
+forExpr	:	 assExpr TO^ expressions
+		;
+loopExpr:	WHILE condExpr DO! bodyExpr -> ^(WHILE condExpr bodyExpr)
+			|FOR forExpr DO bodyExpr -> ^(FOR forExpr bodyExpr)
 		;	
 
-assExpr	:	VAR ASS^ expressions
+assExpr	:	 VARIABLE ASSIGN^ expressions
 	;
 
-varDecl	:	typeDecl VAR^ OP_END! -> ^(VARDECL typeDecl VAR)
-			|typeDecl assExpr OP_END! -> ^(VARDECL typeDecl assExpr)
-		;
-
-elseFuncExec	: funcExec
-				;
-
-
-execParamsRule	:	(expressions|funcExec)
-				;
-
-funcExec	:	VAR^'('!execParamsRule (','execParamsRule)*')'! OP_END!
+argTypeDecl	:	typeDecl -> ^(TYPE_DECL typeDecl)
 			;
 
-funcExpr:	varDecl
-			|arrDecl
-			|funcExec
-			|assExpr OP_END!
-			|conditionExpr
-			|loopExpr
-			|arrExec
-	;
+argDecl	:	VAR? VARIABLE(','! VARIABLE)* ':'! argTypeDecl
+		;
 
-expr	:	funcDecl
-			|varDecl
+argDeclManyW	:	argDecl(','! argDecl)*
+			;
+argDeclMany	:	argDeclManyW -> ^(VAR_DECL argDeclManyW)
+			;
+typeDecl	:	T_INT|T_CHAR|T_BOOL;
+
+//----------------VAR Operations-----------------------//
+varTypeDecl	:	typeDecl OP_END -> ^(TYPE_DECL typeDecl)
+			;
+
+
+varDecl2	: VARIABLE(','! VARIABLE)*;
+
+varDecl	:	varDecl2
+		;
+varDecl12W	:	varDecl ':'! varTypeDecl 
+			;
+varDeclW	:	VAR varDecl12W+ -> ^(VAR_DECL varDecl12W+ )
+			;
+
+//----------------------------------------------------//
+
+bodyExpr	:	BEGIN! bodyOper+ END! OP_END! -> ^(BODY_EXPR bodyOper+)
+			;
+
+func_proc_expr	: funcDeclare|procedureDeclare ;
+
+fpExprW	:	func_proc_expr* -> ^(FUNC_PROC_EXPR func_proc_expr*);
+
+expr	:	 PROGRAM VARIABLE OP_END! varDeclW? fpExprW bodyExpr -> ^(PROGRAM VARIABLE varDeclW? fpExprW bodyExpr)
 	;
 	
 program: expr+  ;

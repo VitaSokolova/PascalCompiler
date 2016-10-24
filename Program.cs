@@ -4,7 +4,6 @@ using System.Text;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using Lang2;
-
 namespace CompilerConsole
 {
     class Program
