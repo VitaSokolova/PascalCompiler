@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2016-10-24 14:08:45
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2016-10-24 14:43:17
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -20,10 +20,13 @@ namespace Lang2
 public partial class Lang2Lexer : Antlr.Runtime.Lexer
 {
 	public const int EOF=-1;
-	public const int T__56=56;
-	public const int T__57=57;
-	public const int T__58=58;
-	public const int T__59=59;
+	public const int T__60=60;
+	public const int T__61=61;
+	public const int T__62=62;
+	public const int T__63=63;
+	public const int T__64=64;
+	public const int T__65=65;
+	public const int T__66=66;
 	public const int PROGRAM=4;
 	public const int WHILE=5;
 	public const int DO=6;
@@ -62,20 +65,24 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 	public const int BOOL_MULT=39;
 	public const int BOOL_ADD=40;
 	public const int CONDITION=41;
-	public const int OP_END=42;
-	public const int WS=43;
-	public const int VARIABLE=44;
-	public const int ADD=45;
-	public const int REM=46;
-	public const int MULT=47;
-	public const int DIVIDE=48;
-	public const int ASSIGN=49;
-	public const int GREATER=50;
-	public const int LESS=51;
-	public const int EQUAL=52;
-	public const int LESS_OR_EQUAL=53;
-	public const int GREATER_OR_EQUAL=54;
-	public const int MORE=55;
+	public const int ARRAY=42;
+	public const int OF=43;
+	public const int ARR_DECL=44;
+	public const int RANGE=45;
+	public const int OP_END=46;
+	public const int WS=47;
+	public const int VARIABLE=48;
+	public const int ADD=49;
+	public const int REM=50;
+	public const int MULT=51;
+	public const int DIVIDE=52;
+	public const int ASSIGN=53;
+	public const int GREATER=54;
+	public const int LESS=55;
+	public const int EQUAL=56;
+	public const int LESS_OR_EQUAL=57;
+	public const int GREATER_OR_EQUAL=58;
+	public const int MORE=59;
 
     // delegates
     // delegators
@@ -819,23 +826,176 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     }
     // $ANTLR end "BOOL_ADD"
 
-    protected virtual void Enter_T__56() {}
-    protected virtual void Leave_T__56() {}
+    protected virtual void Enter_ARRAY() {}
+    protected virtual void Leave_ARRAY() {}
 
-    // $ANTLR start "T__56"
-    [GrammarRule("T__56")]
-    private void mT__56()
+    // $ANTLR start "ARRAY"
+    [GrammarRule("ARRAY")]
+    private void mARRAY()
     {
 
     		try
     		{
-    		int _type = T__56;
+    		int _type = ARRAY;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:32:7: ( '(' )
+    		// Lang2.g:32:7: ( 'array' )
     		DebugEnterAlt(1);
-    		// Lang2.g:32:9: '('
+    		// Lang2.g:32:9: 'array'
     		{
     		DebugLocation(32, 9);
+    		Match("array"); 
+
+
+    		}
+
+    		state.type = _type;
+    		state.channel = _channel;
+    	}
+    	finally
+    	{
+        }
+    }
+    // $ANTLR end "ARRAY"
+
+    protected virtual void Enter_OF() {}
+    protected virtual void Leave_OF() {}
+
+    // $ANTLR start "OF"
+    [GrammarRule("OF")]
+    private void mOF()
+    {
+
+    		try
+    		{
+    		int _type = OF;
+    		int _channel = DefaultTokenChannel;
+    		// Lang2.g:33:4: ( 'of' )
+    		DebugEnterAlt(1);
+    		// Lang2.g:33:6: 'of'
+    		{
+    		DebugLocation(33, 6);
+    		Match("of"); 
+
+
+    		}
+
+    		state.type = _type;
+    		state.channel = _channel;
+    	}
+    	finally
+    	{
+        }
+    }
+    // $ANTLR end "OF"
+
+    protected virtual void Enter_T__60() {}
+    protected virtual void Leave_T__60() {}
+
+    // $ANTLR start "T__60"
+    [GrammarRule("T__60")]
+    private void mT__60()
+    {
+
+    		try
+    		{
+    		int _type = T__60;
+    		int _channel = DefaultTokenChannel;
+    		// Lang2.g:34:7: ( '[' )
+    		DebugEnterAlt(1);
+    		// Lang2.g:34:9: '['
+    		{
+    		DebugLocation(34, 9);
+    		Match('['); 
+
+    		}
+
+    		state.type = _type;
+    		state.channel = _channel;
+    	}
+    	finally
+    	{
+        }
+    }
+    // $ANTLR end "T__60"
+
+    protected virtual void Enter_T__61() {}
+    protected virtual void Leave_T__61() {}
+
+    // $ANTLR start "T__61"
+    [GrammarRule("T__61")]
+    private void mT__61()
+    {
+
+    		try
+    		{
+    		int _type = T__61;
+    		int _channel = DefaultTokenChannel;
+    		// Lang2.g:35:7: ( '..' )
+    		DebugEnterAlt(1);
+    		// Lang2.g:35:9: '..'
+    		{
+    		DebugLocation(35, 9);
+    		Match(".."); 
+
+
+    		}
+
+    		state.type = _type;
+    		state.channel = _channel;
+    	}
+    	finally
+    	{
+        }
+    }
+    // $ANTLR end "T__61"
+
+    protected virtual void Enter_T__62() {}
+    protected virtual void Leave_T__62() {}
+
+    // $ANTLR start "T__62"
+    [GrammarRule("T__62")]
+    private void mT__62()
+    {
+
+    		try
+    		{
+    		int _type = T__62;
+    		int _channel = DefaultTokenChannel;
+    		// Lang2.g:36:7: ( ']' )
+    		DebugEnterAlt(1);
+    		// Lang2.g:36:9: ']'
+    		{
+    		DebugLocation(36, 9);
+    		Match(']'); 
+
+    		}
+
+    		state.type = _type;
+    		state.channel = _channel;
+    	}
+    	finally
+    	{
+        }
+    }
+    // $ANTLR end "T__62"
+
+    protected virtual void Enter_T__63() {}
+    protected virtual void Leave_T__63() {}
+
+    // $ANTLR start "T__63"
+    [GrammarRule("T__63")]
+    private void mT__63()
+    {
+
+    		try
+    		{
+    		int _type = T__63;
+    		int _channel = DefaultTokenChannel;
+    		// Lang2.g:37:7: ( '(' )
+    		DebugEnterAlt(1);
+    		// Lang2.g:37:9: '('
+    		{
+    		DebugLocation(37, 9);
     		Match('('); 
 
     		}
@@ -847,25 +1007,25 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     	{
         }
     }
-    // $ANTLR end "T__56"
+    // $ANTLR end "T__63"
 
-    protected virtual void Enter_T__57() {}
-    protected virtual void Leave_T__57() {}
+    protected virtual void Enter_T__64() {}
+    protected virtual void Leave_T__64() {}
 
-    // $ANTLR start "T__57"
-    [GrammarRule("T__57")]
-    private void mT__57()
+    // $ANTLR start "T__64"
+    [GrammarRule("T__64")]
+    private void mT__64()
     {
 
     		try
     		{
-    		int _type = T__57;
+    		int _type = T__64;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:33:7: ( ')' )
+    		// Lang2.g:38:7: ( ')' )
     		DebugEnterAlt(1);
-    		// Lang2.g:33:9: ')'
+    		// Lang2.g:38:9: ')'
     		{
-    		DebugLocation(33, 9);
+    		DebugLocation(38, 9);
     		Match(')'); 
 
     		}
@@ -877,25 +1037,25 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     	{
         }
     }
-    // $ANTLR end "T__57"
+    // $ANTLR end "T__64"
 
-    protected virtual void Enter_T__58() {}
-    protected virtual void Leave_T__58() {}
+    protected virtual void Enter_T__65() {}
+    protected virtual void Leave_T__65() {}
 
-    // $ANTLR start "T__58"
-    [GrammarRule("T__58")]
-    private void mT__58()
+    // $ANTLR start "T__65"
+    [GrammarRule("T__65")]
+    private void mT__65()
     {
 
     		try
     		{
-    		int _type = T__58;
+    		int _type = T__65;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:34:7: ( ',' )
+    		// Lang2.g:39:7: ( ',' )
     		DebugEnterAlt(1);
-    		// Lang2.g:34:9: ','
+    		// Lang2.g:39:9: ','
     		{
-    		DebugLocation(34, 9);
+    		DebugLocation(39, 9);
     		Match(','); 
 
     		}
@@ -907,25 +1067,25 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     	{
         }
     }
-    // $ANTLR end "T__58"
+    // $ANTLR end "T__65"
 
-    protected virtual void Enter_T__59() {}
-    protected virtual void Leave_T__59() {}
+    protected virtual void Enter_T__66() {}
+    protected virtual void Leave_T__66() {}
 
-    // $ANTLR start "T__59"
-    [GrammarRule("T__59")]
-    private void mT__59()
+    // $ANTLR start "T__66"
+    [GrammarRule("T__66")]
+    private void mT__66()
     {
 
     		try
     		{
-    		int _type = T__59;
+    		int _type = T__66;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:35:7: ( ':' )
+    		// Lang2.g:40:7: ( ':' )
     		DebugEnterAlt(1);
-    		// Lang2.g:35:9: ':'
+    		// Lang2.g:40:9: ':'
     		{
-    		DebugLocation(35, 9);
+    		DebugLocation(40, 9);
     		Match(':'); 
 
     		}
@@ -937,7 +1097,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     	{
         }
     }
-    // $ANTLR end "T__59"
+    // $ANTLR end "T__66"
 
     protected virtual void Enter_OP_END() {}
     protected virtual void Leave_OP_END() {}
@@ -951,11 +1111,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = OP_END;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:59:8: ( ';' )
+    		// Lang2.g:63:8: ( ';' )
     		DebugEnterAlt(1);
-    		// Lang2.g:59:10: ';'
+    		// Lang2.g:63:10: ';'
     		{
-    		DebugLocation(59, 10);
+    		DebugLocation(63, 10);
     		Match(';'); 
 
     		}
@@ -981,12 +1141,12 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = WS;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:62:3: ( ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+ )
+    		// Lang2.g:66:3: ( ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+ )
     		DebugEnterAlt(1);
-    		// Lang2.g:63:3: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
+    		// Lang2.g:67:3: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
     		{
-    		DebugLocation(63, 3);
-    		// Lang2.g:63:3: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
+    		DebugLocation(67, 3);
+    		// Lang2.g:67:3: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
     		int cnt1=0;
     		try { DebugEnterSubRule(1);
     		while (true)
@@ -1008,7 +1168,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// Lang2.g:
     				{
-    				DebugLocation(63, 3);
+    				DebugLocation(67, 3);
     				if ((input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ')
     				{
     					input.Consume();
@@ -1040,7 +1200,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 
     		} finally { DebugExitSubRule(1); }
 
-    		DebugLocation(63, 41);
+    		DebugLocation(67, 41);
 
     		    _channel=Hidden;
     		  
@@ -1068,12 +1228,12 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = VARIABLE;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:67:10: ( ( 'a' .. 'z' | 'A' .. 'Z' )+ )
+    		// Lang2.g:71:10: ( ( 'a' .. 'z' | 'A' .. 'Z' )+ )
     		DebugEnterAlt(1);
-    		// Lang2.g:67:12: ( 'a' .. 'z' | 'A' .. 'Z' )+
+    		// Lang2.g:71:12: ( 'a' .. 'z' | 'A' .. 'Z' )+
     		{
-    		DebugLocation(67, 12);
-    		// Lang2.g:67:12: ( 'a' .. 'z' | 'A' .. 'Z' )+
+    		DebugLocation(71, 12);
+    		// Lang2.g:71:12: ( 'a' .. 'z' | 'A' .. 'Z' )+
     		int cnt2=0;
     		try { DebugEnterSubRule(2);
     		while (true)
@@ -1095,7 +1255,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// Lang2.g:
     				{
-    				DebugLocation(67, 12);
+    				DebugLocation(71, 12);
     				if ((input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z'))
     				{
     					input.Consume();
@@ -1151,13 +1311,13 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = CHAR;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:71:6: ( '\\'' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) '\\'' )
+    		// Lang2.g:75:6: ( '\\'' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) '\\'' )
     		DebugEnterAlt(1);
-    		// Lang2.g:71:8: '\\'' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) '\\''
+    		// Lang2.g:75:8: '\\'' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) '\\''
     		{
-    		DebugLocation(71, 12);
+    		DebugLocation(75, 12);
     		Match('\''); 
-    		DebugLocation(71, 14);
+    		DebugLocation(75, 14);
     		if ((input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z'))
     		{
     			input.Consume();
@@ -1170,7 +1330,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     			Recover(mse);
     			throw mse;}
 
-    		DebugLocation(71, 47);
+    		DebugLocation(75, 47);
     		Match('\''); 
 
     		}
@@ -1196,12 +1356,12 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = INT;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:73:6: ( ( '0' .. '9' )+ )
+    		// Lang2.g:77:6: ( ( '0' .. '9' )+ )
     		DebugEnterAlt(1);
-    		// Lang2.g:73:8: ( '0' .. '9' )+
+    		// Lang2.g:77:8: ( '0' .. '9' )+
     		{
-    		DebugLocation(73, 8);
-    		// Lang2.g:73:8: ( '0' .. '9' )+
+    		DebugLocation(77, 8);
+    		// Lang2.g:77:8: ( '0' .. '9' )+
     		int cnt3=0;
     		try { DebugEnterSubRule(3);
     		while (true)
@@ -1221,9 +1381,9 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:73:9: '0' .. '9'
+    				// Lang2.g:77:9: '0' .. '9'
     				{
-    				DebugLocation(73, 9);
+    				DebugLocation(77, 9);
     				MatchRange('0','9'); 
 
     				}
@@ -1268,11 +1428,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = ADD;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:77:6: ( '+' )
+    		// Lang2.g:89:6: ( '+' )
     		DebugEnterAlt(1);
-    		// Lang2.g:77:8: '+'
+    		// Lang2.g:89:8: '+'
     		{
-    		DebugLocation(77, 8);
+    		DebugLocation(89, 8);
     		Match('+'); 
 
     		}
@@ -1298,11 +1458,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = REM;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:79:6: ( '-' )
+    		// Lang2.g:91:6: ( '-' )
     		DebugEnterAlt(1);
-    		// Lang2.g:79:8: '-'
+    		// Lang2.g:91:8: '-'
     		{
-    		DebugLocation(79, 8);
+    		DebugLocation(91, 8);
     		Match('-'); 
 
     		}
@@ -1328,11 +1488,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = MULT;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:81:6: ( '*' )
+    		// Lang2.g:93:6: ( '*' )
     		DebugEnterAlt(1);
-    		// Lang2.g:81:8: '*'
+    		// Lang2.g:93:8: '*'
     		{
-    		DebugLocation(81, 8);
+    		DebugLocation(93, 8);
     		Match('*'); 
 
     		}
@@ -1358,11 +1518,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = DIVIDE;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:83:8: ( '/' )
+    		// Lang2.g:95:8: ( '/' )
     		DebugEnterAlt(1);
-    		// Lang2.g:83:10: '/'
+    		// Lang2.g:95:10: '/'
     		{
-    		DebugLocation(83, 10);
+    		DebugLocation(95, 10);
     		Match('/'); 
 
     		}
@@ -1388,11 +1548,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = ASSIGN;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:85:9: ( ':=' )
+    		// Lang2.g:97:9: ( ':=' )
     		DebugEnterAlt(1);
-    		// Lang2.g:85:11: ':='
+    		// Lang2.g:97:11: ':='
     		{
-    		DebugLocation(85, 11);
+    		DebugLocation(97, 11);
     		Match(":="); 
 
 
@@ -1419,11 +1579,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = GREATER;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:87:10: ( '>' )
+    		// Lang2.g:99:10: ( '>' )
     		DebugEnterAlt(1);
-    		// Lang2.g:87:12: '>'
+    		// Lang2.g:99:12: '>'
     		{
-    		DebugLocation(87, 12);
+    		DebugLocation(99, 12);
     		Match('>'); 
 
     		}
@@ -1449,11 +1609,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = LESS;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:89:6: ( '<' )
+    		// Lang2.g:101:6: ( '<' )
     		DebugEnterAlt(1);
-    		// Lang2.g:89:8: '<'
+    		// Lang2.g:101:8: '<'
     		{
-    		DebugLocation(89, 8);
+    		DebugLocation(101, 8);
     		Match('<'); 
 
     		}
@@ -1479,11 +1639,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = EQUAL;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:91:7: ( '=' )
+    		// Lang2.g:103:7: ( '=' )
     		DebugEnterAlt(1);
-    		// Lang2.g:91:9: '='
+    		// Lang2.g:103:9: '='
     		{
-    		DebugLocation(91, 9);
+    		DebugLocation(103, 9);
     		Match('='); 
 
     		}
@@ -1509,11 +1669,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = LESS_OR_EQUAL;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:93:16: ( '<=' )
+    		// Lang2.g:105:16: ( '<=' )
     		DebugEnterAlt(1);
-    		// Lang2.g:93:18: '<='
+    		// Lang2.g:105:18: '<='
     		{
-    		DebugLocation(93, 18);
+    		DebugLocation(105, 18);
     		Match("<="); 
 
 
@@ -1540,11 +1700,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = GREATER_OR_EQUAL;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:95:19: ( '>=' )
+    		// Lang2.g:107:19: ( '>=' )
     		DebugEnterAlt(1);
-    		// Lang2.g:95:21: '>='
+    		// Lang2.g:107:21: '>='
     		{
-    		DebugLocation(95, 21);
+    		DebugLocation(107, 21);
     		Match(">="); 
 
 
@@ -1561,8 +1721,8 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 
     public override void mTokens()
     {
-    	// Lang2.g:1:8: ( PROGRAM | WHILE | DO | FOR | FUNCTION | PROCEDURE | BEGIN | END | THEN | ELSE | DIV | MOD | NOT | TO | VAR | T_CHAR | T_BOOL | T_INT | IF | FALSE | TRUE | BOOL_MULT | BOOL_ADD | T__56 | T__57 | T__58 | T__59 | OP_END | WS | VARIABLE | CHAR | INT | ADD | REM | MULT | DIVIDE | ASSIGN | GREATER | LESS | EQUAL | LESS_OR_EQUAL | GREATER_OR_EQUAL )
-    	int alt4=42;
+    	// Lang2.g:1:8: ( PROGRAM | WHILE | DO | FOR | FUNCTION | PROCEDURE | BEGIN | END | THEN | ELSE | DIV | MOD | NOT | TO | VAR | T_CHAR | T_BOOL | T_INT | IF | FALSE | TRUE | BOOL_MULT | BOOL_ADD | ARRAY | OF | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | OP_END | WS | VARIABLE | CHAR | INT | ADD | REM | MULT | DIVIDE | ASSIGN | GREATER | LESS | EQUAL | LESS_OR_EQUAL | GREATER_OR_EQUAL )
+    	int alt4=47;
     	try { DebugEnterDecision(4, decisionCanBacktrack[4]);
     	try
     	{
@@ -1785,171 +1945,216 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		break;
     	case 24:
     		DebugEnterAlt(24);
-    		// Lang2.g:1:142: T__56
+    		// Lang2.g:1:142: ARRAY
     		{
     		DebugLocation(1, 142);
-    		mT__56(); 
+    		mARRAY(); 
 
     		}
     		break;
     	case 25:
     		DebugEnterAlt(25);
-    		// Lang2.g:1:148: T__57
+    		// Lang2.g:1:148: OF
     		{
     		DebugLocation(1, 148);
-    		mT__57(); 
+    		mOF(); 
 
     		}
     		break;
     	case 26:
     		DebugEnterAlt(26);
-    		// Lang2.g:1:154: T__58
+    		// Lang2.g:1:151: T__60
     		{
-    		DebugLocation(1, 154);
-    		mT__58(); 
+    		DebugLocation(1, 151);
+    		mT__60(); 
 
     		}
     		break;
     	case 27:
     		DebugEnterAlt(27);
-    		// Lang2.g:1:160: T__59
+    		// Lang2.g:1:157: T__61
     		{
-    		DebugLocation(1, 160);
-    		mT__59(); 
+    		DebugLocation(1, 157);
+    		mT__61(); 
 
     		}
     		break;
     	case 28:
     		DebugEnterAlt(28);
-    		// Lang2.g:1:166: OP_END
+    		// Lang2.g:1:163: T__62
     		{
-    		DebugLocation(1, 166);
-    		mOP_END(); 
+    		DebugLocation(1, 163);
+    		mT__62(); 
 
     		}
     		break;
     	case 29:
     		DebugEnterAlt(29);
-    		// Lang2.g:1:173: WS
+    		// Lang2.g:1:169: T__63
     		{
-    		DebugLocation(1, 173);
-    		mWS(); 
+    		DebugLocation(1, 169);
+    		mT__63(); 
 
     		}
     		break;
     	case 30:
     		DebugEnterAlt(30);
-    		// Lang2.g:1:176: VARIABLE
+    		// Lang2.g:1:175: T__64
     		{
-    		DebugLocation(1, 176);
-    		mVARIABLE(); 
+    		DebugLocation(1, 175);
+    		mT__64(); 
 
     		}
     		break;
     	case 31:
     		DebugEnterAlt(31);
-    		// Lang2.g:1:185: CHAR
+    		// Lang2.g:1:181: T__65
     		{
-    		DebugLocation(1, 185);
-    		mCHAR(); 
+    		DebugLocation(1, 181);
+    		mT__65(); 
 
     		}
     		break;
     	case 32:
     		DebugEnterAlt(32);
-    		// Lang2.g:1:190: INT
+    		// Lang2.g:1:187: T__66
     		{
-    		DebugLocation(1, 190);
-    		mINT(); 
+    		DebugLocation(1, 187);
+    		mT__66(); 
 
     		}
     		break;
     	case 33:
     		DebugEnterAlt(33);
-    		// Lang2.g:1:194: ADD
+    		// Lang2.g:1:193: OP_END
     		{
-    		DebugLocation(1, 194);
-    		mADD(); 
+    		DebugLocation(1, 193);
+    		mOP_END(); 
 
     		}
     		break;
     	case 34:
     		DebugEnterAlt(34);
-    		// Lang2.g:1:198: REM
+    		// Lang2.g:1:200: WS
     		{
-    		DebugLocation(1, 198);
-    		mREM(); 
+    		DebugLocation(1, 200);
+    		mWS(); 
 
     		}
     		break;
     	case 35:
     		DebugEnterAlt(35);
-    		// Lang2.g:1:202: MULT
+    		// Lang2.g:1:203: VARIABLE
     		{
-    		DebugLocation(1, 202);
-    		mMULT(); 
+    		DebugLocation(1, 203);
+    		mVARIABLE(); 
 
     		}
     		break;
     	case 36:
     		DebugEnterAlt(36);
-    		// Lang2.g:1:207: DIVIDE
+    		// Lang2.g:1:212: CHAR
     		{
-    		DebugLocation(1, 207);
-    		mDIVIDE(); 
+    		DebugLocation(1, 212);
+    		mCHAR(); 
 
     		}
     		break;
     	case 37:
     		DebugEnterAlt(37);
-    		// Lang2.g:1:214: ASSIGN
+    		// Lang2.g:1:217: INT
     		{
-    		DebugLocation(1, 214);
-    		mASSIGN(); 
+    		DebugLocation(1, 217);
+    		mINT(); 
 
     		}
     		break;
     	case 38:
     		DebugEnterAlt(38);
-    		// Lang2.g:1:221: GREATER
+    		// Lang2.g:1:221: ADD
     		{
     		DebugLocation(1, 221);
-    		mGREATER(); 
+    		mADD(); 
 
     		}
     		break;
     	case 39:
     		DebugEnterAlt(39);
-    		// Lang2.g:1:229: LESS
+    		// Lang2.g:1:225: REM
     		{
-    		DebugLocation(1, 229);
-    		mLESS(); 
+    		DebugLocation(1, 225);
+    		mREM(); 
 
     		}
     		break;
     	case 40:
     		DebugEnterAlt(40);
-    		// Lang2.g:1:234: EQUAL
+    		// Lang2.g:1:229: MULT
     		{
-    		DebugLocation(1, 234);
-    		mEQUAL(); 
+    		DebugLocation(1, 229);
+    		mMULT(); 
 
     		}
     		break;
     	case 41:
     		DebugEnterAlt(41);
-    		// Lang2.g:1:240: LESS_OR_EQUAL
+    		// Lang2.g:1:234: DIVIDE
     		{
-    		DebugLocation(1, 240);
-    		mLESS_OR_EQUAL(); 
+    		DebugLocation(1, 234);
+    		mDIVIDE(); 
 
     		}
     		break;
     	case 42:
     		DebugEnterAlt(42);
-    		// Lang2.g:1:254: GREATER_OR_EQUAL
+    		// Lang2.g:1:241: ASSIGN
     		{
-    		DebugLocation(1, 254);
+    		DebugLocation(1, 241);
+    		mASSIGN(); 
+
+    		}
+    		break;
+    	case 43:
+    		DebugEnterAlt(43);
+    		// Lang2.g:1:248: GREATER
+    		{
+    		DebugLocation(1, 248);
+    		mGREATER(); 
+
+    		}
+    		break;
+    	case 44:
+    		DebugEnterAlt(44);
+    		// Lang2.g:1:256: LESS
+    		{
+    		DebugLocation(1, 256);
+    		mLESS(); 
+
+    		}
+    		break;
+    	case 45:
+    		DebugEnterAlt(45);
+    		// Lang2.g:1:261: EQUAL
+    		{
+    		DebugLocation(1, 261);
+    		mEQUAL(); 
+
+    		}
+    		break;
+    	case 46:
+    		DebugEnterAlt(46);
+    		// Lang2.g:1:267: LESS_OR_EQUAL
+    		{
+    		DebugLocation(1, 267);
+    		mLESS_OR_EQUAL(); 
+
+    		}
+    		break;
+    	case 47:
+    		DebugEnterAlt(47);
+    		// Lang2.g:1:281: GREATER_OR_EQUAL
+    		{
+    		DebugLocation(1, 281);
     		mGREATER_OR_EQUAL(); 
 
     		}
@@ -1972,192 +2177,210 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 	private class DFA4 : DFA
 	{
 		private const string DFA4_eotS =
-			"\x01\uffff\x0e\x15\x03\uffff\x01\x36\x09\uffff\x01\x38\x01\x3a\x01\uffff"+
-			"\x02\x15\x01\x3d\x09\x15\x01\x47\x06\x15\x01\x4e\x01\x15\x01\x50\x06"+
-			"\uffff\x02\x15\x01\uffff\x01\x54\x01\x55\x04\x15\x01\x5a\x02\x15\x01"+
-			"\uffff\x01\x15\x01\x5e\x01\x5f\x01\x60\x02\x15\x01\uffff\x01\x63\x01"+
-			"\uffff\x03\x15\x02\uffff\x04\x15\x01\uffff\x01\x6b\x01\x6c\x01\x6d\x03"+
-			"\uffff\x01\x6e\x01\x15\x01\uffff\x02\x15\x01\x72\x01\x15\x01\x74\x01"+
-			"\x75\x01\x15\x04\uffff\x03\x15\x01\uffff\x01\x15\x02\uffff\x02\x15\x01"+
-			"\x7d\x02\x15\x01\u0080\x01\u0081\x01\uffff\x01\x15\x01\u0083\x02\uffff"+
-			"\x01\u0084\x02\uffff";
+			"\x01\uffff\x10\x1a\x06\uffff\x01\x3d\x09\uffff\x01\x3f\x01\x41\x01\uffff"+
+			"\x02\x1a\x01\x44\x09\x1a\x01\x4e\x06\x1a\x01\x55\x01\x1a\x01\x57\x01"+
+			"\x1a\x01\x59\x06\uffff\x02\x1a\x01\uffff\x01\x5d\x01\x5e\x04\x1a\x01"+
+			"\x63\x02\x1a\x01\uffff\x01\x1a\x01\x67\x01\x68\x01\x69\x02\x1a\x01\uffff"+
+			"\x01\x6c\x01\uffff\x01\x1a\x01\uffff\x03\x1a\x02\uffff\x04\x1a\x01\uffff"+
+			"\x01\x75\x01\x76\x01\x77\x03\uffff\x01\x78\x01\x1a\x01\uffff\x03\x1a"+
+			"\x01\x7d\x01\x1a\x01\x7f\x01\u0080\x01\x1a\x04\uffff\x01\x1a\x01\u0083"+
+			"\x02\x1a\x01\uffff\x01\x1a\x02\uffff\x02\x1a\x01\uffff\x01\u0089\x02"+
+			"\x1a\x01\u008c\x01\u008d\x01\uffff\x01\x1a\x01\u008f\x02\uffff\x01\u0090"+
+			"\x02\uffff";
 		private const string DFA4_eofS =
-			"\u0085\uffff";
+			"\u0091\uffff";
 		private const string DFA4_minS =
 			"\x01\x09\x01\x72\x01\x68\x01\x69\x01\x61\x01\x65\x01\x6c\x01\x68\x02"+
-			"\x6f\x01\x61\x01\x68\x01\x66\x01\x4e\x01\x52\x03\uffff\x01\x3d\x09\uffff"+
-			"\x02\x3d\x01\uffff\x01\x6f\x01\x69\x01\x41\x01\x76\x01\x72\x01\x6e\x01"+
-			"\x6c\x01\x67\x01\x6f\x01\x64\x01\x73\x01\x65\x01\x41\x01\x75\x01\x64"+
-			"\x01\x74\x01\x72\x01\x61\x01\x74\x01\x41\x01\x44\x01\x41\x06\uffff\x01"+
-			"\x63\x01\x6c\x01\uffff\x02\x41\x01\x63\x01\x73\x01\x69\x01\x6c\x01\x41"+
-			"\x01\x65\x01\x6e\x01\uffff\x01\x65\x03\x41\x01\x72\x01\x65\x01\uffff"+
-			"\x01\x41\x01\uffff\x01\x72\x02\x65\x02\uffff\x01\x74\x01\x65\x01\x6e"+
-			"\x01\x65\x01\uffff\x03\x41\x03\uffff\x01\x41\x01\x67\x01\uffff\x01\x61"+
-			"\x01\x64\x01\x41\x01\x69\x02\x41\x01\x61\x04\uffff\x01\x65\x01\x6d\x01"+
-			"\x75\x01\uffff\x01\x6f\x02\uffff\x01\x6e\x01\x72\x01\x41\x01\x72\x01"+
-			"\x6e\x02\x41\x01\uffff\x01\x65\x01\x41\x02\uffff\x01\x41\x02\uffff";
+			"\x6f\x01\x61\x01\x68\x01\x66\x01\x4e\x01\x52\x01\x72\x01\x66\x06\uffff"+
+			"\x01\x3d\x09\uffff\x02\x3d\x01\uffff\x01\x6f\x01\x69\x01\x41\x01\x76"+
+			"\x01\x72\x01\x6e\x01\x6c\x01\x67\x01\x6f\x01\x64\x01\x73\x01\x65\x01"+
+			"\x41\x01\x75\x01\x64\x01\x74\x01\x72\x01\x61\x01\x74\x01\x41\x01\x44"+
+			"\x01\x41\x01\x72\x01\x41\x06\uffff\x01\x63\x01\x6c\x01\uffff\x02\x41"+
+			"\x01\x63\x01\x73\x01\x69\x01\x6c\x01\x41\x01\x65\x01\x6e\x01\uffff\x01"+
+			"\x65\x03\x41\x01\x72\x01\x65\x01\uffff\x01\x41\x01\uffff\x01\x61\x01"+
+			"\uffff\x01\x72\x02\x65\x02\uffff\x01\x74\x01\x65\x01\x6e\x01\x65\x01"+
+			"\uffff\x03\x41\x03\uffff\x01\x41\x01\x67\x01\uffff\x01\x79\x01\x61\x01"+
+			"\x64\x01\x41\x01\x69\x02\x41\x01\x61\x04\uffff\x01\x65\x01\x41\x01\x6d"+
+			"\x01\x75\x01\uffff\x01\x6f\x02\uffff\x01\x6e\x01\x72\x01\uffff\x01\x41"+
+			"\x01\x72\x01\x6e\x02\x41\x01\uffff\x01\x65\x01\x41\x02\uffff\x01\x41"+
+			"\x02\uffff";
 		private const string DFA4_maxS =
 			"\x01\x7a\x01\x72\x01\x68\x01\x6f\x01\x75\x01\x6f\x01\x6e\x01\x72\x02"+
-			"\x6f\x01\x61\x01\x68\x01\x6e\x01\x4e\x01\x52\x03\uffff\x01\x3d\x09\uffff"+
-			"\x02\x3d\x01\uffff\x01\x6f\x01\x69\x01\x7a\x01\x76\x01\x72\x01\x6e\x01"+
-			"\x6c\x01\x67\x01\x6f\x01\x64\x01\x73\x01\x65\x01\x7a\x01\x75\x01\x64"+
-			"\x01\x74\x01\x72\x01\x61\x01\x74\x01\x7a\x01\x44\x01\x7a\x06\uffff\x01"+
-			"\x67\x01\x6c\x01\uffff\x02\x7a\x01\x63\x01\x73\x01\x69\x01\x6c\x01\x7a"+
-			"\x01\x65\x01\x6e\x01\uffff\x01\x65\x03\x7a\x01\x72\x01\x65\x01\uffff"+
-			"\x01\x7a\x01\uffff\x01\x72\x02\x65\x02\uffff\x01\x74\x01\x65\x01\x6e"+
-			"\x01\x65\x01\uffff\x03\x7a\x03\uffff\x01\x7a\x01\x67\x01\uffff\x01\x61"+
-			"\x01\x64\x01\x7a\x01\x69\x02\x7a\x01\x61\x04\uffff\x01\x65\x01\x6d\x01"+
-			"\x75\x01\uffff\x01\x6f\x02\uffff\x01\x6e\x01\x72\x01\x7a\x01\x72\x01"+
-			"\x6e\x02\x7a\x01\uffff\x01\x65\x01\x7a\x02\uffff\x01\x7a\x02\uffff";
+			"\x6f\x01\x61\x01\x68\x01\x6e\x01\x4e\x01\x52\x01\x72\x01\x66\x06\uffff"+
+			"\x01\x3d\x09\uffff\x02\x3d\x01\uffff\x01\x6f\x01\x69\x01\x7a\x01\x76"+
+			"\x01\x72\x01\x6e\x01\x6c\x01\x67\x01\x6f\x01\x64\x01\x73\x01\x65\x01"+
+			"\x7a\x01\x75\x01\x64\x01\x74\x01\x72\x01\x61\x01\x74\x01\x7a\x01\x44"+
+			"\x01\x7a\x01\x72\x01\x7a\x06\uffff\x01\x67\x01\x6c\x01\uffff\x02\x7a"+
+			"\x01\x63\x01\x73\x01\x69\x01\x6c\x01\x7a\x01\x65\x01\x6e\x01\uffff\x01"+
+			"\x65\x03\x7a\x01\x72\x01\x65\x01\uffff\x01\x7a\x01\uffff\x01\x61\x01"+
+			"\uffff\x01\x72\x02\x65\x02\uffff\x01\x74\x01\x65\x01\x6e\x01\x65\x01"+
+			"\uffff\x03\x7a\x03\uffff\x01\x7a\x01\x67\x01\uffff\x01\x79\x01\x61\x01"+
+			"\x64\x01\x7a\x01\x69\x02\x7a\x01\x61\x04\uffff\x01\x65\x01\x7a\x01\x6d"+
+			"\x01\x75\x01\uffff\x01\x6f\x02\uffff\x01\x6e\x01\x72\x01\uffff\x01\x7a"+
+			"\x01\x72\x01\x6e\x02\x7a\x01\uffff\x01\x65\x01\x7a\x02\uffff\x01\x7a"+
+			"\x02\uffff";
 		private const string DFA4_acceptS =
-			"\x0f\uffff\x01\x18\x01\x19\x01\x1a\x01\uffff\x01\x1c\x01\x1d\x01\x1e"+
-			"\x01\x1f\x01\x20\x01\x21\x01\x22\x01\x23\x01\x24\x02\uffff\x01\x28\x16"+
-			"\uffff\x01\x25\x01\x1b\x01\x2a\x01\x26\x01\x29\x01\x27\x02\uffff\x01"+
-			"\x03\x09\uffff\x01\x0e\x06\uffff\x01\x13\x01\uffff\x01\x17\x03\uffff"+
-			"\x01\x0b\x01\x04\x04\uffff\x01\x08\x03\uffff\x01\x0c\x01\x0d\x01\x0f"+
-			"\x02\uffff\x01\x16\x07\uffff\x01\x0a\x01\x09\x01\x15\x01\x10\x03\uffff"+
-			"\x01\x02\x01\uffff\x01\x14\x01\x07\x07\uffff\x01\x01\x02\uffff\x01\x11"+
-			"\x01\x12\x01\uffff\x01\x05\x01\x06";
+			"\x11\uffff\x01\x1a\x01\x1b\x01\x1c\x01\x1d\x01\x1e\x01\x1f\x01\uffff"+
+			"\x01\x21\x01\x22\x01\x23\x01\x24\x01\x25\x01\x26\x01\x27\x01\x28\x01"+
+			"\x29\x02\uffff\x01\x2d\x18\uffff\x01\x2a\x01\x20\x01\x2f\x01\x2b\x01"+
+			"\x2e\x01\x2c\x02\uffff\x01\x03\x09\uffff\x01\x0e\x06\uffff\x01\x13\x01"+
+			"\uffff\x01\x17\x01\uffff\x01\x19\x03\uffff\x01\x0b\x01\x04\x04\uffff"+
+			"\x01\x08\x03\uffff\x01\x0c\x01\x0d\x01\x0f\x02\uffff\x01\x16\x08\uffff"+
+			"\x01\x0a\x01\x09\x01\x15\x01\x10\x04\uffff\x01\x02\x01\uffff\x01\x14"+
+			"\x01\x07\x02\uffff\x01\x18\x05\uffff\x01\x01\x02\uffff\x01\x11\x01\x12"+
+			"\x01\uffff\x01\x05\x01\x06";
 		private const string DFA4_specialS =
-			"\u0085\uffff}>";
+			"\u0091\uffff}>";
 		private static readonly string[] DFA4_transitionS =
 			{
-				"\x02\x14\x01\uffff\x02\x14\x12\uffff\x01\x14\x06\uffff\x01\x16\x01"+
-				"\x0f\x01\x10\x01\x1a\x01\x18\x01\x11\x01\x19\x01\uffff\x01\x1b\x0a\x17"+
-				"\x01\x12\x01\x13\x01\x1d\x01\x1e\x01\x1c\x02\uffff\x01\x0d\x0d\x15\x01"+
-				"\x0e\x0b\x15\x06\uffff\x01\x15\x01\x05\x01\x0b\x01\x03\x01\x06\x01\x04"+
-				"\x02\x15\x01\x0c\x03\x15\x01\x08\x01\x09\x01\x15\x01\x01\x03\x15\x01"+
-				"\x07\x01\x15\x01\x0a\x01\x02\x03\x15",
-				"\x01\x1f",
-				"\x01\x20",
-				"\x01\x22\x05\uffff\x01\x21",
-				"\x01\x25\x0d\uffff\x01\x23\x05\uffff\x01\x24",
-				"\x01\x26\x09\uffff\x01\x27",
-				"\x01\x29\x01\uffff\x01\x28",
-				"\x01\x2a\x06\uffff\x01\x2b\x02\uffff\x01\x2c",
-				"\x01\x2d",
-				"\x01\x2e",
-				"\x01\x2f",
-				"\x01\x30",
-				"\x01\x32\x07\uffff\x01\x31",
+				"\x02\x19\x01\uffff\x02\x19\x12\uffff\x01\x19\x06\uffff\x01\x1b\x01"+
+				"\x14\x01\x15\x01\x1f\x01\x1d\x01\x16\x01\x1e\x01\x12\x01\x20\x0a\x1c"+
+				"\x01\x17\x01\x18\x01\x22\x01\x23\x01\x21\x02\uffff\x01\x0d\x0d\x1a\x01"+
+				"\x0e\x0b\x1a\x01\x11\x01\uffff\x01\x13\x03\uffff\x01\x0f\x01\x05\x01"+
+				"\x0b\x01\x03\x01\x06\x01\x04\x02\x1a\x01\x0c\x03\x1a\x01\x08\x01\x09"+
+				"\x01\x10\x01\x01\x03\x1a\x01\x07\x01\x1a\x01\x0a\x01\x02\x03\x1a",
+				"\x01\x24",
+				"\x01\x25",
+				"\x01\x27\x05\uffff\x01\x26",
+				"\x01\x2a\x0d\uffff\x01\x28\x05\uffff\x01\x29",
+				"\x01\x2b\x09\uffff\x01\x2c",
+				"\x01\x2e\x01\uffff\x01\x2d",
+				"\x01\x2f\x06\uffff\x01\x30\x02\uffff\x01\x31",
+				"\x01\x32",
 				"\x01\x33",
 				"\x01\x34",
-				"",
-				"",
-				"",
 				"\x01\x35",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"\x01\x37",
+				"\x01\x37\x07\uffff\x01\x36",
+				"\x01\x38",
 				"\x01\x39",
-				"",
+				"\x01\x3a",
 				"\x01\x3b",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 				"\x01\x3c",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
 				"\x01\x3e",
-				"\x01\x3f",
 				"\x01\x40",
-				"\x01\x41",
+				"",
 				"\x01\x42",
 				"\x01\x43",
-				"\x01\x44",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"\x01\x45",
 				"\x01\x46",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x01\x47",
 				"\x01\x48",
 				"\x01\x49",
 				"\x01\x4a",
 				"\x01\x4b",
 				"\x01\x4c",
 				"\x01\x4d",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"\x01\x4f",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"\x01\x52\x03\uffff\x01\x51",
+				"\x01\x50",
+				"\x01\x51",
+				"\x01\x52",
 				"\x01\x53",
-				"",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x01\x54",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"\x01\x56",
-				"\x01\x57",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"\x01\x58",
-				"\x01\x59",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"\x01\x5b",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"\x01\x5b\x03\uffff\x01\x5a",
 				"\x01\x5c",
 				"",
-				"\x01\x5d",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x01\x5f",
+				"\x01\x60",
 				"\x01\x61",
 				"\x01\x62",
-				"",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"\x01\x64",
 				"\x01\x65",
+				"",
 				"\x01\x66",
-				"",
-				"",
-				"\x01\x67",
-				"\x01\x68",
-				"\x01\x69",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"\x01\x6a",
+				"\x01\x6b",
 				"",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"",
+				"\x01\x6d",
 				"",
-				"",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x01\x6e",
 				"\x01\x6f",
-				"",
 				"\x01\x70",
+				"",
+				"",
 				"\x01\x71",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x01\x72",
 				"\x01\x73",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"\x01\x76",
+				"\x01\x74",
+				"",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"",
 				"",
 				"",
-				"",
-				"\x01\x77",
-				"\x01\x78",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"\x01\x79",
 				"",
 				"\x01\x7a",
-				"",
-				"",
 				"\x01\x7b",
 				"\x01\x7c",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"\x01\x7e",
-				"\x01\x7f",
-				"\x1a\x15\x06\uffff\x1a\x15",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x01\u0081",
+				"",
+				"",
+				"",
 				"",
 				"\x01\u0082",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x01\u0084",
+				"\x01\u0085",
+				"",
+				"\x01\u0086",
 				"",
 				"",
-				"\x1a\x15\x06\uffff\x1a\x15",
+				"\x01\u0087",
+				"\x01\u0088",
+				"",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x01\u008a",
+				"\x01\u008b",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"",
+				"\x01\u008e",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
+				"",
+				"",
+				"\x1a\x1a\x06\uffff\x1a\x1a",
 				"",
 				""
 			};
@@ -2193,7 +2416,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 			this.transition = DFA4_transition;
 		}
 
-		public override string Description { get { return "1:1: Tokens : ( PROGRAM | WHILE | DO | FOR | FUNCTION | PROCEDURE | BEGIN | END | THEN | ELSE | DIV | MOD | NOT | TO | VAR | T_CHAR | T_BOOL | T_INT | IF | FALSE | TRUE | BOOL_MULT | BOOL_ADD | T__56 | T__57 | T__58 | T__59 | OP_END | WS | VARIABLE | CHAR | INT | ADD | REM | MULT | DIVIDE | ASSIGN | GREATER | LESS | EQUAL | LESS_OR_EQUAL | GREATER_OR_EQUAL );"; } }
+		public override string Description { get { return "1:1: Tokens : ( PROGRAM | WHILE | DO | FOR | FUNCTION | PROCEDURE | BEGIN | END | THEN | ELSE | DIV | MOD | NOT | TO | VAR | T_CHAR | T_BOOL | T_INT | IF | FALSE | TRUE | BOOL_MULT | BOOL_ADD | ARRAY | OF | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | OP_END | WS | VARIABLE | CHAR | INT | ADD | REM | MULT | DIVIDE | ASSIGN | GREATER | LESS | EQUAL | LESS_OR_EQUAL | GREATER_OR_EQUAL );"; } }
 
 		public override void Error(NoViableAltException nvae)
 		{

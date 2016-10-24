@@ -46,6 +46,10 @@ tokens{
 	BOOL_MULT ='AND';
 	BOOL_ADD = 'OR';
 	CONDITION;
+	ARRAY = 'array';
+	OF='of';
+	ARR_DECL;
+	RANGE;
 }
 
 @header{
@@ -72,6 +76,14 @@ CHAR	:	'\''! ('a'..'z'|'A'..'Z'|'0'..'9') '\''!
 	;	
 INT		:	('0'..'9')+
 	;
+
+//----------------ARRAY TYPE------------------------//
+arrayRange :	'['expressions '..' expressions']' -> ^(RANGE expressions expressions)
+			;
+arrayTypeDecl	:	OF typeDecl -> ^(TYPE_DECL typeDecl)
+				;
+arrayDecl :  ARRAY arrayRange arrayTypeDecl -> ^(ARR_DECL arrayRange arrayTypeDecl )
+			;
 
 //----------------OPERATIONS------------------------//
 ADD		:	'+'
@@ -202,7 +214,9 @@ argDeclMany	:	argDeclManyW -> ^(VAR_DECL argDeclManyW)
 typeDecl	:	T_INT|T_CHAR|T_BOOL;
 
 //----------------VAR Operations-----------------------//
-varTypeDecl	:	typeDecl OP_END -> ^(TYPE_DECL typeDecl)
+varTypeDeclW	:	typeDecl|arrayDecl
+				;
+varTypeDecl	:	varTypeDeclW OP_END -> ^(TYPE_DECL varTypeDeclW)
 			;
 
 
@@ -212,7 +226,7 @@ varDecl	:	varDecl2
 		;
 varDecl12W	:	varDecl ':'! varTypeDecl 
 			;
-varDeclW	:	VAR varDecl12W+ -> ^(VAR_DECL varDecl12W+ )
+varDeclW	:	VAR (varDecl12W+) -> ^(VAR_DECL varDecl12W+ )
 			;
 
 //----------------------------------------------------//
