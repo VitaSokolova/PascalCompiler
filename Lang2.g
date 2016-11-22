@@ -181,7 +181,7 @@ retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|arrayDecl)
 retTypeExprWrap	:	retTypeExpr -> ^(FUNC_PROC_RET_TYPE retTypeExpr)
 				;
 
-funcDeclare: FUNCTION VARIABLE argDeclExpr':' retTypeExprWrap OP_END!  bodyExpr -> ^(FUNC_DECL argDeclExpr retTypeExprWrap bodyExpr)
+funcDeclare: FUNCTION VARIABLE argDeclExpr':' retTypeExprWrap OP_END!  bodyExpr -> ^(FUNC_DECL VARIABLE argDeclExpr retTypeExprWrap bodyExpr)
 			;
 
 procedureDeclare: PROCEDURE VARIABLE argDeclExpr OP_END bodyExpr -> ^(PROC_DECL VARIABLE argDeclExpr bodyExpr)
@@ -210,7 +210,10 @@ assExpr	:	 VARIABLE ASSIGN^ expressions
 argTypeDecl	:	typeDecl -> ^(TYPE_DECL typeDecl)
 			;
 
-argDecl	:	VAR? VARIABLE(','! VARIABLE)* ':'! argTypeDecl
+partArgDecl: VARIABLE(','! VARIABLE)*;
+
+argDecl	:	VARIABLE(','! VARIABLE)* ':'! argTypeDecl
+			|VAR partArgDecl':'! argTypeDecl -> ^(VAR partArgDecl argTypeDecl)
 		;
 
 argDeclManyW	:	argDecl(','! argDecl)*
@@ -238,7 +241,7 @@ varDeclW	:	VAR (varDecl12W+) -> ^(VAR_DECL varDecl12W+ )
 
 //----------------------------------------------------//
 
-bodyExpr	:	BEGIN! bodyOper+ END! OP_END! -> ^(BODY_EXPR bodyOper+)
+bodyExpr	:	BEGIN! bodyOper* END! OP_END! -> ^(BODY_EXPR bodyOper*)
 			;
 
 func_proc_expr	: funcDeclare|procedureDeclare ;

@@ -35,6 +35,8 @@ namespace CompilerConsole
                 
                 ITree tree = t as ITree;
                 DrawingTreeLib.Views.DrawingTreeLib.Initialize(tree);
+               var p =  new Parser.Parser();
+                    p.Parse(tree);
             }
             catch (Exception e)
             {
