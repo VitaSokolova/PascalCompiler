@@ -6,11 +6,13 @@ namespace CompilerConsole.Parser
 {
     class FuncNode: Node
     {
-        private Table bodyTable;
+        public Table BodyTable { get; }
+        public List<VariableNode> Args { get; }
 
-        public FuncNode(string name, string type) : base(name, type)
+        public FuncNode(string name, string type, Table bodyTable, List<VariableNode> args) : base(name, type)
         {
-            this.bodyTable = new Table();
+            this.BodyTable = bodyTable;
+            this.Args = args;
         }
     }
 }

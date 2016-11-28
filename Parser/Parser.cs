@@ -12,7 +12,8 @@ namespace CompilerConsole.Parser
         {
             var_decl,
             type_decl,
-            func_proc_decl
+            func_proc_decl,
+            body_decl
         }
 
         Table table;
@@ -20,7 +21,7 @@ namespace CompilerConsole.Parser
 
         public Parser()
         {
-            this.table = new Table();
+            this.table = new Table(null);
             InitDict();
         }
 
@@ -29,13 +30,13 @@ namespace CompilerConsole.Parser
             this.dictionary = new Dictionary<string, Token>();
             this.dictionary.Add("VAR_DECL", Token.var_decl);
             this.dictionary.Add("TYPE_DECL", Token.type_decl);
-            this.dictionary.Add("PROC_DECL", Token.func_proc_decl);
-            this.dictionary.Add("FUNC_DECL", Token.func_proc_decl);
+            this.dictionary.Add("FUNC_PROC_EXPR", Token.func_proc_decl);
+            this.dictionary.Add("BODY_EXPR", Token.body_decl);
         }
 
         public void Parse(ITree tree)
         {
-            this.InitParser(tree.GetChild(0), this.table);
+            this.InitParser(tree.GetChild(0).GetChild(1), this.table);
         }
 
         private void InitParser(ITree tree, Table table)
@@ -48,24 +49,39 @@ namespace CompilerConsole.Parser
             {
                 this.Action(tree, table, token);
             }
-            for (int i = 0; i < tree.ChildCount; i++)
-            {
-                this.InitParser(tree.GetChild(i), table);
-            }
         }
 
         private void Action(ITree tree, Table table, Token token)
         {
             switch (token)
             {
+                case Token.body_decl:
+                {
+                    for (int i = 0; i < tree.ChildCount; i++)
+                    {
+                        this.InitParser(tree.GetChild(i), table);
+                    }
+                    break;
+                }
+
                 case Token.var_decl:
                 {
-                    this.ParseVarDecl(tree, table);
+                    var args = this.ParseVarDecl(tree, table);
+                    int i = 0;
+                    foreach (var node in args)
+                    {
+                        node.IdNumber = i++;
+                        table.list.Add(node);
+                    }                   
                     break;
                 }
                 case Token.func_proc_decl:
                 {
-                    this.ParseFuncProcDecl(tree, table);
+                    for (int i = 0; i < tree.ChildCount; i++)
+                    {
+                        this.ParseFuncProcDecl(tree.GetChild(i), table);
+                    }
+
                     break;
                 }
             }

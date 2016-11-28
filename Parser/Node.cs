@@ -6,14 +6,13 @@ namespace CompilerConsole.Parser
 {
     class Node
     {
-        protected string name;
-        protected string type;
-        protected int idNumber;
+        public string Name { get; }
+        public string Type { get; } 
 
         public Node(string name, string type)
         {
-            this.name = name;
-            this.type = type;
+            this.Name = name;
+            this.Type = type;
         }
         
     }

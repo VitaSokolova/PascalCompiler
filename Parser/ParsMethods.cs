@@ -8,8 +8,9 @@ namespace CompilerConsole.Parser
 {
     partial class Parser
     {
-        private void ParseVarDecl(ITree tree, Table table)
+        private List<VariableNode> ParseVarDecl(ITree tree, Table table)
         {
+            List<VariableNode> result = new List<VariableNode>();
             for (int i = 0; i < tree.ChildCount; i++)
             {
                 List<string> variableNames = new List<string>();
@@ -20,12 +21,13 @@ namespace CompilerConsole.Parser
                     i++;
                 }
                 string type = tree.GetChild(i).GetChild(0).Text;
-
-                foreach (var variableName in variableNames)
+                for (int j = 0; j < variableNames.Count; j++)
                 {
-                    table.list.Add(new VariableNode(variableName, type));
+                    result.Add(new VariableNode(variableNames[j], type));
                 }
             }
+
+            return result;
         }
 
         private void ParseFuncProcDecl(ITree tree, Table table)
@@ -33,15 +35,34 @@ namespace CompilerConsole.Parser
             //Осталось проверить процедура это или функция и в соттветсвии с этим добавить возвращаемый тип и кое чего еще дописать
             string name = tree.GetChild(0).Text;
             ITree args = tree.GetChild(1);
-            Table localTable = this.ParseFuncProcArgs(args, table);
+            var argList = this.ParseFuncProcArgs(args.GetChild(0), table);
+            Table localTable = new Table(table);
+            string type;
+            if (tree.ChildCount == 3)
+            {
+                type = "void";
+
+            }
+            else
+            {
+                type = tree.GetChild(2).GetChild(0).Text;
+            }
+
+            foreach (var node in argList)
+            {
+                localTable.list.Add(node);
+            }
+
+            this.InitParser(tree.GetChild(tree.ChildCount-1), localTable);
+
+            FuncNode func = new FuncNode(name,type, localTable, argList);
             
-            this.InitParser(tree, localTable);
-            //var fNode = new FuncNode(name,);    
+            table.list.Add(func);
         }
 
-        private Table ParseFuncProcArgs(ITree tree, Table upperTable)
+        private List<VariableNode> ParseFuncProcArgs(ITree tree, Table upperTable)
         {
-            Table localTable = new Table();
+            List<VariableNode> argList = new List<VariableNode>();
             List<string> variableNames = new List<string>();
             for (int i = 0; i < tree.ChildCount; i++)
             {
@@ -49,27 +70,28 @@ namespace CompilerConsole.Parser
                 //Может быть несколько вариантов. Либо Var либо имя переменной
                 if (tree.GetChild(i).Text == "var")
                 {
-                    this.ParseVarDecl(tree.GetChild(i), localTable);
+                    var nodes = this.ParseVarDecl(tree.GetChild(i), table);
+                    int ci = 0;
+                    foreach (var variableNode in nodes)
+                    {
+                        variableNode.IdNumber = ci++;
+                        argList.Add(variableNode);
+                    }
                 }
                 else
                 {
-                    if (tree.GetChild(i).Text != "TYPE_DECL")
+                    if (tree.GetChild(i).Text == "TYPE_DECL")
                     {
                         string type = tree.GetChild(i).GetChild(0).Text;
-                        List<Node> nodes = new List<Node>();
 
                         foreach (var variableName in variableNames)
                         {
-                            Node temp = new VariableNode(variableName, type);
-                            if (upperTable.list.Contains(temp))
+                            Node temp = Table.FindNode<VariableNode>(variableName, upperTable);
+                            if (temp == null)
                             {
-                                localTable.list.Add(temp);
+                                throw new DataException($"Отсутствует переменная с именем {variableName}");
                             }
-                            else
-                            {
-                                throw new DataException(
-                                    $"При разборе узла {tree.GetChild(i).Text} c предком {tree.Text} произошла ошибка:\n \"Переменная не объявлена в программе\"");
-                            }
+                            argList.Add(new VariableNode(temp.Name, temp.Type));
                         }
                     }
                     else
@@ -78,7 +100,7 @@ namespace CompilerConsole.Parser
                     }
                 }
             }
-            return localTable;
+            return argList;
         }
     }
 }

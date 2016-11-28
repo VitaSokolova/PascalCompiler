@@ -6,6 +6,8 @@ namespace CompilerConsole.Parser
 {
     class VariableNode: Node
     {
+        public int IdNumber { get; set; }
+
         public VariableNode(string name, string type) : base(name, type)
         {
         }
@@ -22,11 +24,11 @@ namespace CompilerConsole.Parser
             {
                 return false;
             }
-            if (String.CompareOrdinal(this.type, temp.type) != 0)
+            if (String.CompareOrdinal(this.Type, temp.Type) != 0)
             {
                 return false;
             }
-            if (String.CompareOrdinal(this.name, temp.name) != 0)
+            if (String.CompareOrdinal(this.Name, temp.Name) != 0)
             {
                 return false;
             }

@@ -172,7 +172,7 @@ funcCallArgsW	:	funcCallArgs -> ^(FUNC_CALL_ARGS funcCallArgs)
 funcCall	:	VARIABLE '('! funcCallArgsW? ')'! OP_END -> ^(FUNC_CALL VARIABLE funcCallArgsW? )
 			;
 
-argDeclExpr	:	'('! argDeclMany')'! -> ^(FUNC_PROC_ARGS argDeclMany)
+argDeclExpr	:	'('! argDeclMany? ')'! -> ^(FUNC_PROC_ARGS argDeclMany?)
 			;
 
 retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|arrayDecl)
@@ -248,7 +248,9 @@ func_proc_expr	: funcDeclare|procedureDeclare ;
 
 fpExprW	:	func_proc_expr* -> ^(FUNC_PROC_EXPR func_proc_expr*);
 
-expr	:	 PROGRAM VARIABLE OP_END! varDeclW? fpExprW bodyExpr -> ^(PROGRAM VARIABLE varDeclW? fpExprW bodyExpr)
+wrapToBody : varDeclW? fpExprW bodyExpr -> ^(BODY_EXPR varDeclW? fpExprW bodyExpr);
+
+expr	:	 PROGRAM VARIABLE OP_END! wrapToBody -> ^(PROGRAM VARIABLE wrapToBody)
 	;
 	
 program: expr+  ;

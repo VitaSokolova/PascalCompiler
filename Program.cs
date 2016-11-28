@@ -37,10 +37,12 @@ namespace CompilerConsole
                 DrawingTreeLib.Views.DrawingTreeLib.Initialize(tree);
                var p =  new Parser.Parser();
                     p.Parse(tree);
+                Console.ReadKey();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
             }
             Console.ReadKey();
         }
