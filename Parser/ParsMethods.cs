@@ -36,6 +36,8 @@ namespace CompilerConsole.Parser
             string name = tree.GetChild(0).Text;
             ITree args = tree.GetChild(1);
             var argList = this.ParseFuncProcArgs(args.GetChild(0), table);
+            int count = 0;
+            argList.ForEach((node) => { node.IdNumber = count++; });
             Table localTable = new Table(table);
             string type;
             if (tree.ChildCount == 3)
