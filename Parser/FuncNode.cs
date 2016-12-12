@@ -9,7 +9,7 @@ namespace CompilerConsole.Parser
         public Table BodyTable { get; }
         public List<VariableNode> Args { get; }
 
-        public FuncNode(string name, string type, Table bodyTable, List<VariableNode> args) : base(name, type, "function")
+        public FuncNode(string name, string type, Table bodyTable, List<VariableNode> args) : base(name, type)
         {
             this.BodyTable = bodyTable;
             this.Args = args;

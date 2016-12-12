@@ -8,13 +8,11 @@ namespace CompilerConsole.Parser
     {
         public string Name { get; }
         public string Type { get; }
-        public string Modificator { get; set; }
 
-        public Node(string name, string type, string modificator)
+        public Node(string name, string type)
         {
             this.Name = name;
             this.Type = type;
-            this.Modificator = modificator;
         }
         
     }

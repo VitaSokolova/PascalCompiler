@@ -118,12 +118,13 @@ boolOperator: MORE|LESS|EQUAL|LESS_OR_EQUAL|GREATER_OR_EQUAL
 			;
 
 //-----------------Math	Operations------------------------//
-mathGroup	:	'('!expressions+')'!
+mathGroup	:	'('!expressions')'!
 			|INT
-			|VARIABLE
 			|CHAR
-			|FALSE | TRUE
+			|FALSE 
+			|TRUE
 			|funcCall
+		    |VARIABLE
 		;
 
 
@@ -158,18 +159,19 @@ mathExpr
 bodyOper	:	assExpr OP_END!
 				|conditionExpr
 				|loopExpr
-				|funcCall
+				|funcCall OP_END!
 				;
 
 expressions	:	mathExpr
 				|arrayCall
 				;
-funcCallArgs	:	 VARIABLE(',' VARIABLE)* 
+
+funcCallArgs	:	 mathExpr(','! mathExpr)* 
 				;
-funcCallArgsW	:	funcCallArgs -> ^(FUNC_CALL_ARGS funcCallArgs)
+funcCallArgsW	:	mathExpr(',' mathExpr)* -> ^(FUNC_CALL_ARGS mathExpr mathExpr*)
 				;
 
-funcCall	:	VARIABLE '('! funcCallArgsW? ')'! OP_END -> ^(FUNC_CALL VARIABLE funcCallArgsW? )
+funcCall	:	VARIABLE'(' funcCallArgsW? ')' -> ^(FUNC_CALL VARIABLE funcCallArgsW? )
 			;
 
 argDeclExpr	:	'('! argDeclMany? ')'! -> ^(FUNC_PROC_ARGS argDeclMany?)
@@ -181,10 +183,13 @@ retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|arrayDecl)
 retTypeExprWrap	:	retTypeExpr -> ^(FUNC_PROC_RET_TYPE retTypeExpr)
 				;
 
-funcDeclare: FUNCTION VARIABLE argDeclExpr':' retTypeExprWrap OP_END!  bodyExpr -> ^(FUNC_DECL VARIABLE argDeclExpr retTypeExprWrap bodyExpr)
+bodyFuncProcExpr	:	varDeclW? bodyExpr
+					;
+
+funcDeclare: FUNCTION VARIABLE argDeclExpr':' retTypeExprWrap OP_END!  bodyFuncProcExpr -> ^(FUNC_DECL VARIABLE argDeclExpr retTypeExprWrap bodyFuncProcExpr)
 			;
 
-procedureDeclare: PROCEDURE VARIABLE argDeclExpr OP_END bodyExpr -> ^(PROC_DECL VARIABLE argDeclExpr bodyExpr)
+procedureDeclare: PROCEDURE VARIABLE argDeclExpr OP_END bodyFuncProcExpr -> ^(PROC_DECL VARIABLE argDeclExpr bodyFuncProcExpr)
 				;
 
 //-------------------------------IF--------------------------------//

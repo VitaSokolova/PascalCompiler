@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">
-      <HintPath>C:\Users\Комп\Downloads\CompilerConsole (1)\CompilerConsole\lib\Antlr3.Runtime.dll</HintPath>
+      <HintPath>lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="AstTreeLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Lang2Lexer.cs" />
     <Compile Include="Lang2Parser.cs" />
+    <Compile Include="Parser\FuncCall.cs" />
     <Compile Include="Parser\FuncNode.cs" />
     <Compile Include="Parser\Node.cs" />
     <Compile Include="Parser\Parser.cs" />
