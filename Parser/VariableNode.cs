@@ -8,7 +8,7 @@ namespace CompilerConsole.Parser
     {
         public int IdNumber { get; set; }
 
-        public VariableNode(string name, string type) : base(name, type)
+        public VariableNode(string name, string type, string modificator) : base(name, type, modificator)
         {
         }
 

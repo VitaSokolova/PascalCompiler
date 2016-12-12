@@ -23,7 +23,7 @@ namespace CompilerConsole.Parser
                 string type = tree.GetChild(i).GetChild(0).Text;
                 for (int j = 0; j < variableNames.Count; j++)
                 {
-                    result.Add(new VariableNode(variableNames[j], type));
+                    result.Add(new VariableNode(variableNames[j], type, "local"));
                 }
             }
 
@@ -35,11 +35,17 @@ namespace CompilerConsole.Parser
             //Осталось проверить процедура это или функция и в соттветсвии с этим добавить возвращаемый тип и кое чего еще дописать
             string name = tree.GetChild(0).Text;
             ITree args = tree.GetChild(1);
+            //Получаем аргументы из метода
             var argList = this.ParseFuncProcArgs(args.GetChild(0), table);
+
+            //Нумеруем аргументы
             int count = 0;
             argList.ForEach((node) => { node.IdNumber = count++; });
+
             Table localTable = new Table(table);
             string type;
+
+            //Если 3 аргумента, то это процедура
             if (tree.ChildCount == 3)
             {
                 type = "void";
@@ -47,14 +53,16 @@ namespace CompilerConsole.Parser
             }
             else
             {
+                //Потому что RET_TYPE_SINGLE -> type
                 type = tree.GetChild(2).GetChild(0).Text;
             }
-
+            //Записываем аргументы в таблицу метода
             foreach (var node in argList)
             {
                 localTable.list.Add(node);
             }
 
+            //Вызываем парсинг тела метода
             this.InitParser(tree.GetChild(tree.ChildCount-1), localTable);
 
             FuncNode func = new FuncNode(name,type, localTable, argList);
@@ -93,7 +101,7 @@ namespace CompilerConsole.Parser
                             {
                                 throw new DataException($"Отсутствует переменная с именем {variableName}");
                             }
-                            argList.Add(new VariableNode(temp.Name, temp.Type));
+                            argList.Add(new VariableNode(temp.Name, temp.Type, "local"));
                         }
                     }
                     else

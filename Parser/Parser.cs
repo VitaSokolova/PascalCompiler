@@ -71,6 +71,7 @@ namespace CompilerConsole.Parser
                     foreach (var node in args)
                     {
                         node.IdNumber = i++;
+                        node.Modificator = "global";
                         table.list.Add(node);
                     }                   
                     break;
