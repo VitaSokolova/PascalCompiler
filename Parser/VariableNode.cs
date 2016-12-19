@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 
 namespace CompilerConsole.Parser
 {
-    class VariableNode: Node
+    public class VariableNode: Node
     {
         public string Modificator { get; set; }
 
@@ -12,6 +13,10 @@ namespace CompilerConsole.Parser
 
         public VariableNode(string name, string type, string modificator) : base(name, type) {
             this.Modificator = modificator;
+        }
+
+        public VariableNode() {
+            
         }
 
         public override bool Equals(object obj)
@@ -35,6 +40,15 @@ namespace CompilerConsole.Parser
                 return false;
             }
             return true;
+        }
+
+        public override void WriteXml(XmlWriter writer) {
+            writer.WriteStartElement("VariableNode");
+            writer.WriteAttributeString("IDNumber", this.IdNumber.ToString());
+            base.WriteXml(writer);
+            writer.WriteAttributeString("Modificator", this.Modificator);
+            writer.WriteEndElement();
+            
         }
     }
 }

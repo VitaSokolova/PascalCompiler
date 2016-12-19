@@ -37,6 +37,7 @@ namespace CompilerConsole
                 DrawingTreeLib.Views.DrawingTreeLib.Initialize(tree);
                var p =  new Parser.Parser();
                     p.Parse(tree);
+                p.Serialize();
                 Console.ReadKey();
             }
             catch (Exception e)

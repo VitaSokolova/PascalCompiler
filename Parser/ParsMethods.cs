@@ -30,7 +30,7 @@ namespace CompilerConsole.Parser {
            
 
             List<VariableNode> argList = new List<VariableNode>();
-            if (tree.ChildCount == 2) {
+            if (tree.ChildCount == 3) {
                 //Получаем аргументы из метода
                 ITree args = tree.GetChild(1);
                 argList = this.ParseFuncProcArgs(args.GetChild(0), table);   

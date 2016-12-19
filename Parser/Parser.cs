@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Text;
+using System.IO;
+using System.Xml.Serialization;
 using Antlr.Runtime.Tree;
 
 namespace CompilerConsole.Parser
@@ -84,11 +84,11 @@ namespace CompilerConsole.Parser
                 case Token.func_proc_decl: {
                     for (int i = 0; i < tree.ChildCount; i++) {
                         FuncNode funcNode = this.ParseFuncProcDecl(tree.GetChild(i), table);
-                        if (tree.GetChild(i).ChildCount == 4) {
-                            this.InitParser(tree.GetChild(i).GetChild(3), funcNode.BodyTable);
+                        if (tree.GetChild(i).ChildCount == 3) {
+                            this.InitParser(tree.GetChild(i).GetChild(2), funcNode.BodyTable);
                         }
                         else {
-                            this.InitParser(tree.GetChild(i).GetChild(2), funcNode.BodyTable);
+                            this.InitParser(tree.GetChild(i).GetChild(1), funcNode.BodyTable);
                         }
                     }
 
@@ -103,6 +103,14 @@ namespace CompilerConsole.Parser
                     this.table.list.Add(funcCallNode);
                     break;
                 }
+            }
+        }
+
+
+        public void Serialize() {
+            using (var fs = new FileStream("Code.xml", FileMode.Create)) {
+                XmlSerializer sr = new XmlSerializer(typeof(Table));
+                sr.Serialize(fs, this.table);
             }
         }
     }
