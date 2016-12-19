@@ -5,14 +5,26 @@ using System.Xml;
 
 namespace CompilerConsole.Parser
 {
+    public enum VarType {
+        Reference,
+        Struct
+    }
+
     public class VariableNode: Node
     {
         public string Modificator { get; set; }
 
+        /// <summary>
+        /// Это тип важен для аргументов функций.
+        /// То есть, если в функции аргумент имеет тип Reference, то это ссылочная переменная. Аналог ref в С#
+        /// </summary>
+        public VarType VarType { get; set; }
+
         public int IdNumber { get; set; }
 
-        public VariableNode(string name, string type, string modificator) : base(name, type) {
+        public VariableNode(string name, string type, string modificator, VarType varType = VarType.Struct) : base(name, type) {
             this.Modificator = modificator;
+            this.VarType = varType;
         }
 
         public VariableNode() {
@@ -47,6 +59,7 @@ namespace CompilerConsole.Parser
             writer.WriteAttributeString("IDNumber", this.IdNumber.ToString());
             base.WriteXml(writer);
             writer.WriteAttributeString("Modificator", this.Modificator);
+            writer.WriteAttributeString("VarType", this.VarType.ToString());
             writer.WriteEndElement();
             
         }

@@ -84,14 +84,18 @@ namespace CompilerConsole.Parser
                 case Token.func_proc_decl: {
                     for (int i = 0; i < tree.ChildCount; i++) {
                         FuncNode funcNode = this.ParseFuncProcDecl(tree.GetChild(i), table);
-                        if (tree.GetChild(i).ChildCount == 3) {
-                            this.InitParser(tree.GetChild(i).GetChild(2), funcNode.BodyTable);
-                        }
-                        else {
-                            this.InitParser(tree.GetChild(i).GetChild(1), funcNode.BodyTable);
-                        }
+                        this.InitParser(
+                            tree.GetChild(i).ChildCount == 4
+                                ? tree.GetChild(i).GetChild(3)
+                                : tree.GetChild(i).GetChild(2), funcNode.BodyTable);
+                        int counter = 0;
+                            funcNode.BodyTable.list.ForEach(node => {
+                                if (node is VariableNode) {
+                                    (node as VariableNode).IdNumber = counter++;
+                                }
+                            });
                     }
-
+                    
                     break;
                 }
 
