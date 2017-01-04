@@ -63,7 +63,7 @@
     <Compile Include="Utils\Exceptions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Input.txt" />
+    <Content Include="kompilyatory_test.txt" />
   </ItemGroup>
   <ItemGroup>
     <AntlrGrammarFile Include="Lang2.g" />

@@ -1,0 +1,96 @@
+program pr;
+var a,b:integer;
+c:char;
+
+begin
+b:=10;
+end;
+
+program t;
+var i:integer;
+procedure a(i,b,v,f,g:integer, var c:integer);
+begin
+i:=i+12;
+end;
+begin
+i:=1;
+a(i);
+for i:=1 to 10 do
+begin
+write(1);
+end;
+end;
+
+program a;
+var i,b,c,d:integer;
+begin
+a:=10;
+if(a=1) then
+begin
+a:=0;
+end;
+else begin
+if(b<=a) then  
+begin a:=1; 
+end;
+end;
+end;
+
+program a;
+var a, b, s : integer;
+procedure m(um : integer, a, b : integer);
+begin
+  c:= a+b;
+end;
+
+begin
+  a := 12;
+  b := 15;
+end;
+
+program t;
+var i:integer;
+procedure a(i:integer,var c,d,e:integer);
+begin
+a:=0;
+end;
+function fac():integer;
+begin
+a:=1;
+end;
+begin
+end;
+
+
+
+program t;
+var a,b:integer;
+begin
+b:=10;
+while b=a do
+begin
+a:=0;
+end;
+end;
+
+program t;
+var a,b:integer;
+begin
+b:=10;
+for i := 1 to N do
+begin
+a:=0;
+end;
+end;
+
+program t;
+var 
+a,b:integer;
+A: array [1..10] of integer;
+begin
+b:=10;
+while b=a do
+begin
+a[i]:=a[j];
+end;
+end;
