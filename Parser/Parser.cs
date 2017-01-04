@@ -13,7 +13,8 @@ namespace CompilerConsole.Parser {
         Body,
         MainBody,
         VarDecl,
-        FuncProcDecl
+        FuncProcDecl,
+        FuncCall
     }
 
     /// <summary>
@@ -36,7 +37,8 @@ namespace CompilerConsole.Parser {
                 {"BODY_EXPR", Token.Body},
                 {"MAIN_BODY", Token.MainBody},
                 {"FUNC_PROC_EXPR", Token.FuncProcDecl},
-                {"VAR_DECL", Token.VarDecl}
+                {"VAR_DECL", Token.VarDecl},
+                { "FUNC_CALL", Token.FuncCall}
             };
 
             #region exprTokensDictionary initialize
@@ -86,6 +88,10 @@ namespace CompilerConsole.Parser {
                         var meth = this.ParseFuncDeclare(treeNode.GetChild(i), bodyNode);
                         bodyNode.AddNode(meth);
                     }
+                    return;
+                }
+                    case Token.FuncCall: {
+                        bodyNode.AddNode(this.ParseFuncCall(treeNode,bodyNode));
                     return;
                 }
                 case Token.MainBody: {

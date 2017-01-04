@@ -163,5 +163,6 @@ begin
 b:=10;
 A[0]:=A[1];
 a(b);
+b = fac(A);
 fac(A);
 end;
