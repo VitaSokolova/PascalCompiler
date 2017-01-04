@@ -146,7 +146,7 @@ end;
 
 program t;
 var 
-a,b:integer;
+a,b,b:integer;
 A: array [1..10] of integer;
 begin
 b:=10;

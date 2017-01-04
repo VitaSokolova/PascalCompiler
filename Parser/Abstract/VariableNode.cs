@@ -1,40 +1,32 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 
-namespace CompilerConsole.Parser.Abstract
-{
-    public enum VarType
-    {
-        Reference,
-        Struct
-    }
+namespace CompilerConsole.Parser.Abstract {
 
-    public abstract class VariableNode:Node
-    {
-        public string Modificator { get; set; }
+    public abstract class VariableNode : Node {
 
-        /// <summary>
-        /// Это тип важен для аргументов функций.
-        /// То есть, если в функции аргумент имеет тип Reference, то это ссылочная переменная. Аналог ref в С#
-        /// </summary>
-        public VarType VarType { get; set; }
+        public bool IsMethodArg { get; set; }
+        public bool IsGlobal { get; set; }
+        public int Number { get; set; }
 
-        public int IdNumber { get; set; }
-
-        public VariableNode(string name, Type type, string modificator, VarType varType = VarType.Struct)
-            : base(name, type) {
-            this.VarType = varType;
-            this.Modificator = modificator;
+        public VariableNode(DataType dataType, string name) : base(dataType, name) {
+            this.IsGlobal = false;
+            this.IsMethodArg = false;
         }
 
+
+        #region IXmlSerializable implementation
+
         public VariableNode() {
-            
         }
 
         public override void WriteXml(XmlWriter writer) {
-            writer.WriteAttributeString("IDNumber", this.IdNumber.ToString());
             base.WriteXml(writer);
-            writer.WriteAttributeString("Modificator", this.Modificator);
-            writer.WriteAttributeString("VarType", this.VarType.ToString());
+            writer.WriteAttributeString("IsMethodArg", this.IsMethodArg.ToString());
+            writer.WriteAttributeString("IsGlobal", this.IsGlobal.ToString());
+            writer.WriteAttributeString("Number", this.Number.ToString());
         }
+
+        #endregion
     }
 }
