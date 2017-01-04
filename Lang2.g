@@ -26,10 +26,12 @@ tokens{
 	T_CHAR = 'char';
 	T_BOOL = 'boolean';
 	T_INT = 'integer';
+	T_STRING = 'string';
 	IF='if';
-	BOOL;
+	BOOLEAN;
 	CHAR;
 	INT;
+	STRING;
 	FALSE = 'false';
 	TRUE = 'true';
 	VAR_DECL;
@@ -77,6 +79,11 @@ CHAR	:	'\''! ('a'..'z'|'A'..'Z'|'0'..'9') '\''!
 	;	
 INT		:	('0'..'9')+
 	;
+STRING	:	'\"'('a'..'z'|'A'..'Z'|'0'..'9')*'\"'
+		;
+
+BOOLEAN	:	TRUE|FALSE
+		;
 
 //----------------ARRAY TYPE------------------------//
 arrayRange :	'['expressions '..' expressions']' -> ^(RANGE expressions expressions)
@@ -114,17 +121,17 @@ GREATER_OR_EQUAL		:	'>='
 
 //----------------Boolean Operations-----------------------//
 			
-boolOperator: MORE|LESS|EQUAL|LESS_OR_EQUAL|GREATER_OR_EQUAL
+boolOperator: MORE|LESS|EQUAL|LESS_OR_EQUAL|GREATER_OR_EQUAL|GREATER
 			;
 
 //-----------------Math	Operations------------------------//
 mathGroup	:	'('!expressions')'!
 			|INT
 			|CHAR
-			|FALSE 
-			|TRUE
+			|BOOLEAN 
+			|STRING
+			|VARIABLE
 			|funcCall
-		    |VARIABLE
 		;
 
 
@@ -152,6 +159,7 @@ mathAdd	:	mathMult((ADD|REM)^mathMult)*
 	
 mathExpr
 	:	mathAdd
+
 	;	
 	
 //---------------------------------------------------//
@@ -177,7 +185,7 @@ funcCall	:	VARIABLE'(' funcCallArgsW? ')' -> ^(FUNC_CALL VARIABLE funcCallArgsW?
 argDeclExpr	:	'('! argDeclMany? ')'! -> ^(FUNC_PROC_ARGS argDeclMany?)
 			;
 
-retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|arrayDecl)
+retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|arrayDecl|T_STRING)
 			;
 
 retTypeExprWrap	:	retTypeExpr -> ^(FUNC_PROC_RET_TYPE retTypeExpr)
@@ -225,7 +233,7 @@ argDeclManyW	:	argDecl(','! argDecl)*
 			;
 argDeclMany	:	argDeclManyW -> ^(VAR_DECL argDeclManyW)
 			;
-typeDecl	:	T_INT|T_CHAR|T_BOOL;
+typeDecl	:	T_INT|T_CHAR|T_BOOL|T_STRING;
 
 //----------------VAR Operations-----------------------//
 varTypeDeclW	:	typeDecl|arrayDecl

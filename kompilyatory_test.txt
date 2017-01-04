@@ -1,11 +1,36 @@
 program pr;
 var a,b:integer;
 c:char;
+s:string;
 
 begin
+s := "ahahahaha";
 b:=10;
 end;
 
+//Разбирает
+program t;
+var i:integer;
+procedure a(i,b,v,f,g:integer, var c:integer);
+begin
+i:=i+12;
+end;
+begin
+i:=1;
+a(i);
+for i:=1 to 10 do
+begin
+if 2 > 10 then
+begin
+b:=write(1);
+end;
+else begin
+write(2);
+end;
+end;
+end;
+
+//Разбирает
 program t;
 var i:integer;
 procedure a(i,b,v,f,g:integer, var c:integer);
@@ -20,6 +45,42 @@ begin
 write(1);
 end;
 end;
+
+//Разбирает
+program t;
+var i:integer;
+procedure a(i,b,v,f,g:integer, var c:integer);
+begin
+i:=i+12;
+end;
+begin
+i:=1;
+a(i);
+for i:=1 to 10 do
+begin
+if 2 > 10 then
+begin
+write(1);
+end;
+end;
+end;
+
+//Разбирается
+program t;
+var i:integer;
+procedure a(i,b,v,f,g:integer, var c:integer);
+begin
+i:=i+12;
+end;
+begin
+i:=1;
+a(i);
+if a>10 then
+begin
+write(1);
+end;
+end;
+
 
 program a;
 var i,b,c,d:integer;
