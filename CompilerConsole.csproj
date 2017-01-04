@@ -55,7 +55,7 @@
     <Compile Include="Parser\Expressions.cs" />
     <Compile Include="Parser\FuncCall.cs" />
     <Compile Include="Parser\FuncNode.cs" />
-    <Compile Include="Parser\Abstract\Node.cs" />
+    <Compile Include="Parser\Node.cs" />
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\ParsMethods.cs" />
     <Compile Include="Parser\Table.cs" />
