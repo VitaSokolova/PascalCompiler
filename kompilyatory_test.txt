@@ -146,12 +146,22 @@ end;
 
 program t;
 var 
-a,b,b:integer;
+b:integer;
 A: array [1..10] of integer;
+
+procedure a(i:integer);
+begin
+i:=0;
+end;
+function fac(a: array [1..10] of integer):integer;
+begin
+a[1+5-b]:=0;
+result := 0;
+end;
+
 begin
 b:=10;
-while b=a do
-begin
-a[i]:=a[j];
-end;
+A[0]:=A[1];
+a(b);
+fac(A);
 end;

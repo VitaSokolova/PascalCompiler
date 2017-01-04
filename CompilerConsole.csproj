@@ -51,6 +51,9 @@
   <ItemGroup>
     <Compile Include="Lang2Lexer.cs" />
     <Compile Include="Lang2Parser.cs" />
+    <Compile Include="Parser\CallNodes\ArrCall.cs" />
+    <Compile Include="Parser\CallNodes\FuncCall.cs" />
+    <Compile Include="Parser\Expression.cs" />
     <Compile Include="Parser\Literal.cs" />
     <Compile Include="Parser\ParseMethods.cs" />
     <Compile Include="Parser\Abstract\BodyNode.cs" />

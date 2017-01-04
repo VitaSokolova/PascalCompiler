@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 using CompilerConsole.Parser.Abstract;
 
 namespace CompilerConsole.Parser.VarNodes {
@@ -34,5 +35,22 @@ namespace CompilerConsole.Parser.VarNodes {
         }
 
         #endregion
+
+        public static DataType ArrTypeToVarType(DataType type)
+        {
+            switch (type)
+            {
+                case DataType.ArrInt:
+                    return DataType.VarInt;
+                case DataType.ArrString:
+                    return DataType.VarString;
+                case DataType.ArrChar:
+                    return DataType.VarChar;
+                case DataType.ArrBool:
+                    return DataType.VarBool;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
     }
 }
