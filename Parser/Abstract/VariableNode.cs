@@ -8,10 +8,12 @@ namespace CompilerConsole.Parser.Abstract {
         public bool IsMethodArg { get; set; }
         public bool IsGlobal { get; set; }
         public int Number { get; set; }
+        public bool IsReference { get; set; }
 
         public VariableNode(DataType dataType, string name) : base(dataType, name) {
             this.IsGlobal = false;
             this.IsMethodArg = false;
+            this.IsReference = false;
         }
 
 
@@ -23,6 +25,7 @@ namespace CompilerConsole.Parser.Abstract {
         public override void WriteXml(XmlWriter writer) {
             base.WriteXml(writer);
             writer.WriteAttributeString("IsMethodArg", this.IsMethodArg.ToString());
+            writer.WriteAttributeString("IsReference", this.IsReference.ToString());
             writer.WriteAttributeString("IsGlobal", this.IsGlobal.ToString());
             writer.WriteAttributeString("Number", this.Number.ToString());
         }

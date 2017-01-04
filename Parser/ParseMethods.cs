@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Antlr.Runtime.Tree;
 using CompilerConsole.Parser.Abstract;
+using CompilerConsole.Parser.BodyNodes;
 using CompilerConsole.Parser.VarNodes;
 using CompilerConsole.Utils;
 
@@ -13,7 +14,8 @@ namespace CompilerConsole.Parser {
 
         private const string TypeDecl = "TYPE_DECL";
         private const string ArrDecl = "ARR_DECL";
-
+        private const string ProcDecl = "PROC_DECL";
+        private const string RefDecl = "var";
         #endregion
 
         private List<VariableNode> ParseVarDecl(ITree tree, BodyNode bodyNode) {
@@ -67,6 +69,12 @@ namespace CompilerConsole.Parser {
                     variableNames.Clear();
                     continue;
                 }
+                else if(tree.GetChild(i).Text == RefDecl) {
+                    var refargs = this.ParseVarDecl(tree.GetChild(i), bodyNode);
+                    refargs.ForEach(node => node.IsReference = true);
+                    variableNodesList.AddRange(refargs);
+                    continue;
+                }
                 variableNames.Add(tree.GetChild(i).Text);
             }
             //Проверяем на повторение имен переменных
@@ -88,6 +96,50 @@ namespace CompilerConsole.Parser {
             }
 
             return variableNodesList;
+        }
+
+
+        private FuncNode ParseFuncDeclare(ITree tree, BodyNode bodyNode) {
+            /*
+             * 0 - имя
+             * 1 - аргументы
+             * 2 - возвращаемый тип (тело - для процедур)
+             * 3 - тело (для функций)
+             */
+            //Ожидается tree = FUNC_DECL или PROC_DECL
+            string name = tree.GetChild(0).Text;
+            List<VariableNode> args;
+            FuncNode funcNode;
+            DataType returnType;
+            //Сразу записываем тип
+            if (tree.Text == ProcDecl) {
+                returnType = DataType.Void;
+                args = this.ParseVarDecl(tree.GetChild(1).GetChild(0), bodyNode);
+                funcNode = new FuncNode(returnType, name, args, new Body());
+                funcNode.ParentBodyNode = bodyNode;
+                this.Parse(tree.GetChild(2), funcNode.ParentBodyNode);
+            }
+            else {
+                returnType = this.StringToVarDataType(tree.GetChild(2).GetChild(0).Text);
+                funcNode = new FuncNode(returnType, name, new List<VariableNode>(), new Body());
+                StructVarNode result = new StructVarNode(returnType, "result");
+                funcNode.AddNode(result);
+                funcNode.Args = this.ParseVarDecl(tree.GetChild(1).GetChild(0), bodyNode);
+                funcNode.ParentBodyNode = bodyNode;
+                this.Parse(tree.GetChild(2), funcNode.ParentBodyNode);
+                //Код проерки использование result раскоментить после добавления выражений
+                //bool resultDidUse = false;
+                //foreach (var node in funcNode) {
+                //    //здесь должен быть код провекри на использование переменной result
+                //    if (node is Expression && (node as Expression).LeftNode== result) {
+                //        resultDidUse = true;
+                //    }
+                //}
+                //if (!resultDidUse) {
+                //    throw new ArgumentException("В функции ни разу не было присвоино значение переменной result");
+                //}
+            }
+            return funcNode;
         }
 
     }

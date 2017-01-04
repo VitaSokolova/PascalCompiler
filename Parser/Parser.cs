@@ -61,7 +61,11 @@ namespace CompilerConsole.Parser {
                     break;
                 }
                 case Token.FuncProcDecl: {
-                    break;
+                    for (int i = 0; i < treeNode.ChildCount; i++) {
+                        var meth = this.ParseFuncDeclare(treeNode.GetChild(i), bodyNode);
+                        bodyNode.AddNode(meth);
+                    }
+                    return;
                 }
                 case Token.MainBody: {
                     var mainMethod = new FuncNode(DataType.Void, "Main", new List<VariableNode>(), new Body());

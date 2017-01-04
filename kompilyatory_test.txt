@@ -111,11 +111,11 @@ end;
 
 program t;
 var i:integer;
-procedure a(i:integer,var c,d,e:integer);
+procedure a(b:integer,var c,d,e:integer);
 begin
 a:=0;
 end;
-function fac():integer;
+function fac(A: array [1..10] of integer):integer;
 begin
 a:=1;
 end;

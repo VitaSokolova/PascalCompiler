@@ -54,6 +54,7 @@ tokens{
 	RANGE;
 	ARR_CALL;
 	MAIN_BODY;
+	VOID = 'void';
 }
 
 @header{
@@ -186,7 +187,7 @@ funcCall	:	VARIABLE'(' funcCallArgsW? ')' -> ^(FUNC_CALL VARIABLE funcCallArgsW?
 argDeclExpr	:	'('! argDeclMany? ')'! -> ^(FUNC_PROC_ARGS argDeclMany?)
 			;
 
-retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|arrayDecl|T_STRING)
+retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|T_STRING)
 			;
 
 retTypeExprWrap	:	retTypeExpr -> ^(FUNC_PROC_RET_TYPE retTypeExpr)
@@ -221,7 +222,7 @@ assExpr	:	 VARIABLE ASSIGN^ expressions
 			|arrayCall ASSIGN^ expressions
 	;
 
-argTypeDecl	:	typeDecl -> ^(TYPE_DECL typeDecl)
+argTypeDecl	:	varTypeDeclW -> ^(TYPE_DECL varTypeDeclW)
 			;
 
 partArgDecl: VARIABLE(','! VARIABLE)*;
