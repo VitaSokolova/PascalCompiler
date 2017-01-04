@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using CompilerConsole.Parser.Abstract;
 
 namespace CompilerConsole.Parser {
     public class Table : IXmlSerializable {

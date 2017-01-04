@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using CompilerConsole.Parser.Abstract;
 
 namespace CompilerConsole.Parser
 {
     public class FuncNode: Node
     {
         public Table BodyTable { get; }
-        public List<VariableNode> Args { get; }
+        public List<StructVariableNode> Args { get; }
 
-        public FuncNode(string name, string type, Table bodyTable, List<VariableNode> args) : base(name, type)
+        public FuncNode(string name, Abstract.Type type, Table bodyTable, List<StructVariableNode> args) : base(name, type)
         {
             this.BodyTable = bodyTable;
             this.Args = args;

@@ -90,8 +90,8 @@ namespace CompilerConsole.Parser
                                 : tree.GetChild(i).GetChild(2), funcNode.BodyTable);
                         int counter = 0;
                             funcNode.BodyTable.list.ForEach(node => {
-                                if (node is VariableNode) {
-                                    (node as VariableNode).IdNumber = counter++;
+                                if (node is StructVariableNode) {
+                                    (node as StructVariableNode).IdNumber = counter++;
                                 }
                             });
                     }

@@ -1,19 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace CompilerConsole.Parser
+namespace CompilerConsole.Parser.Abstract
 {
-   public abstract class Node:IXmlSerializable
+    public enum Type
+    {
+        VarInt,
+        VarFloat,
+        VarString,
+        VarChar,
+        VarBool,
+
+        ArrInt,
+        ArrFloat,
+        ArrString,
+        ArrChar,
+        ArrBool,
+
+        Void,
+
+        Error,
+        NotAType
+    }
+
+    public abstract class Node:IXmlSerializable
     {
         public string Name { get; set; }
-        public string Type { get; set; }
+        public Type Type { get; set; }
 
-        public Node(string name, string type)
+        public Node(string name, Type type)
         {
             this.Name = name;
             this.Type = type;
@@ -33,7 +49,7 @@ namespace CompilerConsole.Parser
 
         public virtual void WriteXml(XmlWriter writer) {
            writer.WriteAttributeString("Name", this.Name);
-            writer.WriteAttributeString("Type", this.Type);
+            writer.WriteAttributeString("Type", this.Type.ToString());
         }
     }
 }

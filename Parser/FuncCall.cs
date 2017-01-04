@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using CompilerConsole.Parser.Abstract;
 
 namespace CompilerConsole.Parser
 {
     public class FuncCall:Node {
         public FuncNode Func { get; set; }
-        public List<VariableNode> Args { get; set; }
+        public List<StructVariableNode> Args { get; set; }
 
 
-        public FuncCall(string name, string type, FuncNode func) : base(name, type) {
+        public FuncCall(string name, Abstract.Type type, FuncNode func) : base(name, type) {
             this.Func = func;
-            this.Args = new List<VariableNode>();
+            this.Args = new List<StructVariableNode>();
         }
 
         public FuncCall() {

@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Antlr.Runtime.Tree;
+using CompilerConsole.Parser.Abstract;
+using CompilerConsole.Parser.Nodes;
 using CompilerConsole.Utils;
 
 namespace CompilerConsole.Parser {
     partial class Parser {
-        private List<VariableNode> ParseVarDecl(ITree tree, Table table) {
+        private List<StructVariableNode> ParseVarDecl(ITree tree, Table table) {
 
-            List<VariableNode> result = new List<VariableNode>();
+            List<StructVariableNode> result = new List<StructVariableNode>();
+
+
 
             if (tree == null) {
                 return result;
@@ -24,11 +28,18 @@ namespace CompilerConsole.Parser {
                 }
 
                 string type = tree.GetChild(i).GetChild(0).Text;
+
+
                 for (int j = 0; j < variableNames.Count; j++) {
-                    if (Table.FindNode<VariableNode>(variableNames[j], table) != null) {
+                    if (Table.FindNode<StructVariableNode>(variableNames[j], table) != null) {
                         throw new NodeExistException($"Переменная {variableNames[j]} уже существует ");
                     }
-                    result.Add(new VariableNode(variableNames[j], type, "local"));
+                    Abstract.Type dataType = Expression.GetType(type);
+                    if (dataType == Abstract.Type.Error)
+                    {
+                        throw new Exception($"Нет такого типа данных - {type}");
+                    }
+                    result.Add(new StructVariableNode(variableNames[j], dataType, "local"));
                 }
             }
 
@@ -40,7 +51,7 @@ namespace CompilerConsole.Parser {
             string name = tree.GetChild(0).Text;
            
 
-            List<VariableNode> argList = new List<VariableNode>();
+            List<StructVariableNode> argList = new List<StructVariableNode>();
                 //Получаем аргументы из метода
                 ITree args = tree.GetChild(1);
                 argList = this.ParseFuncProcArgs(args.GetChild(0), table);   
@@ -67,9 +78,13 @@ namespace CompilerConsole.Parser {
             }
 
             //Вызываем парсинг тела метода
-           // this.InitParser(tree.GetChild(tree.ChildCount - 1), localTable);
-
-            FuncNode func = new FuncNode(name, type, localTable, argList);
+            // this.InitParser(tree.GetChild(tree.ChildCount - 1), localTable);
+            Abstract.Type dataType = Expression.GetType(type);
+            if (dataType == Abstract.Type.Error)
+            {
+                throw new Exception($"Нет такого типа данных - {type}");
+            }
+            FuncNode func = new FuncNode(name, dataType, localTable, argList);
 
             //if (tree.ChildCount == 4) {
             //    ITree declareVarDiv = tree.GetChild(2);
@@ -96,13 +111,13 @@ namespace CompilerConsole.Parser {
             return func;
         }
 
-        private List<VariableNode> ParseFuncProcArgs(ITree tree, Table upperTable) {
+        private List<StructVariableNode> ParseFuncProcArgs(ITree tree, Table upperTable) {
             if (tree == null) {
-                return new List<VariableNode>();
+                return new List<StructVariableNode>();
             }
 
-            List<VariableNode> argListForStruct = new List<VariableNode>();
-            List<VariableNode> argListForRef = new List<VariableNode>();
+            List<StructVariableNode> argListForStruct = new List<StructVariableNode>();
+            List<StructVariableNode> argListForRef = new List<StructVariableNode>();
             List<string> variableNamesForStruct = new List<string>();
             List<string> variableNamesForRef = new List<string>();
             for (int i = 0; i < tree.ChildCount; i++) {
@@ -120,9 +135,13 @@ namespace CompilerConsole.Parser {
                 else {
                     if (tree.GetChild(i).Text == "TYPE_DECL") {
                         string type = tree.GetChild(i).GetChild(0).Text;
+                        Abstract.Type dataType = Expression.GetType(type);
+                        if (dataType == Abstract.Type.Error) {
+                            throw new Exception($"Нет такого типа данных - {type}");
+                        }
 
                         foreach (var variableName in variableNamesForStruct) {
-                            argListForStruct.Add(new VariableNode(variableName, type, "local"));
+                            argListForStruct.Add(new StructVariableNode(variableName, dataType, "local"));
                         }
                     }
                     else {
@@ -136,7 +155,7 @@ namespace CompilerConsole.Parser {
 
         private FuncCall ParseFuncCall(ITree tree, Table table) {
             string funcName = tree.GetChild(0).Text;
-            List<VariableNode> argsList = new List<VariableNode>();
+            List<StructVariableNode> argsList = new List<StructVariableNode>();
             if (tree.ChildCount == 2) {
                 ITree args = tree.GetChild(1);
                 throw new NotImplementedException($"Сорян, но пока не написан парсинг аргументов. Ошибка в функции {funcName}");
