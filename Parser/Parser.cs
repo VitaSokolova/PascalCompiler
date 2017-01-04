@@ -15,7 +15,8 @@ namespace CompilerConsole.Parser {
         VarDecl,
         FuncProcDecl,
         FuncCall,
-        If
+        If,
+        For
     }
 
     /// <summary>
@@ -40,7 +41,8 @@ namespace CompilerConsole.Parser {
                 { "FUNC_PROC_EXPR", Token.FuncProcDecl },
                 { "VAR_DECL", Token.VarDecl },
                 { "FUNC_CALL", Token.FuncCall },
-                { "if", Token.If }
+                { "if", Token.If },
+                { "for", Token.For }
             };
 
             #region exprTokensDictionary initialize
@@ -98,6 +100,10 @@ namespace CompilerConsole.Parser {
                 }
                     case Token.If: {
                     bodyNode.AddNode(this.ParseIf(treeNode, bodyNode));
+                    return;
+                }
+                    case Token.For: {
+                    bodyNode.AddNode(this.ParseForLoop(treeNode, bodyNode));
                     return;
                 }
                 case Token.MainBody: {

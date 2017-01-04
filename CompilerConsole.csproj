@@ -52,6 +52,7 @@
     <Compile Include="Lang2Lexer.cs" />
     <Compile Include="Lang2Parser.cs" />
     <Compile Include="Parser\BodyNodes\ElseNode.cs" />
+    <Compile Include="Parser\BodyNodes\ForLoop.cs" />
     <Compile Include="Parser\BodyNodes\IfNode.cs" />
     <Compile Include="Parser\CallNodes\ArrCall.cs" />
     <Compile Include="Parser\CallNodes\FuncCall.cs" />

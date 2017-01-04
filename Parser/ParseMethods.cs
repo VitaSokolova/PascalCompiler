@@ -281,5 +281,36 @@ namespace CompilerConsole.Parser {
 
             return ifNode;
         }
+
+        private ForLoop ParseForLoop(ITree tree, BodyNode bodyNode)
+        {
+            ITree treeTo = tree.GetChild(0);
+            ITree body = tree.GetChild(1);
+
+            Node varNode;
+            varNode = this.ParseExpression(treeTo.GetChild(0), bodyNode);
+            Expression fe = new Expression(varNode, new Literal(varNode.DataType, 1), ExprToken.Add);
+            Node increment= new Expression(varNode, fe, ExprToken.Ass);
+
+            ForLoop forNode = new ForLoop(new Body());
+            forNode.ParentBodyNode = bodyNode;
+            Node toExpr = this.ParseExpression(treeTo.GetChild(1), bodyNode);
+            if (toExpr.DataType != DataType.VarInt) {
+                throw new Exception("Тип выражения в TO у For должен быть целого типа");
+            }
+            Expression condition = new Expression(varNode, toExpr, ExprToken.IsLessOrEqual);
+
+            if (condition.DataType == DataType.Error) {
+                throw new Exception("Логическое выражение для for имеет неверное значение");
+            }
+
+            forNode.VarNode = varNode;
+            forNode.CondNode = condition;
+            forNode.Incremental = increment;
+
+            this.Parse(body, forNode);
+            return forNode;
+        }
+
     }
 }

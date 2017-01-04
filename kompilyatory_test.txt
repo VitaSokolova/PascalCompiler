@@ -179,3 +179,22 @@ begin
 a:=0;
 end;
 end;
+
+program t;
+var i,b:integer;
+begin
+for i:=1 to 10 do
+begin
+b:=i;
+end;
+end;
+
+program t;
+var i:integer;
+procedure a(b:integer);
+var c:integer
+begin
+c:=0;
+end;
+begin
+end;
