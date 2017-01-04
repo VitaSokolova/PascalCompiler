@@ -19,6 +19,7 @@ namespace CompilerConsole.Parser {
         private const string RefDecl = "var";
         private const string FuncCall = "FUNC_CALL";
         private const string ArrCall = "ARR_CALL";
+
         #endregion
 
         private List<VariableNode> ParseVarDecl(ITree tree, BodyNode bodyNode) {
@@ -205,35 +206,28 @@ namespace CompilerConsole.Parser {
             #endregion
         }
 
-        private FuncCall ParseFuncCall(ITree tree, BodyNode bodyNode)
-        {
+        private FuncCall ParseFuncCall(ITree tree, BodyNode bodyNode) {
             ITree methName = tree.GetChild(0);
             ITree args = tree.GetChild(1);
 
             FuncNode method = bodyNode.FindNodeByName<FuncNode>(methName.Text);
 
-            if (method == null)
-            {
+            if (method == null) {
                 throw new Exception($"Метод с именем {methName.Text} не найден в текущем контексте");
             }
             List<Node> argList = new List<Node>();
 
-            if (args != null)
-            {
-                for (int i = 0; i < args.ChildCount; i++)
-                {
+            if (args != null) {
+                for (int i = 0; i < args.ChildCount; i++) {
                     argList.Add(this.ParseExpression(args.GetChild(i), bodyNode));
                 }
 
-                if (argList.Count != method.Args.Count)
-                {
+                if (argList.Count != method.Args.Count) {
                     throw new Exception($"Метод с именем {method.Name} содержит другое кол-во вргументов ");
                 }
 
-                for (int i = 0; i < argList.Count; i++)
-                {
-                    if (argList[i].DataType != method.Args[i].DataType)
-                    {
+                for (int i = 0; i < argList.Count; i++) {
+                    if (argList[i].DataType != method.Args[i].DataType) {
                         throw new Exception($"Метод с именем {method.Name} не содержит аргументы с такими типами ");
                     }
                 }
@@ -245,15 +239,13 @@ namespace CompilerConsole.Parser {
             return call;
         }
 
-        private ArrCall ParseArrCall(ITree tree, BodyNode bodyNode)
-        {
+        private ArrCall ParseArrCall(ITree tree, BodyNode bodyNode) {
             ITree arrName = tree.GetChild(0);
             ITree callindex = tree.GetChild(1);
 
             var arrNode = bodyNode.FindNodeByName<ArrNode>(arrName.Text);
 
-            if (arrNode == null)
-            {
+            if (arrNode == null) {
                 throw new Exception($"Массив с именем {arrName.Text} не найден в текущем контексте");
             }
 
@@ -265,6 +257,29 @@ namespace CompilerConsole.Parser {
             }
             res.Index = tempIndex;
             return res;
+        }
+
+        private IfNode ParseIf(ITree tree, BodyNode bodyNode) {
+            ITree cond = tree.GetChild(0);
+            ITree ifBody = tree.GetChild(1);
+            ITree elseBody = tree.GetChild(2);
+            Node expr = this.ParseExpression(cond.GetChild(0), bodyNode);
+            if (expr.DataType != DataType.VarBool) {
+                throw new Exception($"Выражение внутри if должно иметь тип bool, а не {expr.DataType}");
+            }
+            var ifNode = new IfNode(new Body());
+            ifNode.ParentBodyNode = bodyNode;
+            this.Parse(ifBody, ifNode);
+
+            ifNode.Condition = expr;
+            if (elseBody != null) {
+                ElseNode elseNode = new ElseNode(new Body());
+                elseNode.ParentBodyNode = bodyNode;
+                this.Parse(elseBody.GetChild(0), elseNode);
+                ifNode.ElseBody = elseNode;
+            }
+
+            return ifNode;
         }
     }
 }

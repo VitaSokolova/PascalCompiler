@@ -14,7 +14,8 @@ namespace CompilerConsole.Parser {
         MainBody,
         VarDecl,
         FuncProcDecl,
-        FuncCall
+        FuncCall,
+        If
     }
 
     /// <summary>
@@ -34,11 +35,12 @@ namespace CompilerConsole.Parser {
 
         private void InitializeDictionary() {
             this._tokenDictionary = new Dictionary<string, Token>() {
-                {"BODY_EXPR", Token.Body},
-                {"MAIN_BODY", Token.MainBody},
-                {"FUNC_PROC_EXPR", Token.FuncProcDecl},
-                {"VAR_DECL", Token.VarDecl},
-                { "FUNC_CALL", Token.FuncCall}
+                { "BODY_EXPR", Token.Body },
+                { "MAIN_BODY", Token.MainBody },
+                { "FUNC_PROC_EXPR", Token.FuncProcDecl },
+                { "VAR_DECL", Token.VarDecl },
+                { "FUNC_CALL", Token.FuncCall },
+                { "if", Token.If }
             };
 
             #region exprTokensDictionary initialize
@@ -92,6 +94,10 @@ namespace CompilerConsole.Parser {
                 }
                     case Token.FuncCall: {
                         bodyNode.AddNode(this.ParseFuncCall(treeNode,bodyNode));
+                    return;
+                }
+                    case Token.If: {
+                    bodyNode.AddNode(this.ParseIf(treeNode, bodyNode));
                     return;
                 }
                 case Token.MainBody: {

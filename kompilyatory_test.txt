@@ -166,3 +166,16 @@ a(b);
 b = fac(A);
 fac(A);
 end;
+
+program t;
+var a,b:integer;
+begin
+if a>b then
+begin
+a:=0;
+end;
+else
+begin
+a:=0;
+end;
+end;
