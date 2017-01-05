@@ -1,50 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using CompilerConsole.CILGenerator;
 using Lang2;
-namespace CompilerConsole
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            try
-            {
-                // В качестве входного потока символов устанавливаем консольный ввод
-                ANTLRReaderStream input = new ANTLRReaderStream(Console.In);
-                // Настраиваем лексер на этот поток
+
+namespace CompilerConsole {
+    class Program {
+        static void Main(string[] args) {
+            try {
+                ANTLRReaderStream input;
+                FileStream fileStream = null;
+                TextReader reader = null;
+                if (args.Length != 0) {
+                    fileStream = new FileStream(args[0], FileMode.Open);
+                    reader = new StreamReader(fileStream);
+                    input = new ANTLRReaderStream(reader);
+                }
+                else {
+                    input = new ANTLRReaderStream(Console.In);
+                }
+
                 Lang2Lexer lexer = new Lang2Lexer(input);
-                // Создаем поток токенов на основе лексера
                 CommonTokenStream tokens = new CommonTokenStream(lexer);
-                // Создаем парсер
                 Lang2Parser parser = new Lang2Parser(tokens);
-                // И запускаем первое правило грамматики!!!
-                Object t;
+                object t;
+
                 try {
-                     t = parser.execute().Tree;
+                    t = parser.execute().Tree;
                 }
                 catch (Exception ex) {
-                    
+
                     Console.WriteLine();
-                    Console.WriteLine("Компилятор говорит: "+ex.Message);
+                    Console.WriteLine("Компилятор говорит: " + ex.Message);
                     Console.ReadKey();
                     return;
                 }
-                
+
                 ITree tree = t as ITree;
                 DrawingTreeLib.Views.DrawingTreeLib.Initialize(tree);
-               var p =  new Parser.Parser();
-                    p.Parse(tree);
+                var p = new Parser.Parser();
+                p.Parse(tree);
                 p.MakeGlobalVariables();
                 p.MakeMethodArgs();
                 p.MakeLocalVarNumbers();
-                p.Serialize();
+                try {
+                   // p.Serialize();
+                }
+                catch (Exception) {
+                    
+                    Console.WriteLine("Ошибка при генерации XML документа");
+                }
+                
                 CILGenerator.Generator tp = new Generator();
                 tp.Generate(p);
-                Console.ReadKey();
+                Console.WriteLine("Генерация IL кода успешно завершена");
+
+                fileStream?.Close();
+                reader?.Close();
+                
             }
             catch (Exception e)
             {
@@ -52,6 +68,7 @@ namespace CompilerConsole
                 Console.WriteLine(e.StackTrace);
             }
             Console.ReadKey();
+            
         }
     }
 }

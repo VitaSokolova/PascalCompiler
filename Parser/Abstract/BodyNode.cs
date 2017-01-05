@@ -57,7 +57,7 @@ namespace CompilerConsole.Parser.Abstract {
                 }
             }
 
-            return this.FindNodeByName<T>(name, bodyNode.ParentBodyNode);
+            return bodyNode.ParentBodyNode?.FindNodeByName<T>(name);
         }
 
         public virtual T FindNodeByName<T>(string name) where T : Node {

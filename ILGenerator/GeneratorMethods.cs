@@ -65,6 +65,11 @@ namespace CompilerConsole.CILGenerator
             #region Method end
             //Генерация IL кода для окончания декларации метода
             string methodEnd = this.Reader(Template.DeclFuncFinich);
+            if (method.DataType != DataType.Void) {
+                methodCIL.AppendLine(this.LineNumber + this._operationDictionary[ILOperation.ReadLocalVariable] +
+                                     this.Offset + 0);
+            }
+
             methodCIL.AppendLine(this.LineNumber + "ret");
             methodCIL.AppendLine(methodEnd);
             #endregion
@@ -415,18 +420,19 @@ namespace CompilerConsole.CILGenerator
             if (node is IfNode) {
                 var ifNode = (IfNode) node;
                 string cond = this.ExpressionToIL(ifNode.Condition) + Environment.NewLine;
-                string goTo = LineNumber + Offset + "brfalse";    //Сюда еще бы доваить ссылку на елс
+                string goTo = this.LineNumber + this.Offset + "brfalse";    //Сюда еще бы доваить ссылку на елс
 
                 string body = this.ParseBody(ifNode.BodyTable);
 
-
+                int tempCounter = this.Counter;
                 string elseBody = "";
-                goTo += Offset +PreLineNumber + Counter + Environment.NewLine;
                 if (ifNode.ElseBody != null) {
-                    body += LineNumber + Offset + "br" + Offset;
+                    tempCounter++;
+                    body += this.LineNumber + this.Offset + "br" + this.Offset;
                     elseBody = this.ParseBody(ifNode.ElseBody.BodyTable);
-                    body += PreLineNumber+ Counter;
+                    body += this.PreLineNumber + this.Counter;
                 }
+                goTo += this.Offset + this.PreLineNumber + tempCounter + Environment.NewLine;
                 body += Environment.NewLine;
                 return cond + goTo + body + elseBody;
             }
@@ -447,13 +453,13 @@ namespace CompilerConsole.CILGenerator
                 */
                 var forNode = (ForLoop) node;
                 string varE = this.ExpressionToIL(forNode.VarNode) + Environment.NewLine;
-                string goToCondition = LineNumber + "br" + Offset;
+                string goToCondition = this.LineNumber + "br" + this.Offset;
                 string body = this.ParseBody(forNode.BodyTable);
                 string counter = this.GetLineNumber(body);
                 string incremental = this.ExpressionToIL(forNode.Incremental) + Environment.NewLine;
-                goToCondition += PreLineNumber + Counter + Environment.NewLine;
+                goToCondition += this.PreLineNumber + this.Counter + Environment.NewLine;
                 string condition = this.ExpressionToIL(forNode.CondNode) + Environment.NewLine;
-                condition += LineNumber + Offset + "brtrue" + Offset + PreLineNumber + counter;
+                condition += this.LineNumber + this.Offset + "brtrue" + this.Offset + this.PreLineNumber + counter;
                 return varE + goToCondition + body + incremental + condition;
             }
 
@@ -648,12 +654,10 @@ namespace CompilerConsole.CILGenerator
 
             else {
                 writeLineNumber = LineNumber;
-                if ((node.LeftNode as VariableNode).IsMethodArg)
-                {
+                if ((node.LeftNode as VariableNode).IsMethodArg) {
                     writeOpertion = writeLineNumber + this._operationDictionary[ILOperation.WriteMethodArg];
                 }
-                else
-                {
+                else {
                     writeOpertion = writeLineNumber + this._operationDictionary[ILOperation.WriteLocalVariable];
                 }
                 writeOpertion += this.Offset + (node.LeftNode as VariableNode).Number;
@@ -694,13 +698,14 @@ namespace CompilerConsole.CILGenerator
         {
             string result = "";
 
-            switch (literal.DataType)
-            {
+            switch (literal.DataType) {
                 case DataType.VarInt:
-                    result = this._operationDictionary[ILOperation.IntConstLoad] + this.Offset + literal.Value.ToString();
+                    result = this._operationDictionary[ILOperation.IntConstLoad] + this.Offset +
+                             literal.Value.ToString();
                     break;
                 case DataType.VarString:
-                    return this._operationDictionary[ILOperation.StringConstLoad] + this.Offset + literal.Value.ToString();
+                    return this._operationDictionary[ILOperation.StringConstLoad] + this.Offset +
+                           literal.Value.ToString();
                 case DataType.VarChar:
                     return this._operationDictionary[ILOperation.IntConstLoad] + this.Offset +
                            ((int) ((char) literal.Value)).ToString();

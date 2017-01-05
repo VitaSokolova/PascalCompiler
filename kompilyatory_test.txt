@@ -68,22 +68,39 @@ end;
 //Разбирается
 program t;
 var i:integer;
-procedure a(i,b,v,f,g:integer, var c:integer);
+
+procedure a(b,v:integer, var c:integer);
 begin
-i:=i+12;
+if(i>0) begin
+writeln("b:");
+writeln(b);
+writeln("v:");
+writeln(v);
+writeln("c:");
+writeln(c);
+writeln("i:");
+writeln(i);
 end;
+end;
+
 begin
 i:=1;
-a(i);
+a(1,2,3);
 if a>10 then
 begin
-write(1);
+writeln(1);
 end;
+else begin
+writeln(0)
+end;
+i:=-1;
+a(1,2,3);
+readln();
 end;
 
 
 program a;
-var i,b,c,d:integer;
+var i,b,c,d,a:integer;
 begin
 a:=10;
 if(a=1) then
@@ -92,7 +109,8 @@ a:=0;
 end;
 else begin
 if(b<=a) then  
-begin a:=1; 
+begin
+writeln(a);
 end;
 end;
 end;
@@ -154,6 +172,7 @@ begin
 i:=0;
 end;
 function fac(a: array [1..10] of integer):integer;
+var t:integer;
 begin
 a[1+5-b]:=0;
 result := 0;
@@ -185,18 +204,23 @@ var i,b:integer;
 begin
 for i:=1 to 10 do
 begin
-b:=i;
+writeln(i);
 end;
 end;
 
 program t;
 var i:integer;
 procedure a(b:integer);
-var c:integer
+var c:integer;
 begin
-c:=0;
+c:=10;
+b:=c+i;
+writeln(b);
 end;
 begin
+i:=10;
+a(1);
+readln();
 end;
 
 program t;
@@ -223,5 +247,77 @@ var s:string;
 begin
 s := fileRead("test.txt");
 writeln(s);
+readln();
+end;
+
+
+program t;
+var s:string;
+begin
+if(1>2) begin
+writeln("IFbody");
+end;
+writeln("AFTER IF");
+readln();
+end;
+
+
+program t;
+var i:integer;
+
+procedure a(b,v:integer, var c:integer);
+begin
+if i>0 begin
+writeln("b:");
+writeln(b);
+writeln("v:");
+writeln(v);
+writeln("c:");
+writeln(c);
+writeln("i:");
+writeln(i);
+end;
+else begin
+writeln("AHAHAHA");
+end;
+end;
+
+begin
+i:=-1;
+a(1,2,3);
+if i>10 then
+begin
+writeln(1);
+end;
+i:=-1;
+a(1,2,3);
+readln();
+end;
+
+program t;
+var i:integer;
+function a():string;
+begin
+result:="AHAHAHA";
+end;
+function b(elem:integer):integer;
+begin
+result:= elem * 99999;
+end;
+
+begin
+
+for i:=1 to 10 do
+begin
+
+if(i<5) begin
+
+writeln(a());
+end;
+else begin
+
+writeln(b(i));
+end;
+end;
 readln();
 end;

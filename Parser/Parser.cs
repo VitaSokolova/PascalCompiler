@@ -31,6 +31,7 @@ namespace CompilerConsole.Parser {
         public const string ReadMethodName = "readln";
         public const string ReadFile = "fileRead";
         public const string Main = "Main";
+        public const string ResultVariableName = "result";
         #endregion
 
 
@@ -228,7 +229,7 @@ namespace CompilerConsole.Parser {
                 return new Literal(DataType.VarChar, char.Parse(text.Replace("\'", "")));
             }
 
-            regEx = new Regex("^[0-9]+$");
+            regEx = new Regex("^-?[0-9]+$");
             if (regEx.IsMatch(text)) {
                 //Целое
                 return new Literal(DataType.VarInt, int.Parse(text));

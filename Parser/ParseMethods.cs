@@ -27,6 +27,11 @@ namespace CompilerConsole.Parser {
 
             List<VariableNode> variableNodesList = new List<VariableNode>();
 
+            if (tree == null) {
+                return variableNodesList;
+            }
+
+
             List<string> variableNames = new List<string>();
             for (int i = 0; i < tree.ChildCount; i++) {
                 if (tree.GetChild(i).Text == TypeDecl) {
@@ -121,16 +126,27 @@ namespace CompilerConsole.Parser {
                 args = this.ParseVarDecl(tree.GetChild(1).GetChild(0), bodyNode);
                 funcNode = new FuncNode(returnType, name, args, new Body());
                 funcNode.ParentBodyNode = bodyNode;
+                ITree bodyTree = tree.GetChild(3);
                 this.Parse(tree.GetChild(2), funcNode);
+                if (bodyTree != null) {
+                    this.Parse(bodyTree, funcNode);
+                }
             }
             else {
                 returnType = this.StringToVarDataType(tree.GetChild(2).GetChild(0).Text);
                 funcNode = new FuncNode(returnType, name, new List<VariableNode>(), new Body());
-                StructVarNode result = new StructVarNode(returnType, "result");
+                StructVarNode result = new StructVarNode(returnType, ResultVariableName);
                 funcNode.AddNode(result);
                 funcNode.Args = this.ParseVarDecl(tree.GetChild(1).GetChild(0), bodyNode);
                 funcNode.ParentBodyNode = bodyNode;
                 this.Parse(tree.GetChild(3), funcNode);
+
+                ITree bodyTree = tree.GetChild(4);
+                if (bodyTree != null)
+                {
+                    this.Parse(bodyTree, funcNode);
+                }
+
                 //Код проерки использование result раскоментить после добавления выражений
                 bool resultDidUse = false;
                 foreach (var node in funcNode) {
@@ -148,7 +164,7 @@ namespace CompilerConsole.Parser {
 
         private Node ParseExpression(ITree tree, BodyNode bodyNode) {
             if (tree == null) {
-                Console.WriteLine("OH MY GOD !!!!!!!!!!!!!!!!!");
+                Console.WriteLine("Критическая ошибка при парсинге выражения");
                 return null;
             }
 
@@ -219,8 +235,7 @@ namespace CompilerConsole.Parser {
             }
 
             FuncNode method = BodyNode.FindFuncByNameAndArgsWithRoot(methName.Text, argList, this.ProgramNode);
-            if (method == null)
-            {
+            if (method == null) {
                 throw new Exception($"Метод с именем {methName.Text} не найден в текущем контексте");
             }
 
@@ -280,8 +295,16 @@ namespace CompilerConsole.Parser {
 
             Node varNode;
             varNode = this.ParseExpression(treeTo.GetChild(0), bodyNode);
-            Expression fe = new Expression(varNode, new Literal(varNode.DataType, 1), ExprToken.Add);
-            Node increment= new Expression(varNode, fe, ExprToken.Ass);
+            Node tempVar = null;
+            if (varNode is Expression) {
+                tempVar = (varNode as Expression).LeftNode;
+            }
+            else {
+                tempVar = varNode;
+            }
+
+            Expression fe = new Expression(tempVar, new Literal(tempVar.DataType, 1), ExprToken.Add);
+            Node increment= new Expression(tempVar, fe, ExprToken.Ass);
 
             ForLoop forNode = new ForLoop(new Body());
             forNode.ParentBodyNode = bodyNode;
@@ -289,7 +312,7 @@ namespace CompilerConsole.Parser {
             if (toExpr.DataType != DataType.VarInt) {
                 throw new Exception("Тип выражения в TO у For должен быть целого типа");
             }
-            Expression condition = new Expression(varNode, toExpr, ExprToken.IsLessOrEqual);
+            Expression condition = new Expression(tempVar, toExpr, ExprToken.IsLessOrEqual);
 
             if (condition.DataType == DataType.Error) {
                 throw new Exception("Логическое выражение для for имеет неверное значение");
