@@ -9,10 +9,6 @@ namespace CompilerConsole.Parser.BodyNodes {
             : base(dataType, name, bodyTable) {
         }
 
-        public override T FindNodeByName<T>(string name) {
-            return this.FindNodeByName<T>(name, this);
-        }
-
         #region IXmlSerializable implementation
 
         public ElseNode() {

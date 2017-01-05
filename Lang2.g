@@ -55,6 +55,8 @@ tokens{
 	ARR_CALL;
 	MAIN_BODY;
 	VOID = 'void';
+	REPEAT = 'repeat';
+	UNTIL = 'until';
 }
 
 @header{
@@ -214,8 +216,10 @@ conditionExpr:	IF condExpr THEN! bodyExpr conditionElseExpr? -> ^(IF condExpr bo
 //---------------------------------------------------------------//
 forExpr	:	 assExpr TO^ expressions
 		;
+
 loopExpr:	WHILE condExpr DO! bodyExpr -> ^(WHILE condExpr bodyExpr)
 			|FOR forExpr DO bodyExpr -> ^(FOR forExpr bodyExpr)
+			|REPEAT bodyExpr UNTIL condExpr OP_END -> ^(REPEAT condExpr bodyExpr)
 		;	
 
 assExpr	:	 VARIABLE ASSIGN^ expressions

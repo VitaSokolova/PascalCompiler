@@ -25,7 +25,7 @@ namespace CompilerConsole.Parser.BodyNodes {
                 }
             }
             //Если не нашли начинаем рекурсивно обходить тела
-            return this.FindNodeByName<T>(name, this);
+            return base.FindNodeByName<T>(name);
         }
 
         #region IXmlSerializable implementation

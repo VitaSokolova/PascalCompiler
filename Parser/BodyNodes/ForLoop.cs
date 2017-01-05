@@ -10,7 +10,7 @@ namespace CompilerConsole.Parser.BodyNodes
         public Node CondNode { get; set; }
         public Node Incremental { get; set; }
 
-        public ForLoop(Body bodyTable) : base(DataType.NotAType, "for", bodyTable) {
+        public ForLoop(Body bodyTable) : base(DataType.NotAType, "%for", bodyTable) {
         }
 
         public override T FindNodeByName<T>(string name) {
@@ -25,7 +25,7 @@ namespace CompilerConsole.Parser.BodyNodes
                     return exprNode.LeftNode as T;
                 }
             }
-            return this.FindNodeByName<T>(name, this);
+            return base.FindNodeByName<T>(name);
         }
 
         #region IXmlSerializable implementation
@@ -35,7 +35,7 @@ namespace CompilerConsole.Parser.BodyNodes
         }
 
         public override void WriteXml(XmlWriter writer) {
-            writer.WriteStartElement("ForLoop");
+            writer.WriteStartElement("For");
 
             writer.WriteStartElement("VarNode");
             this.VarNode.WriteXml(writer);
@@ -49,9 +49,8 @@ namespace CompilerConsole.Parser.BodyNodes
             this.Incremental.WriteXml(writer);
             writer.WriteEndElement();
 
-            writer.WriteStartElement("Body");
             this.BodyTable.WriteXml(writer);
-            writer.WriteEndElement();
+
             writer.WriteEndElement();
         }
 

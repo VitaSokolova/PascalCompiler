@@ -198,3 +198,22 @@ c:=0;
 end;
 begin
 end;
+
+program t;
+var i,b:integer;
+begin
+while i<b do
+begin
+b:=i;
+end;
+end;
+
+program t;
+var i,b:integer;
+begin
+repeat
+begin
+b:=i;
+end;
+until i<b;
+end;

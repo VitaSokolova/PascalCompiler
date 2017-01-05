@@ -312,5 +312,47 @@ namespace CompilerConsole.Parser {
             return forNode;
         }
 
+        private WhileLoop ParseWhileLoop(ITree tree, BodyNode bodyNode)
+        {
+            ITree condT = tree.GetChild(0).GetChild(0);
+            ITree bodyL = tree.GetChild(1);
+
+            WhileLoop whileLoop = new WhileLoop(new Body());
+            whileLoop.ParentBodyNode = bodyNode;
+            Node cond = this.ParseExpression(condT, bodyNode);
+
+            if (cond.DataType != DataType.VarBool)
+            {
+                throw new Exception($"логическое условие для While должно иметь тип bool а не {cond.DataType}");
+            }
+
+            whileLoop.Condition = cond;
+
+            this.Parse(bodyL, whileLoop);
+
+            return whileLoop;
+        }
+
+        private DoLoop ParseDoLoop(ITree tree, BodyNode bodyNode)
+        {
+            ITree condT = tree.GetChild(0).GetChild(0);
+            ITree bodyL = tree.GetChild(1);
+            DoLoop doLoop = new DoLoop();
+
+            doLoop.ParentBodyNode = bodyNode;
+            Node cond = this.ParseExpression(condT, bodyNode);
+
+            if (cond.DataType != DataType.VarBool)
+            {
+                throw new Exception($"логическое условие для Do_While должно иметь тип bool а не {cond.DataType}");
+            }
+
+            doLoop.Condition = cond;
+
+            this.Parse(bodyL, doLoop);
+
+            return doLoop;
+        }
+
     }
 }

@@ -59,7 +59,9 @@ namespace CompilerConsole.Parser.Abstract {
             return this.FindNodeByName<T>(name, bodyNode.ParentBodyNode);
         }
 
-        public abstract T FindNodeByName<T>(string name) where T : Node;
+        public virtual T FindNodeByName<T>(string name) where T : Node {
+            return this.FindNodeByName<T>(name, this);
+        }
 
         #region IEnumerable implementation
 
