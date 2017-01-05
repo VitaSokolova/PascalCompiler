@@ -93,6 +93,7 @@
     <Content Include="Templates\StartFucDecl.txt" />
     <Content Include="Templates\StartProgramTempate.txt" />
     <Content Include="Templates\WriteLineTemplate.txt" />
+    <Content Include="Как компилировать.txt" />
   </ItemGroup>
   <ItemGroup>
     <AntlrGrammarFile Include="Lang2.g" />
