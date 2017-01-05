@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILGenerator\Generator.cs" />
+    <Compile Include="ILGenerator\GeneratorMethods.cs" />
     <Compile Include="Lang2Lexer.cs" />
     <Compile Include="Lang2Parser.cs" />
     <Compile Include="Parser\BodyNodes\DoLoop.cs" />
@@ -76,6 +78,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="kompilyatory_test.txt" />
+    <Content Include="Templates\ArrDecl.txt" />
+    <Content Include="Templates\CallField.txt" />
+    <Content Include="Templates\CallMethod.txt" />
+    <Content Include="Templates\ClassDeclTemplate.txt" />
+    <Content Include="Templates\ConjTemplate.txt" />
+    <Content Include="Templates\DeclFuncFinish.txt" />
+    <Content Include="Templates\DeclMainFuncStart.txt" />
+    <Content Include="Templates\DijTemplate.txt" />
+    <Content Include="Templates\FieldDeclTemplate.txt" />
+    <Content Include="Templates\LocalvariableDeclaration.txt" />
+    <Content Include="Templates\ReadFileTemplate.txt" />
+    <Content Include="Templates\ReadLineTemplate.txt" />
+    <Content Include="Templates\StartFucDecl.txt" />
+    <Content Include="Templates\StartProgramTempate.txt" />
+    <Content Include="Templates\WriteLineTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
     <AntlrGrammarFile Include="Lang2.g" />

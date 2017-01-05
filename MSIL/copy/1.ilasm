@@ -1,0 +1,85 @@
+
+//  Microsoft (R) .NET Framework IL Disassembler.  Version 3.5.30729.1
+
+
+
+
+// Metadata version: v2.0.50727
+.assembly extern mscorlib
+{
+  .publickeytoken = (B7 7A 5C 56 19 34 E0 89 )                         // .z\V.4..
+  .ver 2:0:0:0
+}
+.assembly '1'
+{
+
+  // --- Следующий настраиваемый атрибут добавлен автоматически, не следует отменять преобразование в комментарий -------
+  //  .custom instance void [mscorlib]System.Diagnostics.DebuggableAttribute::.ctor(valuetype [mscorlib]System.Diagnostics.DebuggableAttribute/DebuggingModes) = ( 01 00 03 00 00 00 00 00 ) 
+
+  .custom instance void [mscorlib]System.Runtime.CompilerServices.CompilationRelaxationsAttribute::.ctor(int32) = ( 01 00 08 00 00 00 00 00 ) 
+  .custom instance void [mscorlib]System.Runtime.CompilerServices.RuntimeCompatibilityAttribute::.ctor() = ( 01 00 01 00 54 02 16 57 72 61 70 4E 6F 6E 45 78   // ....T..WrapNonEx
+                                                                                                             63 65 70 74 69 6F 6E 54 68 72 6F 77 73 01 )       // ceptionThrows.
+  .hash algorithm 0x00008004
+  .ver 0:0:0:0
+}
+.module '1.exe'
+// MVID: {22298E03-1D58-45DB-976E-081D5AAF4AD5}
+.imagebase 0x00400000
+.file alignment 0x00000200
+.stackreserve 0x00100000
+.subsystem 0x0003       // WINDOWS_CUI
+.corflags 0x00000001    //  ILONLY
+// Image base: 0x029C0000
+
+
+// =============== CLASS MEMBERS DECLARATION ===================
+
+.class public auto ansi beforefieldinit Program.Program
+       extends [mscorlib]System.Object
+{
+  .field private static string s
+  .method public hidebysig static void  Main() cil managed
+  {
+    .entrypoint
+    // Размер кода:       26 (0x1a)
+    .maxstack  8
+    IL_0000:  ldstr      "test.txt"
+    IL_0005:  call       string [mscorlib]System.IO.File::ReadAllText(string)
+    IL_000a:  stsfld     string Program.Program::s
+    IL_000f:  ldsfld     string Program.Program::s
+    IL_0014:  call       void [mscorlib]System.Console::WriteLine(string)
+    IL_0019:  ret
+  } // end of method Program::Main
+
+  .method public hidebysig static void  Test(int32[] a) cil managed
+  {
+    // Размер кода:       14 (0xe)
+    .maxstack  8
+    IL_0000:  ldarg.0
+    IL_0001:  ldc.i4.0
+    IL_0002:  ldc.i4.s   100
+    IL_0004:  stelem.i4
+    IL_0005:  ldarg.0
+    IL_0006:  ldc.i4.0
+    IL_0007:  ldelem.i4
+    IL_0008:  call       void [mscorlib]System.Console::WriteLine(int32)
+    IL_000d:  ret
+  } // end of method Program::Test
+
+  .method public hidebysig specialname rtspecialname 
+          instance void  .ctor() cil managed
+  {
+    // Размер кода:       7 (0x7)
+    .maxstack  8
+    IL_0000:  ldarg.0
+    IL_0001:  call       instance void [mscorlib]System.Object::.ctor()
+    IL_0006:  ret
+  } // end of method Program::.ctor
+
+} // end of class Program.Program
+
+
+// =============================================================
+
+// *********** ДИЗАССЕМБЛИРОВАНИЕ ЗАВЕРШЕНО ***********************
+// ВНИМАНИЕ: создан файл ресурсов Win32 1.res

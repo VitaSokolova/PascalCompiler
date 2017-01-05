@@ -217,3 +217,11 @@ b:=i;
 end;
 until i<b;
 end;
+
+program t;
+var s:string;
+begin
+s := fileRead("test.txt");
+writeln(s);
+readln();
+end;

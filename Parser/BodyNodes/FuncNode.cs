@@ -4,6 +4,10 @@ using CompilerConsole.Parser.Abstract;
 using CompilerConsole.Utils;
 
 namespace CompilerConsole.Parser.BodyNodes {
+    public enum FuncType {
+        Cust,
+        Libr
+    }
 
     /// <summary>
     /// Класс для процедур и функций
@@ -11,10 +15,12 @@ namespace CompilerConsole.Parser.BodyNodes {
     public class FuncNode : BodyNode {
 
         public List<VariableNode> Args { get; set; }
+        public FuncType FuncType { get; set; }
 
-        public FuncNode(DataType dataType, string name, List<VariableNode> args, Body bodyTable)
+        public FuncNode(DataType dataType, string name, List<VariableNode> args, Body bodyTable, FuncType funcType = FuncType.Cust)
             : base(dataType, name, bodyTable) {
             this.Args = args;
+            this.FuncType = funcType;
         }
 
         public override T FindNodeByName<T>(string name) {
@@ -35,6 +41,9 @@ namespace CompilerConsole.Parser.BodyNodes {
         }
 
         public override void WriteXml(XmlWriter writer) {
+            if (this.FuncType == FuncType.Libr) {
+                return;
+            }
             writer.WriteStartElement("FuncNode");
             base.WriteXml(writer);
 

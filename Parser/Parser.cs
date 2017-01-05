@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using Antlr.Runtime.Tree;
 using CompilerConsole.Parser.Abstract;
 using CompilerConsole.Parser.BodyNodes;
+using CompilerConsole.Parser.VarNodes;
 using CompilerConsole.Utils;
 
 namespace CompilerConsole.Parser {
@@ -25,6 +26,13 @@ namespace CompilerConsole.Parser {
     /// Класс ответственный за парсинг AST дерева
     /// </summary>
     public partial class Parser {
+        #region Consts
+        public const string WriteMethodName = "writeln";
+        public const string ReadMethodName = "readln";
+        public const string ReadFile = "fileRead";
+        public const string Main = "Main";
+        #endregion
+
 
         public ProgramNode ProgramNode { get; }
 
@@ -32,8 +40,8 @@ namespace CompilerConsole.Parser {
         private Dictionary<string, ExprToken> _exprTokensDictionary;
 
         public Parser() {
-            this.InitializeDictionary();
             this.ProgramNode = new ProgramNode(new Body());
+            this.InitializeDictionary();
         }
 
         private void InitializeDictionary() {
@@ -51,22 +59,30 @@ namespace CompilerConsole.Parser {
 
             #region exprTokensDictionary initialize
 
-            this._exprTokensDictionary = new Dictionary<string, ExprToken>();
-            this._exprTokensDictionary.Add("+", ExprToken.Add);
-            this._exprTokensDictionary.Add("-", ExprToken.Sub);
-            this._exprTokensDictionary.Add("*", ExprToken.Mult);
-            this._exprTokensDictionary.Add("/", ExprToken.Div);
-            this._exprTokensDictionary.Add(":=", ExprToken.Ass);
-            this._exprTokensDictionary.Add("=", ExprToken.IsEqual);
-            this._exprTokensDictionary.Add("<", ExprToken.IsLess);
-            this._exprTokensDictionary.Add(">", ExprToken.IsMore);
-            this._exprTokensDictionary.Add("<=", ExprToken.IsLessOrEqual);
-            this._exprTokensDictionary.Add(">=", ExprToken.IsMoreOrEqual);
-            this._exprTokensDictionary.Add("AND", ExprToken.Conj);
-            this._exprTokensDictionary.Add("OR", ExprToken.Dij);
-            this._exprTokensDictionary.Add("NOT", ExprToken.Neg);
+            this._exprTokensDictionary = new Dictionary<string, ExprToken> {
+                {"+", ExprToken.Add},
+                {"-", ExprToken.Sub},
+                {"*", ExprToken.Mult},
+                {"/", ExprToken.Div},
+                {":=", ExprToken.Ass},
+                {"=", ExprToken.IsEqual},
+                {"<", ExprToken.IsLess},
+                {">", ExprToken.IsMore},
+                {"<=", ExprToken.IsLessOrEqual},
+                {">=", ExprToken.IsMoreOrEqual},
+                {"AND", ExprToken.Conj},
+                {"OR", ExprToken.Dij},
+                {"NOT", ExprToken.Neg}
+            };
 
             #endregion
+
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName, new List<VariableNode>() { new StructVarNode(DataType.VarInt, "var") }, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName, new List<VariableNode>() { new StructVarNode(DataType.VarChar, "var") }, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName, new List<VariableNode>() { new StructVarNode(DataType.VarBool, "var") }, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName, new List<VariableNode>() { new StructVarNode(DataType.VarString, "var") }, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.VarString, ReadFile, new List<VariableNode>() { new StructVarNode(DataType.VarString, "var") }, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.VarString, ReadMethodName,  new List<VariableNode>(), new Body(), FuncType.Libr));
 
         }
 
@@ -119,7 +135,7 @@ namespace CompilerConsole.Parser {
                     return;
                 }
                 case Token.MainBody: {
-                    var mainMethod = new FuncNode(DataType.Void, "Main", new List<VariableNode>(), new Body());
+                    var mainMethod = new FuncNode(DataType.Void, Main, new List<VariableNode>(), new Body());
                     mainMethod.ParentBodyNode = this.ProgramNode;
                     this.ProgramNode.AddNode(mainMethod);
                     this.Action(treeNode, mainMethod, Token.Body);
@@ -133,13 +149,7 @@ namespace CompilerConsole.Parser {
                 bodyNode.AddNode(this.ParseExpression(treeNode, bodyNode));
             }
             else {
-
-                try {
-                    this.Action(treeNode, bodyNode, this._tokenDictionary[treeNode.Text]);
-                }
-                catch (Exception ex) {
-                    Console.WriteLine(ex.Message);
-                }
+                this.Action(treeNode, bodyNode, this._tokenDictionary[treeNode.Text]);
             }
         }
 
@@ -248,7 +258,7 @@ namespace CompilerConsole.Parser {
             foreach (var node in this.ProgramNode) {
                 if (node is FuncNode) {
                     var funcNode = (FuncNode) node;
-                    for (int i = 0; i < funcNode.Args.Count; i++) {
+                    for (var i = 0; i < funcNode.Args.Count; i++) {
                         var arg = funcNode.Args[i];
                         arg.IsMethodArg = true;
                         arg.Number = i;

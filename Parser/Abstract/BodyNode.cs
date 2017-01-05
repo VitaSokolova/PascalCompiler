@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using CompilerConsole.Parser.BodyNodes;
 using CompilerConsole.Utils;
 
 namespace CompilerConsole.Parser.Abstract {
@@ -63,6 +64,38 @@ namespace CompilerConsole.Parser.Abstract {
             return this.FindNodeByName<T>(name, this);
         }
 
+        [Obsolete]
+        public virtual FuncNode FindFuncByNameAndArgs(string name, List<Node> args) {
+            if (this is FuncNode) {
+                var func = (FuncNode) this;
+                var findFlag = false;
+                if (func.Args.Count == args.Count && this.Name == name) {
+                    findFlag = true;
+                    for (int i = 0; i < func.Args.Count; i++) {
+                        var variableNode = func.Args[i];
+                        if (variableNode.DataType != args[i].DataType) {
+                            findFlag = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (findFlag) {
+                    return this as FuncNode;
+                }
+            }
+            foreach (var node in this) {
+                if (node is FuncNode) {
+                    var func = (FuncNode) node;
+                    var tempNode = func.FindFuncByNameAndArgs(name, args);
+                    if (tempNode != null) {
+                        return tempNode;
+                    }
+                }
+            }
+            return this.ParentBodyNode?.FindFuncByNameAndArgs(name, args);
+        }
+
         #region IEnumerable implementation
 
         public IEnumerator<Node> GetEnumerator() {
@@ -74,5 +107,36 @@ namespace CompilerConsole.Parser.Abstract {
         }
 
         #endregion
+
+        public static FuncNode FindFuncByNameAndArgsWithRoot(string name, List<Node> args, BodyNode rootBodyNode) {
+            if (rootBodyNode is FuncNode) {
+                var func = (FuncNode) rootBodyNode;
+                var findFlag = false;
+                if (func.Args.Count == args.Count && rootBodyNode.Name == name) {
+                    findFlag = true;
+                    for (int i = 0; i < func.Args.Count; i++) {
+                        var variableNode = func.Args[i];
+                        if (variableNode.DataType != args[i].DataType) {
+                            findFlag = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (findFlag) {
+                    return rootBodyNode as FuncNode;
+                }
+            }
+            foreach (var node in rootBodyNode) {
+                if (node is FuncNode) {
+                    var func = (FuncNode) node;
+                    var tempNode = FindFuncByNameAndArgsWithRoot(name, args, func);
+                    if (tempNode != null) {
+                        return tempNode;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

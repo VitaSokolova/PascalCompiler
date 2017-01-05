@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2017-01-05 03:25:14
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2017-01-05 04:11:28
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -1442,26 +1442,23 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = CHAR;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:82:6: ( '\\'' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) '\\'' )
+    		// Lang2.g:82:6: ( '\\'' ( options {greedy=false; } : . ) '\\'' )
     		DebugEnterAlt(1);
-    		// Lang2.g:82:8: '\\'' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) '\\''
+    		// Lang2.g:82:8: '\\'' ( options {greedy=false; } : . ) '\\''
     		{
-    		DebugLocation(82, 12);
+    		DebugLocation(82, 8);
     		Match('\''); 
-    		DebugLocation(82, 14);
-    		if ((input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z'))
+    		DebugLocation(82, 13);
+    		// Lang2.g:82:13: ( options {greedy=false; } : . )
+    		DebugEnterAlt(1);
+    		// Lang2.g:82:41: .
     		{
-    			input.Consume();
+    		DebugLocation(82, 41);
+    		MatchAny(); 
 
     		}
-    		else
-    		{
-    			MismatchedSetException mse = new MismatchedSetException(null,input);
-    			DebugRecognitionException(mse);
-    			Recover(mse);
-    			throw mse;}
 
-    		DebugLocation(82, 47);
+    		DebugLocation(82, 45);
     		Match('\''); 
 
     		}
@@ -1559,14 +1556,14 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = STRING;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:86:8: ( '\\\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )* '\\\"' )
+    		// Lang2.g:86:8: ( '\"' ( options {greedy=false; } : . )* '\"' )
     		DebugEnterAlt(1);
-    		// Lang2.g:86:10: '\\\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )* '\\\"'
+    		// Lang2.g:86:11: '\"' ( options {greedy=false; } : . )* '\"'
     		{
-    		DebugLocation(86, 10);
-    		Match('\"'); 
     		DebugLocation(86, 14);
-    		// Lang2.g:86:14: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
+    		Match('\"'); 
+    		DebugLocation(86, 16);
+    		// Lang2.g:86:16: ( options {greedy=false; } : . )*
     		try { DebugEnterSubRule(4);
     		while (true)
     		{
@@ -1574,7 +1571,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     			try { DebugEnterDecision(4, decisionCanBacktrack[4]);
     			int LA4_0 = input.LA(1);
 
-    			if (((LA4_0>='0' && LA4_0<='9')||(LA4_0>='A' && LA4_0<='Z')||(LA4_0>='a' && LA4_0<='z')))
+    			if ((LA4_0=='\"'))
+    			{
+    				alt4=2;
+    			}
+    			else if (((LA4_0>='\u0000' && LA4_0<='!')||(LA4_0>='#' && LA4_0<='\uFFFF')))
     			{
     				alt4=1;
     			}
@@ -1585,21 +1586,10 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:
+    				// Lang2.g:86:44: .
     				{
-    				DebugLocation(86, 14);
-    				if ((input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z'))
-    				{
-    					input.Consume();
-
-    				}
-    				else
-    				{
-    					MismatchedSetException mse = new MismatchedSetException(null,input);
-    					DebugRecognitionException(mse);
-    					Recover(mse);
-    					throw mse;}
-
+    				DebugLocation(86, 44);
+    				MatchAny(); 
 
     				}
     				break;
@@ -1614,7 +1604,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 
     		} finally { DebugExitSubRule(4); }
 
-    		DebugLocation(86, 43);
+    		DebugLocation(86, 52);
     		Match('\"'); 
 
     		}

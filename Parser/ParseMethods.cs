@@ -210,27 +210,18 @@ namespace CompilerConsole.Parser {
             ITree methName = tree.GetChild(0);
             ITree args = tree.GetChild(1);
 
-            FuncNode method = bodyNode.FindNodeByName<FuncNode>(methName.Text);
-
-            if (method == null) {
-                throw new Exception($"Метод с именем {methName.Text} не найден в текущем контексте");
-            }
             List<Node> argList = new List<Node>();
 
             if (args != null) {
                 for (int i = 0; i < args.ChildCount; i++) {
                     argList.Add(this.ParseExpression(args.GetChild(i), bodyNode));
                 }
+            }
 
-                if (argList.Count != method.Args.Count) {
-                    throw new Exception($"Метод с именем {method.Name} содержит другое кол-во вргументов ");
-                }
-
-                for (int i = 0; i < argList.Count; i++) {
-                    if (argList[i].DataType != method.Args[i].DataType) {
-                        throw new Exception($"Метод с именем {method.Name} не содержит аргументы с такими типами ");
-                    }
-                }
+            FuncNode method = BodyNode.FindFuncByNameAndArgsWithRoot(methName.Text, argList, this.ProgramNode);
+            if (method == null)
+            {
+                throw new Exception($"Метод с именем {methName.Text} не найден в текущем контексте");
             }
 
             FuncCall call = new FuncCall(method);

@@ -79,11 +79,11 @@ WS:
 
 //----------------DATA TYPES------------------------//
 
-CHAR	:	'\''! ('a'..'z'|'A'..'Z'|'0'..'9') '\''!
+CHAR	:	'\'' ( options {greedy=false;} : . ) '\''
 	;	
 INT		:	('0'..'9')+
 	;
-STRING	:	'\"'('a'..'z'|'A'..'Z'|'0'..'9')*'\"'
+STRING	:	 '"'! ( options {greedy=false;} : . )* '"'!
 		;
 
 BOOLEAN	:	TRUE|FALSE

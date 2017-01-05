@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
+using CompilerConsole.CILGenerator;
 using Lang2;
 namespace CompilerConsole
 {
@@ -41,6 +42,8 @@ namespace CompilerConsole
                 p.MakeMethodArgs();
                 p.MakeLocalVarNumbers();
                 p.Serialize();
+                CILGenerator.Generator tp = new Generator();
+                tp.Generate(p);
                 Console.ReadKey();
             }
             catch (Exception e)
