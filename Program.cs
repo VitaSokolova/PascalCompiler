@@ -37,6 +37,9 @@ namespace CompilerConsole
                 DrawingTreeLib.Views.DrawingTreeLib.Initialize(tree);
                var p =  new Parser.Parser();
                     p.Parse(tree);
+                p.MakeGlobalVariables();
+                p.MakeMethodArgs();
+                p.MakeLocalVarNumbers();
                 p.Serialize();
                 Console.ReadKey();
             }

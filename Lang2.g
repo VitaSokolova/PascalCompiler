@@ -53,6 +53,10 @@ tokens{
 	ARR_DECL;
 	RANGE;
 	ARR_CALL;
+	MAIN_BODY;
+	VOID = 'void';
+	REPEAT = 'repeat';
+	UNTIL = 'until';
 }
 
 @header{
@@ -185,7 +189,7 @@ funcCall	:	VARIABLE'(' funcCallArgsW? ')' -> ^(FUNC_CALL VARIABLE funcCallArgsW?
 argDeclExpr	:	'('! argDeclMany? ')'! -> ^(FUNC_PROC_ARGS argDeclMany?)
 			;
 
-retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|arrayDecl|T_STRING)
+retTypeExpr	:	(T_INT|T_BOOL|T_CHAR|T_STRING)
 			;
 
 retTypeExprWrap	:	retTypeExpr -> ^(FUNC_PROC_RET_TYPE retTypeExpr)
@@ -212,15 +216,17 @@ conditionExpr:	IF condExpr THEN! bodyExpr conditionElseExpr? -> ^(IF condExpr bo
 //---------------------------------------------------------------//
 forExpr	:	 assExpr TO^ expressions
 		;
+
 loopExpr:	WHILE condExpr DO! bodyExpr -> ^(WHILE condExpr bodyExpr)
 			|FOR forExpr DO bodyExpr -> ^(FOR forExpr bodyExpr)
+			|REPEAT bodyExpr UNTIL condExpr OP_END -> ^(REPEAT condExpr bodyExpr)
 		;	
 
 assExpr	:	 VARIABLE ASSIGN^ expressions
 			|arrayCall ASSIGN^ expressions
 	;
 
-argTypeDecl	:	typeDecl -> ^(TYPE_DECL typeDecl)
+argTypeDecl	:	varTypeDeclW -> ^(TYPE_DECL varTypeDeclW)
 			;
 
 partArgDecl: VARIABLE(','! VARIABLE)*;
@@ -256,12 +262,14 @@ varDeclW	:	VAR (varDecl12W+) -> ^(VAR_DECL varDecl12W+ )
 
 bodyExpr	:	BEGIN! bodyOper* END! OP_END! -> ^(BODY_EXPR bodyOper*)
 			;
-
+mainBodyExpr	:	BEGIN! bodyOper* END! OP_END -> ^(MAIN_BODY bodyOper*)
+				;
 func_proc_expr	: funcDeclare|procedureDeclare ;
 
 fpExprW	:	func_proc_expr* -> ^(FUNC_PROC_EXPR func_proc_expr*);
 
-wrapToBody : varDeclW? fpExprW bodyExpr -> ^(BODY_EXPR varDeclW? fpExprW bodyExpr);
+wrapToBody : varDeclW? fpExprW mainBodyExpr -> ^(BODY_EXPR varDeclW? fpExprW mainBodyExpr)
+			;
 
 expr	:	 PROGRAM VARIABLE OP_END! wrapToBody -> ^(PROGRAM VARIABLE wrapToBody)
 	;
