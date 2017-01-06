@@ -321,3 +321,64 @@ end;
 end;
 readln();
 end;
+
+program t;
+var i:integer;
+flag:boolean;
+
+function a():string;
+begin
+result:="AHAHAHA";
+end;
+function b(elem:integer):integer;
+begin
+result:= elem * 99999;
+end;
+
+begin
+
+for i:=1 to 10 do
+begin
+
+if(i<5) begin
+
+writeln(a());
+end;
+else begin
+
+writeln(b(i));
+end;
+end;
+
+flag := true;
+
+if NOT (i=0) then begin
+writeln("IT WORKS!");
+end;
+else begin
+writeln("ITS NOT WORKING");
+end;
+
+if NOT (flag) then begin
+writeln("ITS NOT WORKING");
+end;
+else begin
+writeln("IT WORKS!");
+end;
+
+if flag AND (i=0) then begin
+writeln("ITS NOT WORKING");
+end;
+else begin
+writeln("IT WORKS!");
+end;
+
+if flag OR (i=0) then begin
+writeln("IT WORKS!");
+end;
+else begin
+writeln("ITS NOT WORKING");
+end;
+
+readln();
+end;

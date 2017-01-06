@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2017-01-06 03:08:25
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2017-01-06 03:51:49
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -111,8 +111,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 				false, // invalid decision
 				false, false, false, false, false, false, false, false, false, false, 
 				false, false, false, false, false, false, false, false, false, false, 
-				false, false, false, false, false, false, false, false, false, false, 
-				false
+				false, false, false, false, false, false, false, false, false, false
 			};
 	#else
 		private static readonly bool[] decisionCanBacktrack = new bool[0];
@@ -703,7 +702,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_mathGroup() {}
 
     // $ANTLR start "mathGroup"
-    // Lang2.g:132:1: mathGroup : ( '(' expressions ')' | INT | CHAR | BOOLEAN | STRING | VARIABLE | funcCall );
+    // Lang2.g:132:1: mathGroup : ( '(' expressions ')' | INT | CHAR | BOOLEAN | STRING | VARIABLE | funcCall | arrayCall );
     [GrammarRule("mathGroup")]
     private Lang2Parser.mathGroup_return mathGroup()
     {
@@ -722,6 +721,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
         IToken VARIABLE23=null;
         Lang2Parser.expressions_return expressions17 = default(Lang2Parser.expressions_return);
         Lang2Parser.funcCall_return funcCall24 = default(Lang2Parser.funcCall_return);
+        Lang2Parser.arrayCall_return arrayCall25 = default(Lang2Parser.arrayCall_return);
 
         object char_literal16_tree=null;
         object char_literal18_tree=null;
@@ -735,66 +735,18 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	DebugLocation(132, 2);
     	try
     	{
-    		// Lang2.g:132:11: ( '(' expressions ')' | INT | CHAR | BOOLEAN | STRING | VARIABLE | funcCall )
-    		int alt1=7;
+    		// Lang2.g:132:11: ( '(' expressions ')' | INT | CHAR | BOOLEAN | STRING | VARIABLE | funcCall | arrayCall )
+    		int alt1=8;
     		try { DebugEnterDecision(1, decisionCanBacktrack[1]);
-    		switch (input.LA(1))
+    		try
     		{
-    		case 70:
-    			{
-    			alt1=1;
-    			}
-    			break;
-    		case INT:
-    			{
-    			alt1=2;
-    			}
-    			break;
-    		case CHAR:
-    			{
-    			alt1=3;
-    			}
-    			break;
-    		case BOOLEAN:
-    			{
-    			alt1=4;
-    			}
-    			break;
-    		case STRING:
-    			{
-    			alt1=5;
-    			}
-    			break;
-    		case VARIABLE:
-    			{
-    			int LA1_6 = input.LA(2);
-
-    			if ((LA1_6==70))
-    			{
-    				alt1=7;
-    			}
-    			else if ((LA1_6==EOF||LA1_6==DO||LA1_6==THEN||(LA1_6>=DIV && LA1_6<=MOD)||LA1_6==TO||(LA1_6>=BOOL_MULT && LA1_6<=BOOL_ADD)||LA1_6==OP_END||(LA1_6>=ADD && LA1_6<=DIVIDE)||(LA1_6>=GREATER && LA1_6<=MORE)||(LA1_6>=68 && LA1_6<=69)||(LA1_6>=71 && LA1_6<=72)))
-    			{
-    				alt1=6;
-    			}
-    			else
-    			{
-    				NoViableAltException nvae = new NoViableAltException("", 1, 6, input);
-
-    				DebugRecognitionException(nvae);
-    				throw nvae;
-    			}
-    			}
-    			break;
-    		default:
-    			{
-    				NoViableAltException nvae = new NoViableAltException("", 1, 0, input);
-
-    				DebugRecognitionException(nvae);
-    				throw nvae;
-    			}
+    			alt1 = dfa1.Predict(input);
     		}
-
+    		catch (NoViableAltException nvae)
+    		{
+    			DebugRecognitionException(nvae);
+    			throw;
+    		}
     		} finally { DebugExitDecision(1); }
     		switch (alt1)
     		{
@@ -902,6 +854,21 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
     			}
     			break;
+    		case 8:
+    			DebugEnterAlt(8);
+    			// Lang2.g:139:5: arrayCall
+    			{
+    			root_0 = (object)adaptor.Nil();
+
+    			DebugLocation(139, 5);
+    			PushFollow(Follow._arrayCall_in_mathGroup794);
+    			arrayCall25=arrayCall();
+    			PopFollow();
+
+    			adaptor.AddChild(root_0, arrayCall25.Tree);
+
+    			}
+    			break;
 
     		}
     		retval.Stop = (IToken)input.LT(-1);
@@ -920,7 +887,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(139, 2);
+     	DebugLocation(140, 2);
     	} finally { DebugExitRule(GrammarFileName, "mathGroup"); }
     	return retval;
 
@@ -937,7 +904,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_boolMult() {}
 
     // $ANTLR start "boolMult"
-    // Lang2.g:142:1: boolMult : mathGroup ( BOOL_MULT mathGroup )* ;
+    // Lang2.g:143:1: boolMult : mathGroup ( BOOL_MULT mathGroup )* ;
     [GrammarRule("boolMult")]
     private Lang2Parser.boolMult_return boolMult()
     {
@@ -947,30 +914,30 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        IToken BOOL_MULT26=null;
-        Lang2Parser.mathGroup_return mathGroup25 = default(Lang2Parser.mathGroup_return);
-        Lang2Parser.mathGroup_return mathGroup27 = default(Lang2Parser.mathGroup_return);
+        IToken BOOL_MULT27=null;
+        Lang2Parser.mathGroup_return mathGroup26 = default(Lang2Parser.mathGroup_return);
+        Lang2Parser.mathGroup_return mathGroup28 = default(Lang2Parser.mathGroup_return);
 
-        object BOOL_MULT26_tree=null;
+        object BOOL_MULT27_tree=null;
 
     	try { DebugEnterRule(GrammarFileName, "boolMult");
-    	DebugLocation(142, 3);
+    	DebugLocation(143, 3);
     	try
     	{
-    		// Lang2.g:142:10: ( mathGroup ( BOOL_MULT mathGroup )* )
+    		// Lang2.g:143:10: ( mathGroup ( BOOL_MULT mathGroup )* )
     		DebugEnterAlt(1);
-    		// Lang2.g:142:12: mathGroup ( BOOL_MULT mathGroup )*
+    		// Lang2.g:143:12: mathGroup ( BOOL_MULT mathGroup )*
     		{
     		root_0 = (object)adaptor.Nil();
 
-    		DebugLocation(142, 12);
-    		PushFollow(Follow._mathGroup_in_boolMult800);
-    		mathGroup25=mathGroup();
+    		DebugLocation(143, 12);
+    		PushFollow(Follow._mathGroup_in_boolMult806);
+    		mathGroup26=mathGroup();
     		PopFollow();
 
-    		adaptor.AddChild(root_0, mathGroup25.Tree);
-    		DebugLocation(142, 21);
-    		// Lang2.g:142:21: ( BOOL_MULT mathGroup )*
+    		adaptor.AddChild(root_0, mathGroup26.Tree);
+    		DebugLocation(143, 21);
+    		// Lang2.g:143:21: ( BOOL_MULT mathGroup )*
     		try { DebugEnterSubRule(2);
     		while (true)
     		{
@@ -989,19 +956,19 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:142:22: BOOL_MULT mathGroup
+    				// Lang2.g:143:22: BOOL_MULT mathGroup
     				{
-    				DebugLocation(142, 31);
-    				BOOL_MULT26=(IToken)Match(input,BOOL_MULT,Follow._BOOL_MULT_in_boolMult802); 
-    				BOOL_MULT26_tree = (object)adaptor.Create(BOOL_MULT26);
-    				root_0 = (object)adaptor.BecomeRoot(BOOL_MULT26_tree, root_0);
+    				DebugLocation(143, 31);
+    				BOOL_MULT27=(IToken)Match(input,BOOL_MULT,Follow._BOOL_MULT_in_boolMult808); 
+    				BOOL_MULT27_tree = (object)adaptor.Create(BOOL_MULT27);
+    				root_0 = (object)adaptor.BecomeRoot(BOOL_MULT27_tree, root_0);
 
-    				DebugLocation(142, 33);
-    				PushFollow(Follow._mathGroup_in_boolMult805);
-    				mathGroup27=mathGroup();
+    				DebugLocation(143, 33);
+    				PushFollow(Follow._mathGroup_in_boolMult811);
+    				mathGroup28=mathGroup();
     				PopFollow();
 
-    				adaptor.AddChild(root_0, mathGroup27.Tree);
+    				adaptor.AddChild(root_0, mathGroup28.Tree);
 
     				}
     				break;
@@ -1035,7 +1002,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(143, 3);
+     	DebugLocation(144, 3);
     	} finally { DebugExitRule(GrammarFileName, "boolMult"); }
     	return retval;
 
@@ -1052,7 +1019,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_boolAdd() {}
 
     // $ANTLR start "boolAdd"
-    // Lang2.g:145:1: boolAdd : boolMult ( BOOL_ADD boolMult )* ;
+    // Lang2.g:146:1: boolAdd : boolMult ( BOOL_ADD boolMult )* ;
     [GrammarRule("boolAdd")]
     private Lang2Parser.boolAdd_return boolAdd()
     {
@@ -1062,30 +1029,30 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        IToken BOOL_ADD29=null;
-        Lang2Parser.boolMult_return boolMult28 = default(Lang2Parser.boolMult_return);
-        Lang2Parser.boolMult_return boolMult30 = default(Lang2Parser.boolMult_return);
+        IToken BOOL_ADD30=null;
+        Lang2Parser.boolMult_return boolMult29 = default(Lang2Parser.boolMult_return);
+        Lang2Parser.boolMult_return boolMult31 = default(Lang2Parser.boolMult_return);
 
-        object BOOL_ADD29_tree=null;
+        object BOOL_ADD30_tree=null;
 
     	try { DebugEnterRule(GrammarFileName, "boolAdd");
-    	DebugLocation(145, 2);
+    	DebugLocation(146, 2);
     	try
     	{
-    		// Lang2.g:145:9: ( boolMult ( BOOL_ADD boolMult )* )
+    		// Lang2.g:146:9: ( boolMult ( BOOL_ADD boolMult )* )
     		DebugEnterAlt(1);
-    		// Lang2.g:145:11: boolMult ( BOOL_ADD boolMult )*
+    		// Lang2.g:146:11: boolMult ( BOOL_ADD boolMult )*
     		{
     		root_0 = (object)adaptor.Nil();
 
-    		DebugLocation(145, 11);
-    		PushFollow(Follow._boolMult_in_boolAdd819);
-    		boolMult28=boolMult();
+    		DebugLocation(146, 11);
+    		PushFollow(Follow._boolMult_in_boolAdd825);
+    		boolMult29=boolMult();
     		PopFollow();
 
-    		adaptor.AddChild(root_0, boolMult28.Tree);
-    		DebugLocation(145, 19);
-    		// Lang2.g:145:19: ( BOOL_ADD boolMult )*
+    		adaptor.AddChild(root_0, boolMult29.Tree);
+    		DebugLocation(146, 19);
+    		// Lang2.g:146:19: ( BOOL_ADD boolMult )*
     		try { DebugEnterSubRule(3);
     		while (true)
     		{
@@ -1104,19 +1071,19 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:145:20: BOOL_ADD boolMult
+    				// Lang2.g:146:20: BOOL_ADD boolMult
     				{
-    				DebugLocation(145, 28);
-    				BOOL_ADD29=(IToken)Match(input,BOOL_ADD,Follow._BOOL_ADD_in_boolAdd821); 
-    				BOOL_ADD29_tree = (object)adaptor.Create(BOOL_ADD29);
-    				root_0 = (object)adaptor.BecomeRoot(BOOL_ADD29_tree, root_0);
+    				DebugLocation(146, 28);
+    				BOOL_ADD30=(IToken)Match(input,BOOL_ADD,Follow._BOOL_ADD_in_boolAdd827); 
+    				BOOL_ADD30_tree = (object)adaptor.Create(BOOL_ADD30);
+    				root_0 = (object)adaptor.BecomeRoot(BOOL_ADD30_tree, root_0);
 
-    				DebugLocation(145, 30);
-    				PushFollow(Follow._boolMult_in_boolAdd824);
-    				boolMult30=boolMult();
+    				DebugLocation(146, 30);
+    				PushFollow(Follow._boolMult_in_boolAdd830);
+    				boolMult31=boolMult();
     				PopFollow();
 
-    				adaptor.AddChild(root_0, boolMult30.Tree);
+    				adaptor.AddChild(root_0, boolMult31.Tree);
 
     				}
     				break;
@@ -1150,7 +1117,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(146, 2);
+     	DebugLocation(147, 2);
     	} finally { DebugExitRule(GrammarFileName, "boolAdd"); }
     	return retval;
 
@@ -1167,7 +1134,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_boolElse() {}
 
     // $ANTLR start "boolElse"
-    // Lang2.g:148:1: boolElse : boolAdd ( boolOperator boolAdd )* ;
+    // Lang2.g:149:1: boolElse : boolAdd ( boolOperator boolAdd )* ;
     [GrammarRule("boolElse")]
     private Lang2Parser.boolElse_return boolElse()
     {
@@ -1177,29 +1144,29 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        Lang2Parser.boolAdd_return boolAdd31 = default(Lang2Parser.boolAdd_return);
-        Lang2Parser.boolOperator_return boolOperator32 = default(Lang2Parser.boolOperator_return);
-        Lang2Parser.boolAdd_return boolAdd33 = default(Lang2Parser.boolAdd_return);
+        Lang2Parser.boolAdd_return boolAdd32 = default(Lang2Parser.boolAdd_return);
+        Lang2Parser.boolOperator_return boolOperator33 = default(Lang2Parser.boolOperator_return);
+        Lang2Parser.boolAdd_return boolAdd34 = default(Lang2Parser.boolAdd_return);
 
 
     	try { DebugEnterRule(GrammarFileName, "boolElse");
-    	DebugLocation(148, 3);
+    	DebugLocation(149, 3);
     	try
     	{
-    		// Lang2.g:148:10: ( boolAdd ( boolOperator boolAdd )* )
+    		// Lang2.g:149:10: ( boolAdd ( boolOperator boolAdd )* )
     		DebugEnterAlt(1);
-    		// Lang2.g:148:12: boolAdd ( boolOperator boolAdd )*
+    		// Lang2.g:149:12: boolAdd ( boolOperator boolAdd )*
     		{
     		root_0 = (object)adaptor.Nil();
 
-    		DebugLocation(148, 12);
-    		PushFollow(Follow._boolAdd_in_boolElse837);
-    		boolAdd31=boolAdd();
+    		DebugLocation(149, 12);
+    		PushFollow(Follow._boolAdd_in_boolElse843);
+    		boolAdd32=boolAdd();
     		PopFollow();
 
-    		adaptor.AddChild(root_0, boolAdd31.Tree);
-    		DebugLocation(148, 19);
-    		// Lang2.g:148:19: ( boolOperator boolAdd )*
+    		adaptor.AddChild(root_0, boolAdd32.Tree);
+    		DebugLocation(149, 19);
+    		// Lang2.g:149:19: ( boolOperator boolAdd )*
     		try { DebugEnterSubRule(4);
     		while (true)
     		{
@@ -1218,20 +1185,20 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:148:20: boolOperator boolAdd
+    				// Lang2.g:149:20: boolOperator boolAdd
     				{
-    				DebugLocation(148, 32);
-    				PushFollow(Follow._boolOperator_in_boolElse839);
-    				boolOperator32=boolOperator();
+    				DebugLocation(149, 32);
+    				PushFollow(Follow._boolOperator_in_boolElse845);
+    				boolOperator33=boolOperator();
     				PopFollow();
 
-    				root_0 = (object)adaptor.BecomeRoot(boolOperator32.Tree, root_0);
-    				DebugLocation(148, 34);
-    				PushFollow(Follow._boolAdd_in_boolElse842);
-    				boolAdd33=boolAdd();
+    				root_0 = (object)adaptor.BecomeRoot(boolOperator33.Tree, root_0);
+    				DebugLocation(149, 34);
+    				PushFollow(Follow._boolAdd_in_boolElse848);
+    				boolAdd34=boolAdd();
     				PopFollow();
 
-    				adaptor.AddChild(root_0, boolAdd33.Tree);
+    				adaptor.AddChild(root_0, boolAdd34.Tree);
 
     				}
     				break;
@@ -1265,7 +1232,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(149, 3);
+     	DebugLocation(150, 3);
     	} finally { DebugExitRule(GrammarFileName, "boolElse"); }
     	return retval;
 
@@ -1282,7 +1249,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_boolNegative() {}
 
     // $ANTLR start "boolNegative"
-    // Lang2.g:151:1: boolNegative : ( ( boolElse ) | ( NOT boolElse ) );
+    // Lang2.g:152:1: boolNegative : ( ( boolElse ) | ( NOT boolElse ) );
     [GrammarRule("boolNegative")]
     private Lang2Parser.boolNegative_return boolNegative()
     {
@@ -1292,17 +1259,17 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        IToken NOT35=null;
-        Lang2Parser.boolElse_return boolElse34 = default(Lang2Parser.boolElse_return);
-        Lang2Parser.boolElse_return boolElse36 = default(Lang2Parser.boolElse_return);
+        IToken NOT36=null;
+        Lang2Parser.boolElse_return boolElse35 = default(Lang2Parser.boolElse_return);
+        Lang2Parser.boolElse_return boolElse37 = default(Lang2Parser.boolElse_return);
 
-        object NOT35_tree=null;
+        object NOT36_tree=null;
 
     	try { DebugEnterRule(GrammarFileName, "boolNegative");
-    	DebugLocation(151, 3);
+    	DebugLocation(152, 3);
     	try
     	{
-    		// Lang2.g:151:14: ( ( boolElse ) | ( NOT boolElse ) )
+    		// Lang2.g:152:14: ( ( boolElse ) | ( NOT boolElse ) )
     		int alt5=2;
     		try { DebugEnterDecision(5, decisionCanBacktrack[5]);
     		int LA5_0 = input.LA(1);
@@ -1327,21 +1294,21 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		{
     		case 1:
     			DebugEnterAlt(1);
-    			// Lang2.g:151:16: ( boolElse )
+    			// Lang2.g:152:16: ( boolElse )
     			{
     			root_0 = (object)adaptor.Nil();
 
-    			DebugLocation(151, 16);
-    			// Lang2.g:151:16: ( boolElse )
+    			DebugLocation(152, 16);
+    			// Lang2.g:152:16: ( boolElse )
     			DebugEnterAlt(1);
-    			// Lang2.g:151:17: boolElse
+    			// Lang2.g:152:17: boolElse
     			{
-    			DebugLocation(151, 17);
-    			PushFollow(Follow._boolElse_in_boolNegative857);
-    			boolElse34=boolElse();
+    			DebugLocation(152, 17);
+    			PushFollow(Follow._boolElse_in_boolNegative863);
+    			boolElse35=boolElse();
     			PopFollow();
 
-    			adaptor.AddChild(root_0, boolElse34.Tree);
+    			adaptor.AddChild(root_0, boolElse35.Tree);
 
     			}
 
@@ -1350,26 +1317,26 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			break;
     		case 2:
     			DebugEnterAlt(2);
-    			// Lang2.g:151:28: ( NOT boolElse )
+    			// Lang2.g:152:28: ( NOT boolElse )
     			{
     			root_0 = (object)adaptor.Nil();
 
-    			DebugLocation(151, 28);
-    			// Lang2.g:151:28: ( NOT boolElse )
+    			DebugLocation(152, 28);
+    			// Lang2.g:152:28: ( NOT boolElse )
     			DebugEnterAlt(1);
-    			// Lang2.g:151:29: NOT boolElse
+    			// Lang2.g:152:29: NOT boolElse
     			{
-    			DebugLocation(151, 32);
-    			NOT35=(IToken)Match(input,NOT,Follow._NOT_in_boolNegative862); 
-    			NOT35_tree = (object)adaptor.Create(NOT35);
-    			root_0 = (object)adaptor.BecomeRoot(NOT35_tree, root_0);
+    			DebugLocation(152, 32);
+    			NOT36=(IToken)Match(input,NOT,Follow._NOT_in_boolNegative868); 
+    			NOT36_tree = (object)adaptor.Create(NOT36);
+    			root_0 = (object)adaptor.BecomeRoot(NOT36_tree, root_0);
 
-    			DebugLocation(151, 34);
-    			PushFollow(Follow._boolElse_in_boolNegative865);
-    			boolElse36=boolElse();
+    			DebugLocation(152, 34);
+    			PushFollow(Follow._boolElse_in_boolNegative871);
+    			boolElse37=boolElse();
     			PopFollow();
 
-    			adaptor.AddChild(root_0, boolElse36.Tree);
+    			adaptor.AddChild(root_0, boolElse37.Tree);
 
     			}
 
@@ -1394,7 +1361,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(152, 3);
+     	DebugLocation(153, 3);
     	} finally { DebugExitRule(GrammarFileName, "boolNegative"); }
     	return retval;
 
@@ -1411,7 +1378,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_useDiv() {}
 
     // $ANTLR start "useDiv"
-    // Lang2.g:154:1: useDiv : boolNegative ( ( DIV | MOD ) '(' boolNegative ')' )* ;
+    // Lang2.g:155:1: useDiv : boolNegative ( ( DIV | MOD ) '(' boolNegative ')' )* ;
     [GrammarRule("useDiv")]
     private Lang2Parser.useDiv_return useDiv()
     {
@@ -1421,34 +1388,34 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        IToken set38=null;
-        IToken char_literal39=null;
-        IToken char_literal41=null;
-        Lang2Parser.boolNegative_return boolNegative37 = default(Lang2Parser.boolNegative_return);
-        Lang2Parser.boolNegative_return boolNegative40 = default(Lang2Parser.boolNegative_return);
+        IToken set39=null;
+        IToken char_literal40=null;
+        IToken char_literal42=null;
+        Lang2Parser.boolNegative_return boolNegative38 = default(Lang2Parser.boolNegative_return);
+        Lang2Parser.boolNegative_return boolNegative41 = default(Lang2Parser.boolNegative_return);
 
-        object set38_tree=null;
-        object char_literal39_tree=null;
-        object char_literal41_tree=null;
+        object set39_tree=null;
+        object char_literal40_tree=null;
+        object char_literal42_tree=null;
 
     	try { DebugEnterRule(GrammarFileName, "useDiv");
-    	DebugLocation(154, 2);
+    	DebugLocation(155, 2);
     	try
     	{
-    		// Lang2.g:154:8: ( boolNegative ( ( DIV | MOD ) '(' boolNegative ')' )* )
+    		// Lang2.g:155:8: ( boolNegative ( ( DIV | MOD ) '(' boolNegative ')' )* )
     		DebugEnterAlt(1);
-    		// Lang2.g:154:10: boolNegative ( ( DIV | MOD ) '(' boolNegative ')' )*
+    		// Lang2.g:155:10: boolNegative ( ( DIV | MOD ) '(' boolNegative ')' )*
     		{
     		root_0 = (object)adaptor.Nil();
 
-    		DebugLocation(154, 10);
-    		PushFollow(Follow._boolNegative_in_useDiv878);
-    		boolNegative37=boolNegative();
+    		DebugLocation(155, 10);
+    		PushFollow(Follow._boolNegative_in_useDiv884);
+    		boolNegative38=boolNegative();
     		PopFollow();
 
-    		adaptor.AddChild(root_0, boolNegative37.Tree);
-    		DebugLocation(154, 22);
-    		// Lang2.g:154:22: ( ( DIV | MOD ) '(' boolNegative ')' )*
+    		adaptor.AddChild(root_0, boolNegative38.Tree);
+    		DebugLocation(155, 22);
+    		// Lang2.g:155:22: ( ( DIV | MOD ) '(' boolNegative ')' )*
     		try { DebugEnterSubRule(6);
     		while (true)
     		{
@@ -1467,15 +1434,15 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:154:23: ( DIV | MOD ) '(' boolNegative ')'
+    				// Lang2.g:155:23: ( DIV | MOD ) '(' boolNegative ')'
     				{
-    				DebugLocation(154, 23);
-    				set38=(IToken)input.LT(1);
-    				set38=(IToken)input.LT(1);
+    				DebugLocation(155, 23);
+    				set39=(IToken)input.LT(1);
+    				set39=(IToken)input.LT(1);
     				if ((input.LA(1)>=DIV && input.LA(1)<=MOD))
     				{
     					input.Consume();
-    					root_0 = (object)adaptor.BecomeRoot((object)adaptor.Create(set38), root_0);
+    					root_0 = (object)adaptor.BecomeRoot((object)adaptor.Create(set39), root_0);
     					state.errorRecovery=false;
     				}
     				else
@@ -1485,16 +1452,16 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     					throw mse;
     				}
 
-    				DebugLocation(154, 37);
-    				char_literal39=(IToken)Match(input,70,Follow._70_in_useDiv887); 
-    				DebugLocation(154, 39);
-    				PushFollow(Follow._boolNegative_in_useDiv890);
-    				boolNegative40=boolNegative();
+    				DebugLocation(155, 37);
+    				char_literal40=(IToken)Match(input,70,Follow._70_in_useDiv893); 
+    				DebugLocation(155, 39);
+    				PushFollow(Follow._boolNegative_in_useDiv896);
+    				boolNegative41=boolNegative();
     				PopFollow();
 
-    				adaptor.AddChild(root_0, boolNegative40.Tree);
-    				DebugLocation(154, 55);
-    				char_literal41=(IToken)Match(input,71,Follow._71_in_useDiv892); 
+    				adaptor.AddChild(root_0, boolNegative41.Tree);
+    				DebugLocation(155, 55);
+    				char_literal42=(IToken)Match(input,71,Follow._71_in_useDiv898); 
 
     				}
     				break;
@@ -1528,7 +1495,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(155, 2);
+     	DebugLocation(156, 2);
     	} finally { DebugExitRule(GrammarFileName, "useDiv"); }
     	return retval;
 
@@ -1545,7 +1512,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_mathMult() {}
 
     // $ANTLR start "mathMult"
-    // Lang2.g:157:1: mathMult : useDiv ( ( MULT | DIVIDE ) useDiv )* ;
+    // Lang2.g:158:1: mathMult : useDiv ( ( MULT | DIVIDE ) useDiv )* ;
     [GrammarRule("mathMult")]
     private Lang2Parser.mathMult_return mathMult()
     {
@@ -1555,30 +1522,30 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        IToken set43=null;
-        Lang2Parser.useDiv_return useDiv42 = default(Lang2Parser.useDiv_return);
-        Lang2Parser.useDiv_return useDiv44 = default(Lang2Parser.useDiv_return);
+        IToken set44=null;
+        Lang2Parser.useDiv_return useDiv43 = default(Lang2Parser.useDiv_return);
+        Lang2Parser.useDiv_return useDiv45 = default(Lang2Parser.useDiv_return);
 
-        object set43_tree=null;
+        object set44_tree=null;
 
     	try { DebugEnterRule(GrammarFileName, "mathMult");
-    	DebugLocation(157, 1);
+    	DebugLocation(158, 1);
     	try
     	{
-    		// Lang2.g:158:2: ( useDiv ( ( MULT | DIVIDE ) useDiv )* )
+    		// Lang2.g:159:2: ( useDiv ( ( MULT | DIVIDE ) useDiv )* )
     		DebugEnterAlt(1);
-    		// Lang2.g:158:4: useDiv ( ( MULT | DIVIDE ) useDiv )*
+    		// Lang2.g:159:4: useDiv ( ( MULT | DIVIDE ) useDiv )*
     		{
     		root_0 = (object)adaptor.Nil();
 
-    		DebugLocation(158, 4);
-    		PushFollow(Follow._useDiv_in_mathMult909);
-    		useDiv42=useDiv();
+    		DebugLocation(159, 4);
+    		PushFollow(Follow._useDiv_in_mathMult915);
+    		useDiv43=useDiv();
     		PopFollow();
 
-    		adaptor.AddChild(root_0, useDiv42.Tree);
-    		DebugLocation(158, 10);
-    		// Lang2.g:158:10: ( ( MULT | DIVIDE ) useDiv )*
+    		adaptor.AddChild(root_0, useDiv43.Tree);
+    		DebugLocation(159, 10);
+    		// Lang2.g:159:10: ( ( MULT | DIVIDE ) useDiv )*
     		try { DebugEnterSubRule(7);
     		while (true)
     		{
@@ -1597,15 +1564,15 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:158:11: ( MULT | DIVIDE ) useDiv
+    				// Lang2.g:159:11: ( MULT | DIVIDE ) useDiv
     				{
-    				DebugLocation(158, 11);
-    				set43=(IToken)input.LT(1);
-    				set43=(IToken)input.LT(1);
+    				DebugLocation(159, 11);
+    				set44=(IToken)input.LT(1);
+    				set44=(IToken)input.LT(1);
     				if ((input.LA(1)>=MULT && input.LA(1)<=DIVIDE))
     				{
     					input.Consume();
-    					root_0 = (object)adaptor.BecomeRoot((object)adaptor.Create(set43), root_0);
+    					root_0 = (object)adaptor.BecomeRoot((object)adaptor.Create(set44), root_0);
     					state.errorRecovery=false;
     				}
     				else
@@ -1615,12 +1582,12 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     					throw mse;
     				}
 
-    				DebugLocation(158, 25);
-    				PushFollow(Follow._useDiv_in_mathMult917);
-    				useDiv44=useDiv();
+    				DebugLocation(159, 25);
+    				PushFollow(Follow._useDiv_in_mathMult923);
+    				useDiv45=useDiv();
     				PopFollow();
 
-    				adaptor.AddChild(root_0, useDiv44.Tree);
+    				adaptor.AddChild(root_0, useDiv45.Tree);
 
     				}
     				break;
@@ -1654,7 +1621,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(159, 1);
+     	DebugLocation(160, 1);
     	} finally { DebugExitRule(GrammarFileName, "mathMult"); }
     	return retval;
 
@@ -1671,7 +1638,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_mathAdd() {}
 
     // $ANTLR start "mathAdd"
-    // Lang2.g:161:1: mathAdd : mathMult ( ( ADD | REM ) mathMult )* ;
+    // Lang2.g:162:1: mathAdd : mathMult ( ( ADD | REM ) mathMult )* ;
     [GrammarRule("mathAdd")]
     private Lang2Parser.mathAdd_return mathAdd()
     {
@@ -1681,30 +1648,30 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        IToken set46=null;
-        Lang2Parser.mathMult_return mathMult45 = default(Lang2Parser.mathMult_return);
-        Lang2Parser.mathMult_return mathMult47 = default(Lang2Parser.mathMult_return);
+        IToken set47=null;
+        Lang2Parser.mathMult_return mathMult46 = default(Lang2Parser.mathMult_return);
+        Lang2Parser.mathMult_return mathMult48 = default(Lang2Parser.mathMult_return);
 
-        object set46_tree=null;
+        object set47_tree=null;
 
     	try { DebugEnterRule(GrammarFileName, "mathAdd");
-    	DebugLocation(161, 1);
+    	DebugLocation(162, 1);
     	try
     	{
-    		// Lang2.g:161:9: ( mathMult ( ( ADD | REM ) mathMult )* )
+    		// Lang2.g:162:9: ( mathMult ( ( ADD | REM ) mathMult )* )
     		DebugEnterAlt(1);
-    		// Lang2.g:161:11: mathMult ( ( ADD | REM ) mathMult )*
+    		// Lang2.g:162:11: mathMult ( ( ADD | REM ) mathMult )*
     		{
     		root_0 = (object)adaptor.Nil();
 
-    		DebugLocation(161, 11);
-    		PushFollow(Follow._mathMult_in_mathAdd930);
-    		mathMult45=mathMult();
+    		DebugLocation(162, 11);
+    		PushFollow(Follow._mathMult_in_mathAdd936);
+    		mathMult46=mathMult();
     		PopFollow();
 
-    		adaptor.AddChild(root_0, mathMult45.Tree);
-    		DebugLocation(161, 19);
-    		// Lang2.g:161:19: ( ( ADD | REM ) mathMult )*
+    		adaptor.AddChild(root_0, mathMult46.Tree);
+    		DebugLocation(162, 19);
+    		// Lang2.g:162:19: ( ( ADD | REM ) mathMult )*
     		try { DebugEnterSubRule(8);
     		while (true)
     		{
@@ -1723,15 +1690,15 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:161:20: ( ADD | REM ) mathMult
+    				// Lang2.g:162:20: ( ADD | REM ) mathMult
     				{
-    				DebugLocation(161, 20);
-    				set46=(IToken)input.LT(1);
-    				set46=(IToken)input.LT(1);
+    				DebugLocation(162, 20);
+    				set47=(IToken)input.LT(1);
+    				set47=(IToken)input.LT(1);
     				if ((input.LA(1)>=ADD && input.LA(1)<=REM))
     				{
     					input.Consume();
-    					root_0 = (object)adaptor.BecomeRoot((object)adaptor.Create(set46), root_0);
+    					root_0 = (object)adaptor.BecomeRoot((object)adaptor.Create(set47), root_0);
     					state.errorRecovery=false;
     				}
     				else
@@ -1741,12 +1708,12 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     					throw mse;
     				}
 
-    				DebugLocation(161, 30);
-    				PushFollow(Follow._mathMult_in_mathAdd938);
-    				mathMult47=mathMult();
+    				DebugLocation(162, 30);
+    				PushFollow(Follow._mathMult_in_mathAdd944);
+    				mathMult48=mathMult();
     				PopFollow();
 
-    				adaptor.AddChild(root_0, mathMult47.Tree);
+    				adaptor.AddChild(root_0, mathMult48.Tree);
 
     				}
     				break;
@@ -1780,7 +1747,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(162, 1);
+     	DebugLocation(163, 1);
     	} finally { DebugExitRule(GrammarFileName, "mathAdd"); }
     	return retval;
 
@@ -1797,7 +1764,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_mathExpr() {}
 
     // $ANTLR start "mathExpr"
-    // Lang2.g:164:1: mathExpr : mathAdd ;
+    // Lang2.g:165:1: mathExpr : mathAdd ;
     [GrammarRule("mathExpr")]
     private Lang2Parser.mathExpr_return mathExpr()
     {
@@ -1807,25 +1774,25 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        Lang2Parser.mathAdd_return mathAdd48 = default(Lang2Parser.mathAdd_return);
+        Lang2Parser.mathAdd_return mathAdd49 = default(Lang2Parser.mathAdd_return);
 
 
     	try { DebugEnterRule(GrammarFileName, "mathExpr");
-    	DebugLocation(164, 1);
+    	DebugLocation(165, 1);
     	try
     	{
-    		// Lang2.g:165:2: ( mathAdd )
+    		// Lang2.g:166:2: ( mathAdd )
     		DebugEnterAlt(1);
-    		// Lang2.g:165:4: mathAdd
+    		// Lang2.g:166:4: mathAdd
     		{
     		root_0 = (object)adaptor.Nil();
 
-    		DebugLocation(165, 4);
-    		PushFollow(Follow._mathAdd_in_mathExpr952);
-    		mathAdd48=mathAdd();
+    		DebugLocation(166, 4);
+    		PushFollow(Follow._mathAdd_in_mathExpr958);
+    		mathAdd49=mathAdd();
     		PopFollow();
 
-    		adaptor.AddChild(root_0, mathAdd48.Tree);
+    		adaptor.AddChild(root_0, mathAdd49.Tree);
 
     		}
 
@@ -1845,7 +1812,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(167, 1);
+     	DebugLocation(168, 1);
     	} finally { DebugExitRule(GrammarFileName, "mathExpr"); }
     	return retval;
 
@@ -1862,7 +1829,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_bodyOper() {}
 
     // $ANTLR start "bodyOper"
-    // Lang2.g:171:1: bodyOper : ( assExpr OP_END | conditionExpr | loopExpr | funcCall OP_END );
+    // Lang2.g:172:1: bodyOper : ( assExpr OP_END | conditionExpr | loopExpr | funcCall OP_END );
     [GrammarRule("bodyOper")]
     private Lang2Parser.bodyOper_return bodyOper()
     {
@@ -1872,21 +1839,21 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        IToken OP_END50=null;
-        IToken OP_END54=null;
-        Lang2Parser.assExpr_return assExpr49 = default(Lang2Parser.assExpr_return);
-        Lang2Parser.conditionExpr_return conditionExpr51 = default(Lang2Parser.conditionExpr_return);
-        Lang2Parser.loopExpr_return loopExpr52 = default(Lang2Parser.loopExpr_return);
-        Lang2Parser.funcCall_return funcCall53 = default(Lang2Parser.funcCall_return);
+        IToken OP_END51=null;
+        IToken OP_END55=null;
+        Lang2Parser.assExpr_return assExpr50 = default(Lang2Parser.assExpr_return);
+        Lang2Parser.conditionExpr_return conditionExpr52 = default(Lang2Parser.conditionExpr_return);
+        Lang2Parser.loopExpr_return loopExpr53 = default(Lang2Parser.loopExpr_return);
+        Lang2Parser.funcCall_return funcCall54 = default(Lang2Parser.funcCall_return);
 
-        object OP_END50_tree=null;
-        object OP_END54_tree=null;
+        object OP_END51_tree=null;
+        object OP_END55_tree=null;
 
     	try { DebugEnterRule(GrammarFileName, "bodyOper");
-    	DebugLocation(171, 4);
+    	DebugLocation(172, 4);
     	try
     	{
-    		// Lang2.g:171:10: ( assExpr OP_END | conditionExpr | loopExpr | funcCall OP_END )
+    		// Lang2.g:172:10: ( assExpr OP_END | conditionExpr | loopExpr | funcCall OP_END )
     		int alt9=4;
     		try { DebugEnterDecision(9, decisionCanBacktrack[9]);
     		switch (input.LA(1))
@@ -1938,65 +1905,65 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		{
     		case 1:
     			DebugEnterAlt(1);
-    			// Lang2.g:171:12: assExpr OP_END
+    			// Lang2.g:172:12: assExpr OP_END
     			{
     			root_0 = (object)adaptor.Nil();
 
-    			DebugLocation(171, 12);
-    			PushFollow(Follow._assExpr_in_bodyOper967);
-    			assExpr49=assExpr();
+    			DebugLocation(172, 12);
+    			PushFollow(Follow._assExpr_in_bodyOper973);
+    			assExpr50=assExpr();
     			PopFollow();
 
-    			adaptor.AddChild(root_0, assExpr49.Tree);
-    			DebugLocation(171, 26);
-    			OP_END50=(IToken)Match(input,OP_END,Follow._OP_END_in_bodyOper969); 
+    			adaptor.AddChild(root_0, assExpr50.Tree);
+    			DebugLocation(172, 26);
+    			OP_END51=(IToken)Match(input,OP_END,Follow._OP_END_in_bodyOper975); 
 
     			}
     			break;
     		case 2:
     			DebugEnterAlt(2);
-    			// Lang2.g:172:6: conditionExpr
+    			// Lang2.g:173:6: conditionExpr
     			{
     			root_0 = (object)adaptor.Nil();
 
-    			DebugLocation(172, 6);
-    			PushFollow(Follow._conditionExpr_in_bodyOper977);
-    			conditionExpr51=conditionExpr();
+    			DebugLocation(173, 6);
+    			PushFollow(Follow._conditionExpr_in_bodyOper983);
+    			conditionExpr52=conditionExpr();
     			PopFollow();
 
-    			adaptor.AddChild(root_0, conditionExpr51.Tree);
+    			adaptor.AddChild(root_0, conditionExpr52.Tree);
 
     			}
     			break;
     		case 3:
     			DebugEnterAlt(3);
-    			// Lang2.g:173:6: loopExpr
+    			// Lang2.g:174:6: loopExpr
     			{
     			root_0 = (object)adaptor.Nil();
 
-    			DebugLocation(173, 6);
-    			PushFollow(Follow._loopExpr_in_bodyOper984);
-    			loopExpr52=loopExpr();
+    			DebugLocation(174, 6);
+    			PushFollow(Follow._loopExpr_in_bodyOper990);
+    			loopExpr53=loopExpr();
     			PopFollow();
 
-    			adaptor.AddChild(root_0, loopExpr52.Tree);
+    			adaptor.AddChild(root_0, loopExpr53.Tree);
 
     			}
     			break;
     		case 4:
     			DebugEnterAlt(4);
-    			// Lang2.g:174:6: funcCall OP_END
+    			// Lang2.g:175:6: funcCall OP_END
     			{
     			root_0 = (object)adaptor.Nil();
 
-    			DebugLocation(174, 6);
-    			PushFollow(Follow._funcCall_in_bodyOper991);
-    			funcCall53=funcCall();
+    			DebugLocation(175, 6);
+    			PushFollow(Follow._funcCall_in_bodyOper997);
+    			funcCall54=funcCall();
     			PopFollow();
 
-    			adaptor.AddChild(root_0, funcCall53.Tree);
-    			DebugLocation(174, 21);
-    			OP_END54=(IToken)Match(input,OP_END,Follow._OP_END_in_bodyOper993); 
+    			adaptor.AddChild(root_0, funcCall54.Tree);
+    			DebugLocation(175, 21);
+    			OP_END55=(IToken)Match(input,OP_END,Follow._OP_END_in_bodyOper999); 
 
     			}
     			break;
@@ -2018,7 +1985,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	finally
     	{
         }
-     	DebugLocation(175, 4);
+     	DebugLocation(176, 4);
     	} finally { DebugExitRule(GrammarFileName, "bodyOper"); }
     	return retval;
 
@@ -2035,7 +2002,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     protected virtual void Leave_expressions() {}
 
     // $ANTLR start "expressions"
-    // Lang2.g:177:1: expressions : ( mathExpr | arrayCall );
+    // Lang2.g:178:1: expressions : mathExpr ;
     [GrammarRule("expressions")]
     private Lang2Parser.expressions_return expressions()
     {
@@ -2045,85 +2012,28 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
         object root_0 = null;
 
-        Lang2Parser.mathExpr_return mathExpr55 = default(Lang2Parser.mathExpr_return);
-        Lang2Parser.arrayCall_return arrayCall56 = default(Lang2Parser.arrayCall_return);
+        Lang2Parser.mathExpr_return mathExpr56 = default(Lang2Parser.mathExpr_return);
 
 
     	try { DebugEnterRule(GrammarFileName, "expressions");
-    	DebugLocation(177, 4);
+    	DebugLocation(178, 4);
     	try
     	{
-    		// Lang2.g:177:13: ( mathExpr | arrayCall )
-    		int alt10=2;
-    		try { DebugEnterDecision(10, decisionCanBacktrack[10]);
-    		int LA10_0 = input.LA(1);
-
-    		if ((LA10_0==NOT||(LA10_0>=BOOLEAN && LA10_0<=STRING)||LA10_0==70))
+    		// Lang2.g:178:13: ( mathExpr )
+    		DebugEnterAlt(1);
+    		// Lang2.g:178:15: mathExpr
     		{
-    			alt10=1;
-    		}
-    		else if ((LA10_0==VARIABLE))
-    		{
-    			int LA10_2 = input.LA(2);
+    		root_0 = (object)adaptor.Nil();
 
-    			if ((LA10_2==DO||LA10_2==THEN||(LA10_2>=DIV && LA10_2<=MOD)||LA10_2==TO||(LA10_2>=BOOL_MULT && LA10_2<=BOOL_ADD)||LA10_2==OP_END||(LA10_2>=ADD && LA10_2<=DIVIDE)||(LA10_2>=GREATER && LA10_2<=MORE)||(LA10_2>=68 && LA10_2<=71)))
-    			{
-    				alt10=1;
-    			}
-    			else if ((LA10_2==67))
-    			{
-    				alt10=2;
-    			}
-    			else
-    			{
-    				NoViableAltException nvae = new NoViableAltException("", 10, 2, input);
+    		DebugLocation(178, 15);
+    		PushFollow(Follow._mathExpr_in_expressions1013);
+    		mathExpr56=mathExpr();
+    		PopFollow();
 
-    				DebugRecognitionException(nvae);
-    				throw nvae;
-    			}
-    		}
-    		else
-    		{
-    			NoViableAltException nvae = new NoViableAltException("", 10, 0, input);
-
-    			DebugRecognitionException(nvae);
-    			throw nvae;
-    		}
-    		} finally { DebugExitDecision(10); }
-    		switch (alt10)
-    		{
-    		case 1:
-    			DebugEnterAlt(1);
-    			// Lang2.g:177:15: mathExpr
-    			{
-    			root_0 = (object)adaptor.Nil();
-
-    			DebugLocation(177, 15);
-    			PushFollow(Follow._mathExpr_in_expressions1007);
-    			mathExpr55=mathExpr();
-    			PopFollow();
-
-    			adaptor.AddChild(root_0, mathExpr55.Tree);
-
-    			}
-    			break;
-    		case 2:
-    			DebugEnterAlt(2);
-    			// Lang2.g:178:6: arrayCall
-    			{
-    			root_0 = (object)adaptor.Nil();
-
-    			DebugLocation(178, 6);
-    			PushFollow(Follow._arrayCall_in_expressions1014);
-    			arrayCall56=arrayCall();
-    			PopFollow();
-
-    			adaptor.AddChild(root_0, arrayCall56.Tree);
-
-    			}
-    			break;
+    		adaptor.AddChild(root_0, mathExpr56.Tree);
 
     		}
+
     		retval.Stop = (IToken)input.LT(-1);
 
     		retval.Tree = (object)adaptor.RulePostProcessing(root_0);
@@ -2184,37 +2094,37 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		root_0 = (object)adaptor.Nil();
 
     		DebugLocation(181, 17);
-    		PushFollow(Follow._mathExpr_in_funcCallArgs1028);
+    		PushFollow(Follow._mathExpr_in_funcCallArgs1027);
     		mathExpr57=mathExpr();
     		PopFollow();
 
     		adaptor.AddChild(root_0, mathExpr57.Tree);
     		DebugLocation(181, 25);
     		// Lang2.g:181:25: ( ',' mathExpr )*
-    		try { DebugEnterSubRule(11);
+    		try { DebugEnterSubRule(10);
     		while (true)
     		{
-    			int alt11=2;
-    			try { DebugEnterDecision(11, decisionCanBacktrack[11]);
-    			int LA11_0 = input.LA(1);
+    			int alt10=2;
+    			try { DebugEnterDecision(10, decisionCanBacktrack[10]);
+    			int LA10_0 = input.LA(1);
 
-    			if ((LA11_0==72))
+    			if ((LA10_0==72))
     			{
-    				alt11=1;
+    				alt10=1;
     			}
 
 
-    			} finally { DebugExitDecision(11); }
-    			switch ( alt11 )
+    			} finally { DebugExitDecision(10); }
+    			switch ( alt10 )
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:181:26: ',' mathExpr
     				{
     				DebugLocation(181, 29);
-    				char_literal58=(IToken)Match(input,72,Follow._72_in_funcCallArgs1030); 
+    				char_literal58=(IToken)Match(input,72,Follow._72_in_funcCallArgs1029); 
     				DebugLocation(181, 31);
-    				PushFollow(Follow._mathExpr_in_funcCallArgs1033);
+    				PushFollow(Follow._mathExpr_in_funcCallArgs1032);
     				mathExpr59=mathExpr();
     				PopFollow();
 
@@ -2224,14 +2134,14 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				goto loop11;
+    				goto loop10;
     			}
     		}
 
-    		loop11:
+    		loop10:
     			;
 
-    		} finally { DebugExitSubRule(11); }
+    		} finally { DebugExitSubRule(10); }
 
 
     		}
@@ -2295,39 +2205,39 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:183:17: mathExpr ( ',' mathExpr )*
     		{
     		DebugLocation(183, 17);
-    		PushFollow(Follow._mathExpr_in_funcCallArgsW1048);
+    		PushFollow(Follow._mathExpr_in_funcCallArgsW1047);
     		mathExpr60=mathExpr();
     		PopFollow();
 
     		stream_mathExpr.Add(mathExpr60.Tree);
     		DebugLocation(183, 25);
     		// Lang2.g:183:25: ( ',' mathExpr )*
-    		try { DebugEnterSubRule(12);
+    		try { DebugEnterSubRule(11);
     		while (true)
     		{
-    			int alt12=2;
-    			try { DebugEnterDecision(12, decisionCanBacktrack[12]);
-    			int LA12_0 = input.LA(1);
+    			int alt11=2;
+    			try { DebugEnterDecision(11, decisionCanBacktrack[11]);
+    			int LA11_0 = input.LA(1);
 
-    			if ((LA12_0==72))
+    			if ((LA11_0==72))
     			{
-    				alt12=1;
+    				alt11=1;
     			}
 
 
-    			} finally { DebugExitDecision(12); }
-    			switch ( alt12 )
+    			} finally { DebugExitDecision(11); }
+    			switch ( alt11 )
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:183:26: ',' mathExpr
     				{
     				DebugLocation(183, 26);
-    				char_literal61=(IToken)Match(input,72,Follow._72_in_funcCallArgsW1050);  
+    				char_literal61=(IToken)Match(input,72,Follow._72_in_funcCallArgsW1049);  
     				stream_72.Add(char_literal61);
 
     				DebugLocation(183, 30);
-    				PushFollow(Follow._mathExpr_in_funcCallArgsW1052);
+    				PushFollow(Follow._mathExpr_in_funcCallArgsW1051);
     				mathExpr62=mathExpr();
     				PopFollow();
 
@@ -2337,14 +2247,14 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				goto loop12;
+    				goto loop11;
     			}
     		}
 
-    		loop12:
+    		loop11:
     			;
 
-    		} finally { DebugExitSubRule(12); }
+    		} finally { DebugExitSubRule(11); }
 
 
 
@@ -2455,33 +2365,33 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:186:12: VARIABLE '(' ( funcCallArgsW )? ')'
     		{
     		DebugLocation(186, 12);
-    		VARIABLE63=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_funcCall1078);  
+    		VARIABLE63=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_funcCall1077);  
     		stream_VARIABLE.Add(VARIABLE63);
 
     		DebugLocation(186, 20);
-    		char_literal64=(IToken)Match(input,70,Follow._70_in_funcCall1079);  
+    		char_literal64=(IToken)Match(input,70,Follow._70_in_funcCall1078);  
     		stream_70.Add(char_literal64);
 
     		DebugLocation(186, 24);
     		// Lang2.g:186:24: ( funcCallArgsW )?
-    		int alt13=2;
-    		try { DebugEnterSubRule(13);
-    		try { DebugEnterDecision(13, decisionCanBacktrack[13]);
-    		int LA13_0 = input.LA(1);
+    		int alt12=2;
+    		try { DebugEnterSubRule(12);
+    		try { DebugEnterDecision(12, decisionCanBacktrack[12]);
+    		int LA12_0 = input.LA(1);
 
-    		if ((LA13_0==NOT||(LA13_0>=BOOLEAN && LA13_0<=STRING)||LA13_0==VARIABLE||LA13_0==70))
+    		if ((LA12_0==NOT||(LA12_0>=BOOLEAN && LA12_0<=STRING)||LA12_0==VARIABLE||LA12_0==70))
     		{
-    			alt13=1;
+    			alt12=1;
     		}
-    		} finally { DebugExitDecision(13); }
-    		switch (alt13)
+    		} finally { DebugExitDecision(12); }
+    		switch (alt12)
     		{
     		case 1:
     			DebugEnterAlt(1);
     			// Lang2.g:186:24: funcCallArgsW
     			{
     			DebugLocation(186, 24);
-    			PushFollow(Follow._funcCallArgsW_in_funcCall1081);
+    			PushFollow(Follow._funcCallArgsW_in_funcCall1080);
     			funcCallArgsW65=funcCallArgsW();
     			PopFollow();
 
@@ -2491,17 +2401,17 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			break;
 
     		}
-    		} finally { DebugExitSubRule(13); }
+    		} finally { DebugExitSubRule(12); }
 
     		DebugLocation(186, 39);
-    		char_literal66=(IToken)Match(input,71,Follow._71_in_funcCall1084);  
+    		char_literal66=(IToken)Match(input,71,Follow._71_in_funcCall1083);  
     		stream_71.Add(char_literal66);
 
 
 
     		{
     		// AST REWRITE
-    		// elements: funcCallArgsW, VARIABLE
+    		// elements: VARIABLE, funcCallArgsW
     		// token labels: 
     		// rule labels: retval
     		// token list labels: 
@@ -2603,29 +2513,29 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:189:15: '(' ( argDeclMany )? ')'
     		{
     		DebugLocation(189, 18);
-    		char_literal67=(IToken)Match(input,70,Follow._70_in_argDeclExpr1108);  
+    		char_literal67=(IToken)Match(input,70,Follow._70_in_argDeclExpr1107);  
     		stream_70.Add(char_literal67);
 
     		DebugLocation(189, 20);
     		// Lang2.g:189:20: ( argDeclMany )?
-    		int alt14=2;
-    		try { DebugEnterSubRule(14);
-    		try { DebugEnterDecision(14, decisionCanBacktrack[14]);
-    		int LA14_0 = input.LA(1);
+    		int alt13=2;
+    		try { DebugEnterSubRule(13);
+    		try { DebugEnterDecision(13, decisionCanBacktrack[13]);
+    		int LA13_0 = input.LA(1);
 
-    		if ((LA14_0==VAR||LA14_0==VARIABLE))
+    		if ((LA13_0==VAR||LA13_0==VARIABLE))
     		{
-    			alt14=1;
+    			alt13=1;
     		}
-    		} finally { DebugExitDecision(14); }
-    		switch (alt14)
+    		} finally { DebugExitDecision(13); }
+    		switch (alt13)
     		{
     		case 1:
     			DebugEnterAlt(1);
     			// Lang2.g:189:20: argDeclMany
     			{
     			DebugLocation(189, 20);
-    			PushFollow(Follow._argDeclMany_in_argDeclExpr1111);
+    			PushFollow(Follow._argDeclMany_in_argDeclExpr1110);
     			argDeclMany68=argDeclMany();
     			PopFollow();
 
@@ -2635,10 +2545,10 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			break;
 
     		}
-    		} finally { DebugExitSubRule(14); }
+    		} finally { DebugExitSubRule(13); }
 
     		DebugLocation(189, 36);
-    		char_literal69=(IToken)Match(input,71,Follow._71_in_argDeclExpr1114);  
+    		char_literal69=(IToken)Match(input,71,Follow._71_in_argDeclExpr1113);  
     		stream_71.Add(char_literal69);
 
 
@@ -2814,7 +2724,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:195:19: retTypeExpr
     		{
     		DebugLocation(195, 19);
-    		PushFollow(Follow._retTypeExpr_in_retTypeExprWrap1156);
+    		PushFollow(Follow._retTypeExpr_in_retTypeExprWrap1155);
     		retTypeExpr71=retTypeExpr();
     		PopFollow();
 
@@ -2914,24 +2824,24 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
     		DebugLocation(198, 20);
     		// Lang2.g:198:20: ( varDeclW )?
-    		int alt15=2;
-    		try { DebugEnterSubRule(15);
-    		try { DebugEnterDecision(15, decisionCanBacktrack[15]);
-    		int LA15_0 = input.LA(1);
+    		int alt14=2;
+    		try { DebugEnterSubRule(14);
+    		try { DebugEnterDecision(14, decisionCanBacktrack[14]);
+    		int LA14_0 = input.LA(1);
 
-    		if ((LA15_0==VAR))
+    		if ((LA14_0==VAR))
     		{
-    			alt15=1;
+    			alt14=1;
     		}
-    		} finally { DebugExitDecision(15); }
-    		switch (alt15)
+    		} finally { DebugExitDecision(14); }
+    		switch (alt14)
     		{
     		case 1:
     			DebugEnterAlt(1);
     			// Lang2.g:198:20: varDeclW
     			{
     			DebugLocation(198, 20);
-    			PushFollow(Follow._varDeclW_in_bodyFuncProcExpr1177);
+    			PushFollow(Follow._varDeclW_in_bodyFuncProcExpr1176);
     			varDeclW72=varDeclW();
     			PopFollow();
 
@@ -2941,10 +2851,10 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			break;
 
     		}
-    		} finally { DebugExitSubRule(15); }
+    		} finally { DebugExitSubRule(14); }
 
     		DebugLocation(198, 30);
-    		PushFollow(Follow._bodyExpr_in_bodyFuncProcExpr1180);
+    		PushFollow(Follow._bodyExpr_in_bodyFuncProcExpr1179);
     		bodyExpr73=bodyExpr();
     		PopFollow();
 
@@ -3023,35 +2933,35 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:201:14: FUNCTION VARIABLE argDeclExpr ':' retTypeExprWrap OP_END bodyFuncProcExpr
     		{
     		DebugLocation(201, 14);
-    		FUNCTION74=(IToken)Match(input,FUNCTION,Follow._FUNCTION_in_funcDeclare1193);  
+    		FUNCTION74=(IToken)Match(input,FUNCTION,Follow._FUNCTION_in_funcDeclare1192);  
     		stream_FUNCTION.Add(FUNCTION74);
 
     		DebugLocation(201, 23);
-    		VARIABLE75=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_funcDeclare1195);  
+    		VARIABLE75=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_funcDeclare1194);  
     		stream_VARIABLE.Add(VARIABLE75);
 
     		DebugLocation(201, 32);
-    		PushFollow(Follow._argDeclExpr_in_funcDeclare1197);
+    		PushFollow(Follow._argDeclExpr_in_funcDeclare1196);
     		argDeclExpr76=argDeclExpr();
     		PopFollow();
 
     		stream_argDeclExpr.Add(argDeclExpr76.Tree);
     		DebugLocation(201, 43);
-    		char_literal77=(IToken)Match(input,73,Follow._73_in_funcDeclare1198);  
+    		char_literal77=(IToken)Match(input,73,Follow._73_in_funcDeclare1197);  
     		stream_73.Add(char_literal77);
 
     		DebugLocation(201, 47);
-    		PushFollow(Follow._retTypeExprWrap_in_funcDeclare1200);
+    		PushFollow(Follow._retTypeExprWrap_in_funcDeclare1199);
     		retTypeExprWrap78=retTypeExprWrap();
     		PopFollow();
 
     		stream_retTypeExprWrap.Add(retTypeExprWrap78.Tree);
     		DebugLocation(201, 69);
-    		OP_END79=(IToken)Match(input,OP_END,Follow._OP_END_in_funcDeclare1202);  
+    		OP_END79=(IToken)Match(input,OP_END,Follow._OP_END_in_funcDeclare1201);  
     		stream_OP_END.Add(OP_END79);
 
     		DebugLocation(201, 72);
-    		PushFollow(Follow._bodyFuncProcExpr_in_funcDeclare1206);
+    		PushFollow(Follow._bodyFuncProcExpr_in_funcDeclare1205);
     		bodyFuncProcExpr80=bodyFuncProcExpr();
     		PopFollow();
 
@@ -3060,7 +2970,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
     		{
     		// AST REWRITE
-    		// elements: argDeclExpr, VARIABLE, retTypeExprWrap, bodyFuncProcExpr
+    		// elements: VARIABLE, argDeclExpr, bodyFuncProcExpr, retTypeExprWrap
     		// token labels: 
     		// rule labels: retval
     		// token list labels: 
@@ -3164,25 +3074,25 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:204:19: PROCEDURE VARIABLE argDeclExpr OP_END bodyFuncProcExpr
     		{
     		DebugLocation(204, 19);
-    		PROCEDURE81=(IToken)Match(input,PROCEDURE,Follow._PROCEDURE_in_procedureDeclare1231);  
+    		PROCEDURE81=(IToken)Match(input,PROCEDURE,Follow._PROCEDURE_in_procedureDeclare1230);  
     		stream_PROCEDURE.Add(PROCEDURE81);
 
     		DebugLocation(204, 29);
-    		VARIABLE82=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_procedureDeclare1233);  
+    		VARIABLE82=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_procedureDeclare1232);  
     		stream_VARIABLE.Add(VARIABLE82);
 
     		DebugLocation(204, 38);
-    		PushFollow(Follow._argDeclExpr_in_procedureDeclare1235);
+    		PushFollow(Follow._argDeclExpr_in_procedureDeclare1234);
     		argDeclExpr83=argDeclExpr();
     		PopFollow();
 
     		stream_argDeclExpr.Add(argDeclExpr83.Tree);
     		DebugLocation(204, 50);
-    		OP_END84=(IToken)Match(input,OP_END,Follow._OP_END_in_procedureDeclare1237);  
+    		OP_END84=(IToken)Match(input,OP_END,Follow._OP_END_in_procedureDeclare1236);  
     		stream_OP_END.Add(OP_END84);
 
     		DebugLocation(204, 57);
-    		PushFollow(Follow._bodyFuncProcExpr_in_procedureDeclare1239);
+    		PushFollow(Follow._bodyFuncProcExpr_in_procedureDeclare1238);
     		bodyFuncProcExpr85=bodyFuncProcExpr();
     		PopFollow();
 
@@ -3285,11 +3195,11 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:209:21: ELSE bodyExpr
     		{
     		DebugLocation(209, 25);
-    		ELSE86=(IToken)Match(input,ELSE,Follow._ELSE_in_conditionElseExpr1266);  
+    		ELSE86=(IToken)Match(input,ELSE,Follow._ELSE_in_conditionElseExpr1265);  
     		stream_ELSE.Add(ELSE86);
 
     		DebugLocation(209, 27);
-    		PushFollow(Follow._bodyExpr_in_conditionElseExpr1269);
+    		PushFollow(Follow._bodyExpr_in_conditionElseExpr1268);
     		bodyExpr87=bodyExpr();
     		PopFollow();
 
@@ -3298,7 +3208,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
     		{
     		// AST REWRITE
-    		// elements: bodyExpr, ELSE
+    		// elements: ELSE, bodyExpr
     		// token labels: 
     		// rule labels: retval
     		// token list labels: 
@@ -3385,7 +3295,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:211:13: expressions
     		{
     		DebugLocation(211, 13);
-    		PushFollow(Follow._expressions_in_condExpr1291);
+    		PushFollow(Follow._expressions_in_condExpr1290);
     		expressions88=expressions();
     		PopFollow();
 
@@ -3491,45 +3401,45 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:213:16: IF condExpr THEN bodyExpr ( conditionElseExpr )?
     		{
     		DebugLocation(213, 16);
-    		IF89=(IToken)Match(input,IF,Follow._IF_in_conditionExpr1310);  
+    		IF89=(IToken)Match(input,IF,Follow._IF_in_conditionExpr1309);  
     		stream_IF.Add(IF89);
 
     		DebugLocation(213, 19);
-    		PushFollow(Follow._condExpr_in_conditionExpr1312);
+    		PushFollow(Follow._condExpr_in_conditionExpr1311);
     		condExpr90=condExpr();
     		PopFollow();
 
     		stream_condExpr.Add(condExpr90.Tree);
     		DebugLocation(213, 32);
-    		THEN91=(IToken)Match(input,THEN,Follow._THEN_in_conditionExpr1314);  
+    		THEN91=(IToken)Match(input,THEN,Follow._THEN_in_conditionExpr1313);  
     		stream_THEN.Add(THEN91);
 
     		DebugLocation(213, 34);
-    		PushFollow(Follow._bodyExpr_in_conditionExpr1317);
+    		PushFollow(Follow._bodyExpr_in_conditionExpr1316);
     		bodyExpr92=bodyExpr();
     		PopFollow();
 
     		stream_bodyExpr.Add(bodyExpr92.Tree);
     		DebugLocation(213, 43);
     		// Lang2.g:213:43: ( conditionElseExpr )?
-    		int alt16=2;
-    		try { DebugEnterSubRule(16);
-    		try { DebugEnterDecision(16, decisionCanBacktrack[16]);
-    		int LA16_0 = input.LA(1);
+    		int alt15=2;
+    		try { DebugEnterSubRule(15);
+    		try { DebugEnterDecision(15, decisionCanBacktrack[15]);
+    		int LA15_0 = input.LA(1);
 
-    		if ((LA16_0==ELSE))
+    		if ((LA15_0==ELSE))
     		{
-    			alt16=1;
+    			alt15=1;
     		}
-    		} finally { DebugExitDecision(16); }
-    		switch (alt16)
+    		} finally { DebugExitDecision(15); }
+    		switch (alt15)
     		{
     		case 1:
     			DebugEnterAlt(1);
     			// Lang2.g:213:43: conditionElseExpr
     			{
     			DebugLocation(213, 43);
-    			PushFollow(Follow._conditionElseExpr_in_conditionExpr1319);
+    			PushFollow(Follow._conditionElseExpr_in_conditionExpr1318);
     			conditionElseExpr93=conditionElseExpr();
     			PopFollow();
 
@@ -3539,13 +3449,13 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			break;
 
     		}
-    		} finally { DebugExitSubRule(16); }
+    		} finally { DebugExitSubRule(15); }
 
 
 
     		{
     		// AST REWRITE
-    		// elements: condExpr, bodyExpr, IF, conditionElseExpr
+    		// elements: IF, conditionElseExpr, condExpr, bodyExpr
     		// token labels: 
     		// rule labels: retval
     		// token list labels: 
@@ -3648,18 +3558,18 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		root_0 = (object)adaptor.Nil();
 
     		DebugLocation(217, 12);
-    		PushFollow(Follow._assExpr_in_forExpr1345);
+    		PushFollow(Follow._assExpr_in_forExpr1344);
     		assExpr94=assExpr();
     		PopFollow();
 
     		adaptor.AddChild(root_0, assExpr94.Tree);
     		DebugLocation(217, 22);
-    		TO95=(IToken)Match(input,TO,Follow._TO_in_forExpr1347); 
+    		TO95=(IToken)Match(input,TO,Follow._TO_in_forExpr1346); 
     		TO95_tree = (object)adaptor.Create(TO95);
     		root_0 = (object)adaptor.BecomeRoot(TO95_tree, root_0);
 
     		DebugLocation(217, 24);
-    		PushFollow(Follow._expressions_in_forExpr1350);
+    		PushFollow(Follow._expressions_in_forExpr1349);
     		expressions96=expressions();
     		PopFollow();
 
@@ -3745,57 +3655,57 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	try
     	{
     		// Lang2.g:220:9: ( WHILE condExpr DO bodyExpr -> ^( WHILE condExpr bodyExpr ) | FOR forExpr DO bodyExpr -> ^( FOR forExpr bodyExpr ) | REPEAT bodyExpr UNTIL condExpr OP_END -> ^( REPEAT condExpr bodyExpr ) )
-    		int alt17=3;
-    		try { DebugEnterDecision(17, decisionCanBacktrack[17]);
+    		int alt16=3;
+    		try { DebugEnterDecision(16, decisionCanBacktrack[16]);
     		switch (input.LA(1))
     		{
     		case WHILE:
     			{
-    			alt17=1;
+    			alt16=1;
     			}
     			break;
     		case FOR:
     			{
-    			alt17=2;
+    			alt16=2;
     			}
     			break;
     		case REPEAT:
     			{
-    			alt17=3;
+    			alt16=3;
     			}
     			break;
     		default:
     			{
-    				NoViableAltException nvae = new NoViableAltException("", 17, 0, input);
+    				NoViableAltException nvae = new NoViableAltException("", 16, 0, input);
 
     				DebugRecognitionException(nvae);
     				throw nvae;
     			}
     		}
 
-    		} finally { DebugExitDecision(17); }
-    		switch (alt17)
+    		} finally { DebugExitDecision(16); }
+    		switch (alt16)
     		{
     		case 1:
     			DebugEnterAlt(1);
     			// Lang2.g:220:11: WHILE condExpr DO bodyExpr
     			{
     			DebugLocation(220, 11);
-    			WHILE97=(IToken)Match(input,WHILE,Follow._WHILE_in_loopExpr1360);  
+    			WHILE97=(IToken)Match(input,WHILE,Follow._WHILE_in_loopExpr1359);  
     			stream_WHILE.Add(WHILE97);
 
     			DebugLocation(220, 17);
-    			PushFollow(Follow._condExpr_in_loopExpr1362);
+    			PushFollow(Follow._condExpr_in_loopExpr1361);
     			condExpr98=condExpr();
     			PopFollow();
 
     			stream_condExpr.Add(condExpr98.Tree);
     			DebugLocation(220, 28);
-    			DO99=(IToken)Match(input,DO,Follow._DO_in_loopExpr1364);  
+    			DO99=(IToken)Match(input,DO,Follow._DO_in_loopExpr1363);  
     			stream_DO.Add(DO99);
 
     			DebugLocation(220, 30);
-    			PushFollow(Follow._bodyExpr_in_loopExpr1367);
+    			PushFollow(Follow._bodyExpr_in_loopExpr1366);
     			bodyExpr100=bodyExpr();
     			PopFollow();
 
@@ -3804,7 +3714,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
     			{
     			// AST REWRITE
-    			// elements: WHILE, bodyExpr, condExpr
+    			// elements: condExpr, bodyExpr, WHILE
     			// token labels: 
     			// rule labels: retval
     			// token list labels: 
@@ -3843,21 +3753,21 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			// Lang2.g:221:5: FOR forExpr DO bodyExpr
     			{
     			DebugLocation(221, 5);
-    			FOR101=(IToken)Match(input,FOR,Follow._FOR_in_loopExpr1383);  
+    			FOR101=(IToken)Match(input,FOR,Follow._FOR_in_loopExpr1382);  
     			stream_FOR.Add(FOR101);
 
     			DebugLocation(221, 9);
-    			PushFollow(Follow._forExpr_in_loopExpr1385);
+    			PushFollow(Follow._forExpr_in_loopExpr1384);
     			forExpr102=forExpr();
     			PopFollow();
 
     			stream_forExpr.Add(forExpr102.Tree);
     			DebugLocation(221, 17);
-    			DO103=(IToken)Match(input,DO,Follow._DO_in_loopExpr1387);  
+    			DO103=(IToken)Match(input,DO,Follow._DO_in_loopExpr1386);  
     			stream_DO.Add(DO103);
 
     			DebugLocation(221, 20);
-    			PushFollow(Follow._bodyExpr_in_loopExpr1389);
+    			PushFollow(Follow._bodyExpr_in_loopExpr1388);
     			bodyExpr104=bodyExpr();
     			PopFollow();
 
@@ -3905,34 +3815,34 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			// Lang2.g:222:5: REPEAT bodyExpr UNTIL condExpr OP_END
     			{
     			DebugLocation(222, 5);
-    			REPEAT105=(IToken)Match(input,REPEAT,Follow._REPEAT_in_loopExpr1405);  
+    			REPEAT105=(IToken)Match(input,REPEAT,Follow._REPEAT_in_loopExpr1404);  
     			stream_REPEAT.Add(REPEAT105);
 
     			DebugLocation(222, 12);
-    			PushFollow(Follow._bodyExpr_in_loopExpr1407);
+    			PushFollow(Follow._bodyExpr_in_loopExpr1406);
     			bodyExpr106=bodyExpr();
     			PopFollow();
 
     			stream_bodyExpr.Add(bodyExpr106.Tree);
     			DebugLocation(222, 21);
-    			UNTIL107=(IToken)Match(input,UNTIL,Follow._UNTIL_in_loopExpr1409);  
+    			UNTIL107=(IToken)Match(input,UNTIL,Follow._UNTIL_in_loopExpr1408);  
     			stream_UNTIL.Add(UNTIL107);
 
     			DebugLocation(222, 27);
-    			PushFollow(Follow._condExpr_in_loopExpr1411);
+    			PushFollow(Follow._condExpr_in_loopExpr1410);
     			condExpr108=condExpr();
     			PopFollow();
 
     			stream_condExpr.Add(condExpr108.Tree);
     			DebugLocation(222, 36);
-    			OP_END109=(IToken)Match(input,OP_END,Follow._OP_END_in_loopExpr1413);  
+    			OP_END109=(IToken)Match(input,OP_END,Follow._OP_END_in_loopExpr1412);  
     			stream_OP_END.Add(OP_END109);
 
 
 
     			{
     			// AST REWRITE
-    			// elements: condExpr, bodyExpr, REPEAT
+    			// elements: REPEAT, condExpr, bodyExpr
     			// token labels: 
     			// rule labels: retval
     			// token list labels: 
@@ -4027,25 +3937,25 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	try
     	{
     		// Lang2.g:225:9: ( VARIABLE ASSIGN expressions | arrayCall ASSIGN expressions )
-    		int alt18=2;
-    		try { DebugEnterDecision(18, decisionCanBacktrack[18]);
-    		int LA18_0 = input.LA(1);
+    		int alt17=2;
+    		try { DebugEnterDecision(17, decisionCanBacktrack[17]);
+    		int LA17_0 = input.LA(1);
 
-    		if ((LA18_0==VARIABLE))
+    		if ((LA17_0==VARIABLE))
     		{
-    			int LA18_1 = input.LA(2);
+    			int LA17_1 = input.LA(2);
 
-    			if ((LA18_1==ASSIGN))
+    			if ((LA17_1==ASSIGN))
     			{
-    				alt18=1;
+    				alt17=1;
     			}
-    			else if ((LA18_1==67))
+    			else if ((LA17_1==67))
     			{
-    				alt18=2;
+    				alt17=2;
     			}
     			else
     			{
-    				NoViableAltException nvae = new NoViableAltException("", 18, 1, input);
+    				NoViableAltException nvae = new NoViableAltException("", 17, 1, input);
 
     				DebugRecognitionException(nvae);
     				throw nvae;
@@ -4053,13 +3963,13 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		}
     		else
     		{
-    			NoViableAltException nvae = new NoViableAltException("", 18, 0, input);
+    			NoViableAltException nvae = new NoViableAltException("", 17, 0, input);
 
     			DebugRecognitionException(nvae);
     			throw nvae;
     		}
-    		} finally { DebugExitDecision(18); }
-    		switch (alt18)
+    		} finally { DebugExitDecision(17); }
+    		switch (alt17)
     		{
     		case 1:
     			DebugEnterAlt(1);
@@ -4068,17 +3978,17 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			root_0 = (object)adaptor.Nil();
 
     			DebugLocation(225, 12);
-    			VARIABLE110=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_assExpr1436); 
+    			VARIABLE110=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_assExpr1435); 
     			VARIABLE110_tree = (object)adaptor.Create(VARIABLE110);
     			adaptor.AddChild(root_0, VARIABLE110_tree);
 
     			DebugLocation(225, 27);
-    			ASSIGN111=(IToken)Match(input,ASSIGN,Follow._ASSIGN_in_assExpr1438); 
+    			ASSIGN111=(IToken)Match(input,ASSIGN,Follow._ASSIGN_in_assExpr1437); 
     			ASSIGN111_tree = (object)adaptor.Create(ASSIGN111);
     			root_0 = (object)adaptor.BecomeRoot(ASSIGN111_tree, root_0);
 
     			DebugLocation(225, 29);
-    			PushFollow(Follow._expressions_in_assExpr1441);
+    			PushFollow(Follow._expressions_in_assExpr1440);
     			expressions112=expressions();
     			PopFollow();
 
@@ -4093,18 +4003,18 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			root_0 = (object)adaptor.Nil();
 
     			DebugLocation(226, 5);
-    			PushFollow(Follow._arrayCall_in_assExpr1447);
+    			PushFollow(Follow._arrayCall_in_assExpr1446);
     			arrayCall113=arrayCall();
     			PopFollow();
 
     			adaptor.AddChild(root_0, arrayCall113.Tree);
     			DebugLocation(226, 21);
-    			ASSIGN114=(IToken)Match(input,ASSIGN,Follow._ASSIGN_in_assExpr1449); 
+    			ASSIGN114=(IToken)Match(input,ASSIGN,Follow._ASSIGN_in_assExpr1448); 
     			ASSIGN114_tree = (object)adaptor.Create(ASSIGN114);
     			root_0 = (object)adaptor.BecomeRoot(ASSIGN114_tree, root_0);
 
     			DebugLocation(226, 23);
-    			PushFollow(Follow._expressions_in_assExpr1452);
+    			PushFollow(Follow._expressions_in_assExpr1451);
     			expressions115=expressions();
     			PopFollow();
 
@@ -4169,7 +4079,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:229:15: varTypeDeclW
     		{
     		DebugLocation(229, 15);
-    		PushFollow(Follow._varTypeDeclW_in_argTypeDecl1462);
+    		PushFollow(Follow._varTypeDeclW_in_argTypeDecl1461);
     		varTypeDeclW116=varTypeDeclW();
     		PopFollow();
 
@@ -4272,36 +4182,36 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		root_0 = (object)adaptor.Nil();
 
     		DebugLocation(232, 14);
-    		VARIABLE117=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_partArgDecl1481); 
+    		VARIABLE117=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_partArgDecl1480); 
     		VARIABLE117_tree = (object)adaptor.Create(VARIABLE117);
     		adaptor.AddChild(root_0, VARIABLE117_tree);
 
     		DebugLocation(232, 22);
     		// Lang2.g:232:22: ( ',' VARIABLE )*
-    		try { DebugEnterSubRule(19);
+    		try { DebugEnterSubRule(18);
     		while (true)
     		{
-    			int alt19=2;
-    			try { DebugEnterDecision(19, decisionCanBacktrack[19]);
-    			int LA19_0 = input.LA(1);
+    			int alt18=2;
+    			try { DebugEnterDecision(18, decisionCanBacktrack[18]);
+    			int LA18_0 = input.LA(1);
 
-    			if ((LA19_0==72))
+    			if ((LA18_0==72))
     			{
-    				alt19=1;
+    				alt18=1;
     			}
 
 
-    			} finally { DebugExitDecision(19); }
-    			switch ( alt19 )
+    			} finally { DebugExitDecision(18); }
+    			switch ( alt18 )
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:232:23: ',' VARIABLE
     				{
     				DebugLocation(232, 26);
-    				char_literal118=(IToken)Match(input,72,Follow._72_in_partArgDecl1483); 
+    				char_literal118=(IToken)Match(input,72,Follow._72_in_partArgDecl1482); 
     				DebugLocation(232, 28);
-    				VARIABLE119=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_partArgDecl1486); 
+    				VARIABLE119=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_partArgDecl1485); 
     				VARIABLE119_tree = (object)adaptor.Create(VARIABLE119);
     				adaptor.AddChild(root_0, VARIABLE119_tree);
 
@@ -4310,14 +4220,14 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				goto loop19;
+    				goto loop18;
     			}
     		}
 
-    		loop19:
+    		loop18:
     			;
 
-    		} finally { DebugExitSubRule(19); }
+    		} finally { DebugExitSubRule(18); }
 
 
     		}
@@ -4390,27 +4300,27 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	try
     	{
     		// Lang2.g:234:9: ( VARIABLE ( ',' VARIABLE )* ':' argTypeDecl | VAR partArgDecl ':' argTypeDecl -> ^( VAR partArgDecl argTypeDecl ) )
-    		int alt21=2;
-    		try { DebugEnterDecision(21, decisionCanBacktrack[21]);
-    		int LA21_0 = input.LA(1);
+    		int alt20=2;
+    		try { DebugEnterDecision(20, decisionCanBacktrack[20]);
+    		int LA20_0 = input.LA(1);
 
-    		if ((LA21_0==VARIABLE))
+    		if ((LA20_0==VARIABLE))
     		{
-    			alt21=1;
+    			alt20=1;
     		}
-    		else if ((LA21_0==VAR))
+    		else if ((LA20_0==VAR))
     		{
-    			alt21=2;
+    			alt20=2;
     		}
     		else
     		{
-    			NoViableAltException nvae = new NoViableAltException("", 21, 0, input);
+    			NoViableAltException nvae = new NoViableAltException("", 20, 0, input);
 
     			DebugRecognitionException(nvae);
     			throw nvae;
     		}
-    		} finally { DebugExitDecision(21); }
-    		switch (alt21)
+    		} finally { DebugExitDecision(20); }
+    		switch (alt20)
     		{
     		case 1:
     			DebugEnterAlt(1);
@@ -4419,36 +4329,36 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			root_0 = (object)adaptor.Nil();
 
     			DebugLocation(234, 11);
-    			VARIABLE120=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_argDecl1496); 
+    			VARIABLE120=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_argDecl1495); 
     			VARIABLE120_tree = (object)adaptor.Create(VARIABLE120);
     			adaptor.AddChild(root_0, VARIABLE120_tree);
 
     			DebugLocation(234, 19);
     			// Lang2.g:234:19: ( ',' VARIABLE )*
-    			try { DebugEnterSubRule(20);
+    			try { DebugEnterSubRule(19);
     			while (true)
     			{
-    				int alt20=2;
-    				try { DebugEnterDecision(20, decisionCanBacktrack[20]);
-    				int LA20_0 = input.LA(1);
+    				int alt19=2;
+    				try { DebugEnterDecision(19, decisionCanBacktrack[19]);
+    				int LA19_0 = input.LA(1);
 
-    				if ((LA20_0==72))
+    				if ((LA19_0==72))
     				{
-    					alt20=1;
+    					alt19=1;
     				}
 
 
-    				} finally { DebugExitDecision(20); }
-    				switch ( alt20 )
+    				} finally { DebugExitDecision(19); }
+    				switch ( alt19 )
     				{
     				case 1:
     					DebugEnterAlt(1);
     					// Lang2.g:234:20: ',' VARIABLE
     					{
     					DebugLocation(234, 23);
-    					char_literal121=(IToken)Match(input,72,Follow._72_in_argDecl1498); 
+    					char_literal121=(IToken)Match(input,72,Follow._72_in_argDecl1497); 
     					DebugLocation(234, 25);
-    					VARIABLE122=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_argDecl1501); 
+    					VARIABLE122=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_argDecl1500); 
     					VARIABLE122_tree = (object)adaptor.Create(VARIABLE122);
     					adaptor.AddChild(root_0, VARIABLE122_tree);
 
@@ -4457,19 +4367,19 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     					break;
 
     				default:
-    					goto loop20;
+    					goto loop19;
     				}
     			}
 
-    			loop20:
+    			loop19:
     				;
 
-    			} finally { DebugExitSubRule(20); }
+    			} finally { DebugExitSubRule(19); }
 
     			DebugLocation(234, 39);
-    			char_literal123=(IToken)Match(input,73,Follow._73_in_argDecl1505); 
+    			char_literal123=(IToken)Match(input,73,Follow._73_in_argDecl1504); 
     			DebugLocation(234, 41);
-    			PushFollow(Follow._argTypeDecl_in_argDecl1508);
+    			PushFollow(Follow._argTypeDecl_in_argDecl1507);
     			argTypeDecl124=argTypeDecl();
     			PopFollow();
 
@@ -4482,21 +4392,21 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			// Lang2.g:235:5: VAR partArgDecl ':' argTypeDecl
     			{
     			DebugLocation(235, 5);
-    			VAR125=(IToken)Match(input,VAR,Follow._VAR_in_argDecl1514);  
+    			VAR125=(IToken)Match(input,VAR,Follow._VAR_in_argDecl1513);  
     			stream_VAR.Add(VAR125);
 
     			DebugLocation(235, 9);
-    			PushFollow(Follow._partArgDecl_in_argDecl1516);
+    			PushFollow(Follow._partArgDecl_in_argDecl1515);
     			partArgDecl126=partArgDecl();
     			PopFollow();
 
     			stream_partArgDecl.Add(partArgDecl126.Tree);
     			DebugLocation(235, 23);
-    			char_literal127=(IToken)Match(input,73,Follow._73_in_argDecl1517);  
+    			char_literal127=(IToken)Match(input,73,Follow._73_in_argDecl1516);  
     			stream_73.Add(char_literal127);
 
     			DebugLocation(235, 25);
-    			PushFollow(Follow._argTypeDecl_in_argDecl1520);
+    			PushFollow(Follow._argTypeDecl_in_argDecl1519);
     			argTypeDecl128=argTypeDecl();
     			PopFollow();
 
@@ -4505,7 +4415,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
     			{
     			// AST REWRITE
-    			// elements: partArgDecl, VAR, argTypeDecl
+    			// elements: VAR, argTypeDecl, partArgDecl
     			// token labels: 
     			// rule labels: retval
     			// token list labels: 
@@ -4601,37 +4511,37 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		root_0 = (object)adaptor.Nil();
 
     		DebugLocation(238, 16);
-    		PushFollow(Follow._argDecl_in_argDeclManyW1541);
+    		PushFollow(Follow._argDecl_in_argDeclManyW1540);
     		argDecl129=argDecl();
     		PopFollow();
 
     		adaptor.AddChild(root_0, argDecl129.Tree);
     		DebugLocation(238, 23);
     		// Lang2.g:238:23: ( ',' argDecl )*
-    		try { DebugEnterSubRule(22);
+    		try { DebugEnterSubRule(21);
     		while (true)
     		{
-    			int alt22=2;
-    			try { DebugEnterDecision(22, decisionCanBacktrack[22]);
-    			int LA22_0 = input.LA(1);
+    			int alt21=2;
+    			try { DebugEnterDecision(21, decisionCanBacktrack[21]);
+    			int LA21_0 = input.LA(1);
 
-    			if ((LA22_0==72))
+    			if ((LA21_0==72))
     			{
-    				alt22=1;
+    				alt21=1;
     			}
 
 
-    			} finally { DebugExitDecision(22); }
-    			switch ( alt22 )
+    			} finally { DebugExitDecision(21); }
+    			switch ( alt21 )
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:238:24: ',' argDecl
     				{
     				DebugLocation(238, 27);
-    				char_literal130=(IToken)Match(input,72,Follow._72_in_argDeclManyW1543); 
+    				char_literal130=(IToken)Match(input,72,Follow._72_in_argDeclManyW1542); 
     				DebugLocation(238, 29);
-    				PushFollow(Follow._argDecl_in_argDeclManyW1546);
+    				PushFollow(Follow._argDecl_in_argDeclManyW1545);
     				argDecl131=argDecl();
     				PopFollow();
 
@@ -4641,14 +4551,14 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				goto loop22;
+    				goto loop21;
     			}
     		}
 
-    		loop22:
+    		loop21:
     			;
 
-    		} finally { DebugExitSubRule(22); }
+    		} finally { DebugExitSubRule(21); }
 
 
     		}
@@ -4708,7 +4618,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:240:15: argDeclManyW
     		{
     		DebugLocation(240, 15);
-    		PushFollow(Follow._argDeclManyW_in_argDeclMany1559);
+    		PushFollow(Follow._argDeclManyW_in_argDeclMany1558);
     		argDeclManyW132=argDeclManyW();
     		PopFollow();
 
@@ -4876,27 +4786,27 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	try
     	{
     		// Lang2.g:245:14: ( typeDecl | arrayDecl )
-    		int alt23=2;
-    		try { DebugEnterDecision(23, decisionCanBacktrack[23]);
-    		int LA23_0 = input.LA(1);
+    		int alt22=2;
+    		try { DebugEnterDecision(22, decisionCanBacktrack[22]);
+    		int LA22_0 = input.LA(1);
 
-    		if (((LA23_0>=T_CHAR && LA23_0<=T_STRING)))
+    		if (((LA22_0>=T_CHAR && LA22_0<=T_STRING)))
     		{
-    			alt23=1;
+    			alt22=1;
     		}
-    		else if ((LA23_0==ARRAY))
+    		else if ((LA22_0==ARRAY))
     		{
-    			alt23=2;
+    			alt22=2;
     		}
     		else
     		{
-    			NoViableAltException nvae = new NoViableAltException("", 23, 0, input);
+    			NoViableAltException nvae = new NoViableAltException("", 22, 0, input);
 
     			DebugRecognitionException(nvae);
     			throw nvae;
     		}
-    		} finally { DebugExitDecision(23); }
-    		switch (alt23)
+    		} finally { DebugExitDecision(22); }
+    		switch (alt22)
     		{
     		case 1:
     			DebugEnterAlt(1);
@@ -4905,7 +4815,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			root_0 = (object)adaptor.Nil();
 
     			DebugLocation(245, 16);
-    			PushFollow(Follow._typeDecl_in_varTypeDeclW1593);
+    			PushFollow(Follow._typeDecl_in_varTypeDeclW1592);
     			typeDecl134=typeDecl();
     			PopFollow();
 
@@ -4920,7 +4830,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			root_0 = (object)adaptor.Nil();
 
     			DebugLocation(245, 25);
-    			PushFollow(Follow._arrayDecl_in_varTypeDeclW1595);
+    			PushFollow(Follow._arrayDecl_in_varTypeDeclW1594);
     			arrayDecl135=arrayDecl();
     			PopFollow();
 
@@ -4988,13 +4898,13 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:248:15: varTypeDeclW OP_END
     		{
     		DebugLocation(248, 15);
-    		PushFollow(Follow._varTypeDeclW_in_varTypeDecl1608);
+    		PushFollow(Follow._varTypeDeclW_in_varTypeDecl1607);
     		varTypeDeclW136=varTypeDeclW();
     		PopFollow();
 
     		stream_varTypeDeclW.Add(varTypeDeclW136.Tree);
     		DebugLocation(248, 28);
-    		OP_END137=(IToken)Match(input,OP_END,Follow._OP_END_in_varTypeDecl1610);  
+    		OP_END137=(IToken)Match(input,OP_END,Follow._OP_END_in_varTypeDecl1609);  
     		stream_OP_END.Add(OP_END137);
 
 
@@ -5095,36 +5005,36 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		root_0 = (object)adaptor.Nil();
 
     		DebugLocation(252, 12);
-    		VARIABLE138=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_varDecl21631); 
+    		VARIABLE138=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_varDecl21630); 
     		VARIABLE138_tree = (object)adaptor.Create(VARIABLE138);
     		adaptor.AddChild(root_0, VARIABLE138_tree);
 
     		DebugLocation(252, 20);
     		// Lang2.g:252:20: ( ',' VARIABLE )*
-    		try { DebugEnterSubRule(24);
+    		try { DebugEnterSubRule(23);
     		while (true)
     		{
-    			int alt24=2;
-    			try { DebugEnterDecision(24, decisionCanBacktrack[24]);
-    			int LA24_0 = input.LA(1);
+    			int alt23=2;
+    			try { DebugEnterDecision(23, decisionCanBacktrack[23]);
+    			int LA23_0 = input.LA(1);
 
-    			if ((LA24_0==72))
+    			if ((LA23_0==72))
     			{
-    				alt24=1;
+    				alt23=1;
     			}
 
 
-    			} finally { DebugExitDecision(24); }
-    			switch ( alt24 )
+    			} finally { DebugExitDecision(23); }
+    			switch ( alt23 )
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:252:21: ',' VARIABLE
     				{
     				DebugLocation(252, 24);
-    				char_literal139=(IToken)Match(input,72,Follow._72_in_varDecl21633); 
+    				char_literal139=(IToken)Match(input,72,Follow._72_in_varDecl21632); 
     				DebugLocation(252, 26);
-    				VARIABLE140=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_varDecl21636); 
+    				VARIABLE140=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_varDecl21635); 
     				VARIABLE140_tree = (object)adaptor.Create(VARIABLE140);
     				adaptor.AddChild(root_0, VARIABLE140_tree);
 
@@ -5133,14 +5043,14 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				goto loop24;
+    				goto loop23;
     			}
     		}
 
-    		loop24:
+    		loop23:
     			;
 
-    		} finally { DebugExitSubRule(24); }
+    		} finally { DebugExitSubRule(23); }
 
 
     		}
@@ -5202,7 +5112,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		root_0 = (object)adaptor.Nil();
 
     		DebugLocation(254, 11);
-    		PushFollow(Follow._varDecl2_in_varDecl1646);
+    		PushFollow(Follow._varDecl2_in_varDecl1645);
     		varDecl2141=varDecl2();
     		PopFollow();
 
@@ -5270,15 +5180,15 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		root_0 = (object)adaptor.Nil();
 
     		DebugLocation(256, 14);
-    		PushFollow(Follow._varDecl_in_varDecl12W1656);
+    		PushFollow(Follow._varDecl_in_varDecl12W1655);
     		varDecl142=varDecl();
     		PopFollow();
 
     		adaptor.AddChild(root_0, varDecl142.Tree);
     		DebugLocation(256, 25);
-    		char_literal143=(IToken)Match(input,73,Follow._73_in_varDecl12W1658); 
+    		char_literal143=(IToken)Match(input,73,Follow._73_in_varDecl12W1657); 
     		DebugLocation(256, 27);
-    		PushFollow(Follow._varTypeDecl_in_varDecl12W1661);
+    		PushFollow(Follow._varTypeDecl_in_varDecl12W1660);
     		varTypeDecl144=varTypeDecl();
     		PopFollow();
 
@@ -5344,7 +5254,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:258:12: VAR ( ( varDecl12W )+ )
     		{
     		DebugLocation(258, 12);
-    		VAR145=(IToken)Match(input,VAR,Follow._VAR_in_varDeclW1673);  
+    		VAR145=(IToken)Match(input,VAR,Follow._VAR_in_varDeclW1672);  
     		stream_VAR.Add(VAR145);
 
     		DebugLocation(258, 16);
@@ -5354,29 +5264,29 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		{
     		DebugLocation(258, 17);
     		// Lang2.g:258:17: ( varDecl12W )+
-    		int cnt25=0;
-    		try { DebugEnterSubRule(25);
+    		int cnt24=0;
+    		try { DebugEnterSubRule(24);
     		while (true)
     		{
-    			int alt25=2;
-    			try { DebugEnterDecision(25, decisionCanBacktrack[25]);
-    			int LA25_0 = input.LA(1);
+    			int alt24=2;
+    			try { DebugEnterDecision(24, decisionCanBacktrack[24]);
+    			int LA24_0 = input.LA(1);
 
-    			if ((LA25_0==VARIABLE))
+    			if ((LA24_0==VARIABLE))
     			{
-    				alt25=1;
+    				alt24=1;
     			}
 
 
-    			} finally { DebugExitDecision(25); }
-    			switch (alt25)
+    			} finally { DebugExitDecision(24); }
+    			switch (alt24)
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:258:17: varDecl12W
     				{
     				DebugLocation(258, 17);
-    				PushFollow(Follow._varDecl12W_in_varDeclW1676);
+    				PushFollow(Follow._varDecl12W_in_varDeclW1675);
     				varDecl12W146=varDecl12W();
     				PopFollow();
 
@@ -5386,19 +5296,19 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				if (cnt25 >= 1)
-    					goto loop25;
+    				if (cnt24 >= 1)
+    					goto loop24;
 
-    				EarlyExitException eee25 = new EarlyExitException( 25, input );
-    				DebugRecognitionException(eee25);
-    				throw eee25;
+    				EarlyExitException eee24 = new EarlyExitException( 24, input );
+    				DebugRecognitionException(eee24);
+    				throw eee24;
     			}
-    			cnt25++;
+    			cnt24++;
     		}
-    		loop25:
+    		loop24:
     			;
 
-    		} finally { DebugExitSubRule(25); }
+    		} finally { DebugExitSubRule(24); }
 
 
     		}
@@ -5513,33 +5423,33 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:263:12: BEGIN ( bodyOper )* END OP_END
     		{
     		DebugLocation(263, 17);
-    		BEGIN147=(IToken)Match(input,BEGIN,Follow._BEGIN_in_bodyExpr1702);  
+    		BEGIN147=(IToken)Match(input,BEGIN,Follow._BEGIN_in_bodyExpr1701);  
     		stream_BEGIN.Add(BEGIN147);
 
     		DebugLocation(263, 19);
     		// Lang2.g:263:19: ( bodyOper )*
-    		try { DebugEnterSubRule(26);
+    		try { DebugEnterSubRule(25);
     		while (true)
     		{
-    			int alt26=2;
-    			try { DebugEnterDecision(26, decisionCanBacktrack[26]);
-    			int LA26_0 = input.LA(1);
+    			int alt25=2;
+    			try { DebugEnterDecision(25, decisionCanBacktrack[25]);
+    			int LA25_0 = input.LA(1);
 
-    			if ((LA26_0==WHILE||LA26_0==FOR||LA26_0==IF||LA26_0==REPEAT||LA26_0==VARIABLE))
+    			if ((LA25_0==WHILE||LA25_0==FOR||LA25_0==IF||LA25_0==REPEAT||LA25_0==VARIABLE))
     			{
-    				alt26=1;
+    				alt25=1;
     			}
 
 
-    			} finally { DebugExitDecision(26); }
-    			switch ( alt26 )
+    			} finally { DebugExitDecision(25); }
+    			switch ( alt25 )
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:263:19: bodyOper
     				{
     				DebugLocation(263, 19);
-    				PushFollow(Follow._bodyOper_in_bodyExpr1705);
+    				PushFollow(Follow._bodyOper_in_bodyExpr1704);
     				bodyOper148=bodyOper();
     				PopFollow();
 
@@ -5549,21 +5459,21 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				goto loop26;
+    				goto loop25;
     			}
     		}
 
-    		loop26:
+    		loop25:
     			;
 
-    		} finally { DebugExitSubRule(26); }
+    		} finally { DebugExitSubRule(25); }
 
     		DebugLocation(263, 32);
-    		END149=(IToken)Match(input,END,Follow._END_in_bodyExpr1708);  
+    		END149=(IToken)Match(input,END,Follow._END_in_bodyExpr1707);  
     		stream_END.Add(END149);
 
     		DebugLocation(263, 40);
-    		OP_END150=(IToken)Match(input,OP_END,Follow._OP_END_in_bodyExpr1711);  
+    		OP_END150=(IToken)Match(input,OP_END,Follow._OP_END_in_bodyExpr1710);  
     		stream_OP_END.Add(OP_END150);
 
 
@@ -5673,33 +5583,33 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:265:16: BEGIN ( bodyOper )* END OP_END
     		{
     		DebugLocation(265, 21);
-    		BEGIN151=(IToken)Match(input,BEGIN,Follow._BEGIN_in_mainBodyExpr1732);  
+    		BEGIN151=(IToken)Match(input,BEGIN,Follow._BEGIN_in_mainBodyExpr1731);  
     		stream_BEGIN.Add(BEGIN151);
 
     		DebugLocation(265, 23);
     		// Lang2.g:265:23: ( bodyOper )*
-    		try { DebugEnterSubRule(27);
+    		try { DebugEnterSubRule(26);
     		while (true)
     		{
-    			int alt27=2;
-    			try { DebugEnterDecision(27, decisionCanBacktrack[27]);
-    			int LA27_0 = input.LA(1);
+    			int alt26=2;
+    			try { DebugEnterDecision(26, decisionCanBacktrack[26]);
+    			int LA26_0 = input.LA(1);
 
-    			if ((LA27_0==WHILE||LA27_0==FOR||LA27_0==IF||LA27_0==REPEAT||LA27_0==VARIABLE))
+    			if ((LA26_0==WHILE||LA26_0==FOR||LA26_0==IF||LA26_0==REPEAT||LA26_0==VARIABLE))
     			{
-    				alt27=1;
+    				alt26=1;
     			}
 
 
-    			} finally { DebugExitDecision(27); }
-    			switch ( alt27 )
+    			} finally { DebugExitDecision(26); }
+    			switch ( alt26 )
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:265:23: bodyOper
     				{
     				DebugLocation(265, 23);
-    				PushFollow(Follow._bodyOper_in_mainBodyExpr1735);
+    				PushFollow(Follow._bodyOper_in_mainBodyExpr1734);
     				bodyOper152=bodyOper();
     				PopFollow();
 
@@ -5709,21 +5619,21 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				goto loop27;
+    				goto loop26;
     			}
     		}
 
-    		loop27:
+    		loop26:
     			;
 
-    		} finally { DebugExitSubRule(27); }
+    		} finally { DebugExitSubRule(26); }
 
     		DebugLocation(265, 36);
-    		END153=(IToken)Match(input,END,Follow._END_in_mainBodyExpr1738);  
+    		END153=(IToken)Match(input,END,Follow._END_in_mainBodyExpr1737);  
     		stream_END.Add(END153);
 
     		DebugLocation(265, 38);
-    		OP_END154=(IToken)Match(input,OP_END,Follow._OP_END_in_mainBodyExpr1741);  
+    		OP_END154=(IToken)Match(input,OP_END,Follow._OP_END_in_mainBodyExpr1740);  
     		stream_OP_END.Add(OP_END154);
 
 
@@ -5821,27 +5731,27 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     	try
     	{
     		// Lang2.g:267:16: ( funcDeclare | procedureDeclare )
-    		int alt28=2;
-    		try { DebugEnterDecision(28, decisionCanBacktrack[28]);
-    		int LA28_0 = input.LA(1);
+    		int alt27=2;
+    		try { DebugEnterDecision(27, decisionCanBacktrack[27]);
+    		int LA27_0 = input.LA(1);
 
-    		if ((LA28_0==FUNCTION))
+    		if ((LA27_0==FUNCTION))
     		{
-    			alt28=1;
+    			alt27=1;
     		}
-    		else if ((LA28_0==PROCEDURE))
+    		else if ((LA27_0==PROCEDURE))
     		{
-    			alt28=2;
+    			alt27=2;
     		}
     		else
     		{
-    			NoViableAltException nvae = new NoViableAltException("", 28, 0, input);
+    			NoViableAltException nvae = new NoViableAltException("", 27, 0, input);
 
     			DebugRecognitionException(nvae);
     			throw nvae;
     		}
-    		} finally { DebugExitDecision(28); }
-    		switch (alt28)
+    		} finally { DebugExitDecision(27); }
+    		switch (alt27)
     		{
     		case 1:
     			DebugEnterAlt(1);
@@ -5850,7 +5760,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			root_0 = (object)adaptor.Nil();
 
     			DebugLocation(267, 18);
-    			PushFollow(Follow._funcDeclare_in_func_proc_expr1762);
+    			PushFollow(Follow._funcDeclare_in_func_proc_expr1761);
     			funcDeclare155=funcDeclare();
     			PopFollow();
 
@@ -5865,7 +5775,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			root_0 = (object)adaptor.Nil();
 
     			DebugLocation(267, 30);
-    			PushFollow(Follow._procedureDeclare_in_func_proc_expr1764);
+    			PushFollow(Follow._procedureDeclare_in_func_proc_expr1763);
     			procedureDeclare156=procedureDeclare();
     			PopFollow();
 
@@ -5931,28 +5841,28 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		{
     		DebugLocation(269, 11);
     		// Lang2.g:269:11: ( func_proc_expr )*
-    		try { DebugEnterSubRule(29);
+    		try { DebugEnterSubRule(28);
     		while (true)
     		{
-    			int alt29=2;
-    			try { DebugEnterDecision(29, decisionCanBacktrack[29]);
-    			int LA29_0 = input.LA(1);
+    			int alt28=2;
+    			try { DebugEnterDecision(28, decisionCanBacktrack[28]);
+    			int LA28_0 = input.LA(1);
 
-    			if (((LA29_0>=FUNCTION && LA29_0<=PROCEDURE)))
+    			if (((LA28_0>=FUNCTION && LA28_0<=PROCEDURE)))
     			{
-    				alt29=1;
+    				alt28=1;
     			}
 
 
-    			} finally { DebugExitDecision(29); }
-    			switch ( alt29 )
+    			} finally { DebugExitDecision(28); }
+    			switch ( alt28 )
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:269:11: func_proc_expr
     				{
     				DebugLocation(269, 11);
-    				PushFollow(Follow._func_proc_expr_in_fpExprW1773);
+    				PushFollow(Follow._func_proc_expr_in_fpExprW1772);
     				func_proc_expr157=func_proc_expr();
     				PopFollow();
 
@@ -5962,14 +5872,14 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				goto loop29;
+    				goto loop28;
     			}
     		}
 
-    		loop29:
+    		loop28:
     			;
 
-    		} finally { DebugExitSubRule(29); }
+    		} finally { DebugExitSubRule(28); }
 
 
 
@@ -6074,24 +5984,24 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		{
     		DebugLocation(271, 14);
     		// Lang2.g:271:14: ( varDeclW )?
-    		int alt30=2;
-    		try { DebugEnterSubRule(30);
-    		try { DebugEnterDecision(30, decisionCanBacktrack[30]);
-    		int LA30_0 = input.LA(1);
+    		int alt29=2;
+    		try { DebugEnterSubRule(29);
+    		try { DebugEnterDecision(29, decisionCanBacktrack[29]);
+    		int LA29_0 = input.LA(1);
 
-    		if ((LA30_0==VAR))
+    		if ((LA29_0==VAR))
     		{
-    			alt30=1;
+    			alt29=1;
     		}
-    		} finally { DebugExitDecision(30); }
-    		switch (alt30)
+    		} finally { DebugExitDecision(29); }
+    		switch (alt29)
     		{
     		case 1:
     			DebugEnterAlt(1);
     			// Lang2.g:271:14: varDeclW
     			{
     			DebugLocation(271, 14);
-    			PushFollow(Follow._varDeclW_in_wrapToBody1791);
+    			PushFollow(Follow._varDeclW_in_wrapToBody1790);
     			varDeclW158=varDeclW();
     			PopFollow();
 
@@ -6101,16 +6011,16 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     			break;
 
     		}
-    		} finally { DebugExitSubRule(30); }
+    		} finally { DebugExitSubRule(29); }
 
     		DebugLocation(271, 24);
-    		PushFollow(Follow._fpExprW_in_wrapToBody1794);
+    		PushFollow(Follow._fpExprW_in_wrapToBody1793);
     		fpExprW159=fpExprW();
     		PopFollow();
 
     		stream_fpExprW.Add(fpExprW159.Tree);
     		DebugLocation(271, 32);
-    		PushFollow(Follow._mainBodyExpr_in_wrapToBody1796);
+    		PushFollow(Follow._mainBodyExpr_in_wrapToBody1795);
     		mainBodyExpr160=mainBodyExpr();
     		PopFollow();
 
@@ -6119,7 +6029,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
     		{
     		// AST REWRITE
-    		// elements: varDeclW, mainBodyExpr, fpExprW
+    		// elements: fpExprW, mainBodyExpr, varDeclW
     		// token labels: 
     		// rule labels: retval
     		// token list labels: 
@@ -6226,19 +6136,19 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:274:9: PROGRAM VARIABLE OP_END wrapToBody
     		{
     		DebugLocation(274, 9);
-    		PROGRAM161=(IToken)Match(input,PROGRAM,Follow._PROGRAM_in_expr1822);  
+    		PROGRAM161=(IToken)Match(input,PROGRAM,Follow._PROGRAM_in_expr1821);  
     		stream_PROGRAM.Add(PROGRAM161);
 
     		DebugLocation(274, 17);
-    		VARIABLE162=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_expr1824);  
+    		VARIABLE162=(IToken)Match(input,VARIABLE,Follow._VARIABLE_in_expr1823);  
     		stream_VARIABLE.Add(VARIABLE162);
 
     		DebugLocation(274, 32);
-    		OP_END163=(IToken)Match(input,OP_END,Follow._OP_END_in_expr1826);  
+    		OP_END163=(IToken)Match(input,OP_END,Follow._OP_END_in_expr1825);  
     		stream_OP_END.Add(OP_END163);
 
     		DebugLocation(274, 34);
-    		PushFollow(Follow._wrapToBody_in_expr1829);
+    		PushFollow(Follow._wrapToBody_in_expr1828);
     		wrapToBody164=wrapToBody();
     		PopFollow();
 
@@ -6247,7 +6157,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
     		{
     		// AST REWRITE
-    		// elements: wrapToBody, VARIABLE, PROGRAM
+    		// elements: VARIABLE, PROGRAM, wrapToBody
     		// token labels: 
     		// rule labels: retval
     		// token list labels: 
@@ -6339,29 +6249,29 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 
     		DebugLocation(277, 10);
     		// Lang2.g:277:10: ( expr )+
-    		int cnt31=0;
-    		try { DebugEnterSubRule(31);
+    		int cnt30=0;
+    		try { DebugEnterSubRule(30);
     		while (true)
     		{
-    			int alt31=2;
-    			try { DebugEnterDecision(31, decisionCanBacktrack[31]);
-    			int LA31_0 = input.LA(1);
+    			int alt30=2;
+    			try { DebugEnterDecision(30, decisionCanBacktrack[30]);
+    			int LA30_0 = input.LA(1);
 
-    			if ((LA31_0==PROGRAM))
+    			if ((LA30_0==PROGRAM))
     			{
-    				alt31=1;
+    				alt30=1;
     			}
 
 
-    			} finally { DebugExitDecision(31); }
-    			switch (alt31)
+    			} finally { DebugExitDecision(30); }
+    			switch (alt30)
     			{
     			case 1:
     				DebugEnterAlt(1);
     				// Lang2.g:277:10: expr
     				{
     				DebugLocation(277, 10);
-    				PushFollow(Follow._expr_in_program1849);
+    				PushFollow(Follow._expr_in_program1848);
     				expr165=expr();
     				PopFollow();
 
@@ -6371,19 +6281,19 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     				break;
 
     			default:
-    				if (cnt31 >= 1)
-    					goto loop31;
+    				if (cnt30 >= 1)
+    					goto loop30;
 
-    				EarlyExitException eee31 = new EarlyExitException( 31, input );
-    				DebugRecognitionException(eee31);
-    				throw eee31;
+    				EarlyExitException eee30 = new EarlyExitException( 30, input );
+    				DebugRecognitionException(eee30);
+    				throw eee30;
     			}
-    			cnt31++;
+    			cnt30++;
     		}
-    		loop31:
+    		loop30:
     			;
 
-    		} finally { DebugExitSubRule(31); }
+    		} finally { DebugExitSubRule(30); }
 
 
     		}
@@ -6446,13 +6356,13 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		// Lang2.g:278:9: program EOF
     		{
     		DebugLocation(278, 9);
-    		PushFollow(Follow._program_in_result1858);
+    		PushFollow(Follow._program_in_result1857);
     		program166=program();
     		PopFollow();
 
     		stream_program.Add(program166.Tree);
     		DebugLocation(278, 17);
-    		EOF167=(IToken)Match(input,EOF,Follow._EOF_in_result1860);  
+    		EOF167=(IToken)Match(input,EOF,Follow._EOF_in_result1859);  
     		stream_EOF.Add(EOF167);
 
 
@@ -6548,7 +6458,7 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     		root_0 = (object)adaptor.Nil();
 
     		DebugLocation(279, 18);
-    		PushFollow(Follow._result_in_execute1877);
+    		PushFollow(Follow._result_in_execute1876);
     		result168=result();
     		PopFollow();
 
@@ -6579,6 +6489,88 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
     }
     // $ANTLR end "execute"
 
+	#region DFA
+	DFA1 dfa1;
+
+	protected override void InitDFAs()
+	{
+		base.InitDFAs();
+		dfa1 = new DFA1( this );
+	}
+
+	private class DFA1 : DFA
+	{
+		private const string DFA1_eotS =
+			"\x0a\uffff";
+		private const string DFA1_eofS =
+			"\x06\uffff\x01\x09\x03\uffff";
+		private const string DFA1_minS =
+			"\x01\x18\x05\uffff\x01\x06\x03\uffff";
+		private const string DFA1_maxS =
+			"\x01\x46\x05\uffff\x01\x48\x03\uffff";
+		private const string DFA1_acceptS =
+			"\x01\uffff\x01\x01\x01\x02\x01\x03\x01\x04\x01\x05\x01\uffff\x01\x07"+
+			"\x01\x08\x01\x06";
+		private const string DFA1_specialS =
+			"\x0a\uffff}>";
+		private static readonly string[] DFA1_transitionS =
+			{
+				"\x01\x04\x01\x03\x01\x02\x01\x05\x1b\uffff\x01\x06\x0e\uffff\x01\x01",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"\x01\x09\x05\uffff\x01\x09\x01\uffff\x02\x09\x01\uffff\x01\x09\x17"+
+				"\uffff\x02\x09\x0a\uffff\x01\x09\x02\uffff\x04\x09\x01\uffff\x06\x09"+
+				"\x01\x08\x02\x09\x01\x07\x02\x09",
+				"",
+				"",
+				""
+			};
+
+		private static readonly short[] DFA1_eot = DFA.UnpackEncodedString(DFA1_eotS);
+		private static readonly short[] DFA1_eof = DFA.UnpackEncodedString(DFA1_eofS);
+		private static readonly char[] DFA1_min = DFA.UnpackEncodedStringToUnsignedChars(DFA1_minS);
+		private static readonly char[] DFA1_max = DFA.UnpackEncodedStringToUnsignedChars(DFA1_maxS);
+		private static readonly short[] DFA1_accept = DFA.UnpackEncodedString(DFA1_acceptS);
+		private static readonly short[] DFA1_special = DFA.UnpackEncodedString(DFA1_specialS);
+		private static readonly short[][] DFA1_transition;
+
+		static DFA1()
+		{
+			int numStates = DFA1_transitionS.Length;
+			DFA1_transition = new short[numStates][];
+			for ( int i=0; i < numStates; i++ )
+			{
+				DFA1_transition[i] = DFA.UnpackEncodedString(DFA1_transitionS[i]);
+			}
+		}
+
+		public DFA1( BaseRecognizer recognizer )
+		{
+			this.recognizer = recognizer;
+			this.decisionNumber = 1;
+			this.eot = DFA1_eot;
+			this.eof = DFA1_eof;
+			this.min = DFA1_min;
+			this.max = DFA1_max;
+			this.accept = DFA1_accept;
+			this.special = DFA1_special;
+			this.transition = DFA1_transition;
+		}
+
+		public override string Description { get { return "132:1: mathGroup : ( '(' expressions ')' | INT | CHAR | BOOLEAN | STRING | VARIABLE | funcCall | arrayCall );"; } }
+
+		public override void Error(NoViableAltException nvae)
+		{
+			DebugRecognitionException(nvae);
+		}
+	}
+
+
+	#endregion DFA
+
 	#region Follow sets
 	private static class Follow
 	{
@@ -6606,150 +6598,150 @@ public partial class Lang2Parser : Antlr.Runtime.Parser
 		public static readonly BitSet _STRING_in_mathGroup776 = new BitSet(new ulong[]{0x0000000000000002UL});
 		public static readonly BitSet _VARIABLE_in_mathGroup782 = new BitSet(new ulong[]{0x0000000000000002UL});
 		public static readonly BitSet _funcCall_in_mathGroup788 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _mathGroup_in_boolMult800 = new BitSet(new ulong[]{0x0000020000000002UL});
-		public static readonly BitSet _BOOL_MULT_in_boolMult802 = new BitSet(new ulong[]{0x008000000F000000UL,0x0000000000000040UL});
-		public static readonly BitSet _mathGroup_in_boolMult805 = new BitSet(new ulong[]{0x0000020000000002UL});
-		public static readonly BitSet _boolMult_in_boolAdd819 = new BitSet(new ulong[]{0x0000040000000002UL});
-		public static readonly BitSet _BOOL_ADD_in_boolAdd821 = new BitSet(new ulong[]{0x008000000F000000UL,0x0000000000000040UL});
-		public static readonly BitSet _boolMult_in_boolAdd824 = new BitSet(new ulong[]{0x0000040000000002UL});
-		public static readonly BitSet _boolAdd_in_boolElse837 = new BitSet(new ulong[]{0xE000000000000002UL,0x0000000000000007UL});
-		public static readonly BitSet _boolOperator_in_boolElse839 = new BitSet(new ulong[]{0x008000000F000000UL,0x0000000000000040UL});
-		public static readonly BitSet _boolAdd_in_boolElse842 = new BitSet(new ulong[]{0xE000000000000002UL,0x0000000000000007UL});
-		public static readonly BitSet _boolElse_in_boolNegative857 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _NOT_in_boolNegative862 = new BitSet(new ulong[]{0x008000000F000000UL,0x0000000000000040UL});
-		public static readonly BitSet _boolElse_in_boolNegative865 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _boolNegative_in_useDiv878 = new BitSet(new ulong[]{0x000000000000C002UL});
-		public static readonly BitSet _set_in_useDiv880 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
-		public static readonly BitSet _70_in_useDiv887 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _boolNegative_in_useDiv890 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000080UL});
-		public static readonly BitSet _71_in_useDiv892 = new BitSet(new ulong[]{0x000000000000C002UL});
-		public static readonly BitSet _useDiv_in_mathMult909 = new BitSet(new ulong[]{0x0C00000000000002UL});
-		public static readonly BitSet _set_in_mathMult911 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _useDiv_in_mathMult917 = new BitSet(new ulong[]{0x0C00000000000002UL});
-		public static readonly BitSet _mathMult_in_mathAdd930 = new BitSet(new ulong[]{0x0300000000000002UL});
-		public static readonly BitSet _set_in_mathAdd932 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _mathMult_in_mathAdd938 = new BitSet(new ulong[]{0x0300000000000002UL});
-		public static readonly BitSet _mathAdd_in_mathExpr952 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _assExpr_in_bodyOper967 = new BitSet(new ulong[]{0x0020000000000000UL});
-		public static readonly BitSet _OP_END_in_bodyOper969 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _conditionExpr_in_bodyOper977 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _loopExpr_in_bodyOper984 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _funcCall_in_bodyOper991 = new BitSet(new ulong[]{0x0020000000000000UL});
-		public static readonly BitSet _OP_END_in_bodyOper993 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _mathExpr_in_expressions1007 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _arrayCall_in_expressions1014 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _mathExpr_in_funcCallArgs1028 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _72_in_funcCallArgs1030 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _mathExpr_in_funcCallArgs1033 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _mathExpr_in_funcCallArgsW1048 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _72_in_funcCallArgsW1050 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _mathExpr_in_funcCallArgsW1052 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _VARIABLE_in_funcCall1078 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
-		public static readonly BitSet _70_in_funcCall1079 = new BitSet(new ulong[]{0x008000000F010000UL,0x00000000000000C0UL});
-		public static readonly BitSet _funcCallArgsW_in_funcCall1081 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000080UL});
-		public static readonly BitSet _71_in_funcCall1084 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _70_in_argDeclExpr1108 = new BitSet(new ulong[]{0x0080000000040000UL,0x0000000000000080UL});
-		public static readonly BitSet _argDeclMany_in_argDeclExpr1111 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000080UL});
-		public static readonly BitSet _71_in_argDeclExpr1114 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _set_in_retTypeExpr1136 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _retTypeExpr_in_retTypeExprWrap1156 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _varDeclW_in_bodyFuncProcExpr1177 = new BitSet(new ulong[]{0x0000000000000400UL});
-		public static readonly BitSet _bodyExpr_in_bodyFuncProcExpr1180 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _FUNCTION_in_funcDeclare1193 = new BitSet(new ulong[]{0x0080000000000000UL});
-		public static readonly BitSet _VARIABLE_in_funcDeclare1195 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
-		public static readonly BitSet _argDeclExpr_in_funcDeclare1197 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000200UL});
-		public static readonly BitSet _73_in_funcDeclare1198 = new BitSet(new ulong[]{0x0000000000780000UL});
-		public static readonly BitSet _retTypeExprWrap_in_funcDeclare1200 = new BitSet(new ulong[]{0x0020000000000000UL});
-		public static readonly BitSet _OP_END_in_funcDeclare1202 = new BitSet(new ulong[]{0x0000000000040400UL});
-		public static readonly BitSet _bodyFuncProcExpr_in_funcDeclare1206 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _PROCEDURE_in_procedureDeclare1231 = new BitSet(new ulong[]{0x0080000000000000UL});
-		public static readonly BitSet _VARIABLE_in_procedureDeclare1233 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
-		public static readonly BitSet _argDeclExpr_in_procedureDeclare1235 = new BitSet(new ulong[]{0x0020000000000000UL});
-		public static readonly BitSet _OP_END_in_procedureDeclare1237 = new BitSet(new ulong[]{0x0000000000040400UL});
-		public static readonly BitSet _bodyFuncProcExpr_in_procedureDeclare1239 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _ELSE_in_conditionElseExpr1266 = new BitSet(new ulong[]{0x0000000000000400UL});
-		public static readonly BitSet _bodyExpr_in_conditionElseExpr1269 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _expressions_in_condExpr1291 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _IF_in_conditionExpr1310 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _condExpr_in_conditionExpr1312 = new BitSet(new ulong[]{0x0000000000001000UL});
-		public static readonly BitSet _THEN_in_conditionExpr1314 = new BitSet(new ulong[]{0x0000000000000400UL});
-		public static readonly BitSet _bodyExpr_in_conditionExpr1317 = new BitSet(new ulong[]{0x0000000000002002UL});
-		public static readonly BitSet _conditionElseExpr_in_conditionExpr1319 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _assExpr_in_forExpr1345 = new BitSet(new ulong[]{0x0000000000020000UL});
-		public static readonly BitSet _TO_in_forExpr1347 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _expressions_in_forExpr1350 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _WHILE_in_loopExpr1360 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _condExpr_in_loopExpr1362 = new BitSet(new ulong[]{0x0000000000000040UL});
-		public static readonly BitSet _DO_in_loopExpr1364 = new BitSet(new ulong[]{0x0000000000000400UL});
-		public static readonly BitSet _bodyExpr_in_loopExpr1367 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _FOR_in_loopExpr1383 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _forExpr_in_loopExpr1385 = new BitSet(new ulong[]{0x0000000000000040UL});
-		public static readonly BitSet _DO_in_loopExpr1387 = new BitSet(new ulong[]{0x0000000000000400UL});
-		public static readonly BitSet _bodyExpr_in_loopExpr1389 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _REPEAT_in_loopExpr1405 = new BitSet(new ulong[]{0x0000000000000400UL});
-		public static readonly BitSet _bodyExpr_in_loopExpr1407 = new BitSet(new ulong[]{0x0010000000000000UL});
-		public static readonly BitSet _UNTIL_in_loopExpr1409 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _condExpr_in_loopExpr1411 = new BitSet(new ulong[]{0x0020000000000000UL});
-		public static readonly BitSet _OP_END_in_loopExpr1413 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _VARIABLE_in_assExpr1436 = new BitSet(new ulong[]{0x1000000000000000UL});
-		public static readonly BitSet _ASSIGN_in_assExpr1438 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _expressions_in_assExpr1441 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _arrayCall_in_assExpr1447 = new BitSet(new ulong[]{0x1000000000000000UL});
-		public static readonly BitSet _ASSIGN_in_assExpr1449 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
-		public static readonly BitSet _expressions_in_assExpr1452 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _varTypeDeclW_in_argTypeDecl1462 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _VARIABLE_in_partArgDecl1481 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _72_in_partArgDecl1483 = new BitSet(new ulong[]{0x0080000000000000UL});
-		public static readonly BitSet _VARIABLE_in_partArgDecl1486 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _VARIABLE_in_argDecl1496 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000300UL});
-		public static readonly BitSet _72_in_argDecl1498 = new BitSet(new ulong[]{0x0080000000000000UL});
-		public static readonly BitSet _VARIABLE_in_argDecl1501 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000300UL});
-		public static readonly BitSet _73_in_argDecl1505 = new BitSet(new ulong[]{0x0000100000780000UL});
-		public static readonly BitSet _argTypeDecl_in_argDecl1508 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _VAR_in_argDecl1514 = new BitSet(new ulong[]{0x0080000000000000UL});
-		public static readonly BitSet _partArgDecl_in_argDecl1516 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000200UL});
-		public static readonly BitSet _73_in_argDecl1517 = new BitSet(new ulong[]{0x0000100000780000UL});
-		public static readonly BitSet _argTypeDecl_in_argDecl1520 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _argDecl_in_argDeclManyW1541 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _72_in_argDeclManyW1543 = new BitSet(new ulong[]{0x0080000000040000UL});
-		public static readonly BitSet _argDecl_in_argDeclManyW1546 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _argDeclManyW_in_argDeclMany1559 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _arrayCall_in_mathGroup794 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _mathGroup_in_boolMult806 = new BitSet(new ulong[]{0x0000020000000002UL});
+		public static readonly BitSet _BOOL_MULT_in_boolMult808 = new BitSet(new ulong[]{0x008000000F000000UL,0x0000000000000040UL});
+		public static readonly BitSet _mathGroup_in_boolMult811 = new BitSet(new ulong[]{0x0000020000000002UL});
+		public static readonly BitSet _boolMult_in_boolAdd825 = new BitSet(new ulong[]{0x0000040000000002UL});
+		public static readonly BitSet _BOOL_ADD_in_boolAdd827 = new BitSet(new ulong[]{0x008000000F000000UL,0x0000000000000040UL});
+		public static readonly BitSet _boolMult_in_boolAdd830 = new BitSet(new ulong[]{0x0000040000000002UL});
+		public static readonly BitSet _boolAdd_in_boolElse843 = new BitSet(new ulong[]{0xE000000000000002UL,0x0000000000000007UL});
+		public static readonly BitSet _boolOperator_in_boolElse845 = new BitSet(new ulong[]{0x008000000F000000UL,0x0000000000000040UL});
+		public static readonly BitSet _boolAdd_in_boolElse848 = new BitSet(new ulong[]{0xE000000000000002UL,0x0000000000000007UL});
+		public static readonly BitSet _boolElse_in_boolNegative863 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _NOT_in_boolNegative868 = new BitSet(new ulong[]{0x008000000F000000UL,0x0000000000000040UL});
+		public static readonly BitSet _boolElse_in_boolNegative871 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _boolNegative_in_useDiv884 = new BitSet(new ulong[]{0x000000000000C002UL});
+		public static readonly BitSet _set_in_useDiv886 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
+		public static readonly BitSet _70_in_useDiv893 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _boolNegative_in_useDiv896 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000080UL});
+		public static readonly BitSet _71_in_useDiv898 = new BitSet(new ulong[]{0x000000000000C002UL});
+		public static readonly BitSet _useDiv_in_mathMult915 = new BitSet(new ulong[]{0x0C00000000000002UL});
+		public static readonly BitSet _set_in_mathMult917 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _useDiv_in_mathMult923 = new BitSet(new ulong[]{0x0C00000000000002UL});
+		public static readonly BitSet _mathMult_in_mathAdd936 = new BitSet(new ulong[]{0x0300000000000002UL});
+		public static readonly BitSet _set_in_mathAdd938 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _mathMult_in_mathAdd944 = new BitSet(new ulong[]{0x0300000000000002UL});
+		public static readonly BitSet _mathAdd_in_mathExpr958 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _assExpr_in_bodyOper973 = new BitSet(new ulong[]{0x0020000000000000UL});
+		public static readonly BitSet _OP_END_in_bodyOper975 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _conditionExpr_in_bodyOper983 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _loopExpr_in_bodyOper990 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _funcCall_in_bodyOper997 = new BitSet(new ulong[]{0x0020000000000000UL});
+		public static readonly BitSet _OP_END_in_bodyOper999 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _mathExpr_in_expressions1013 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _mathExpr_in_funcCallArgs1027 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _72_in_funcCallArgs1029 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _mathExpr_in_funcCallArgs1032 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _mathExpr_in_funcCallArgsW1047 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _72_in_funcCallArgsW1049 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _mathExpr_in_funcCallArgsW1051 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _VARIABLE_in_funcCall1077 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
+		public static readonly BitSet _70_in_funcCall1078 = new BitSet(new ulong[]{0x008000000F010000UL,0x00000000000000C0UL});
+		public static readonly BitSet _funcCallArgsW_in_funcCall1080 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000080UL});
+		public static readonly BitSet _71_in_funcCall1083 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _70_in_argDeclExpr1107 = new BitSet(new ulong[]{0x0080000000040000UL,0x0000000000000080UL});
+		public static readonly BitSet _argDeclMany_in_argDeclExpr1110 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000080UL});
+		public static readonly BitSet _71_in_argDeclExpr1113 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _set_in_retTypeExpr1135 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _retTypeExpr_in_retTypeExprWrap1155 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _varDeclW_in_bodyFuncProcExpr1176 = new BitSet(new ulong[]{0x0000000000000400UL});
+		public static readonly BitSet _bodyExpr_in_bodyFuncProcExpr1179 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _FUNCTION_in_funcDeclare1192 = new BitSet(new ulong[]{0x0080000000000000UL});
+		public static readonly BitSet _VARIABLE_in_funcDeclare1194 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
+		public static readonly BitSet _argDeclExpr_in_funcDeclare1196 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000200UL});
+		public static readonly BitSet _73_in_funcDeclare1197 = new BitSet(new ulong[]{0x0000000000780000UL});
+		public static readonly BitSet _retTypeExprWrap_in_funcDeclare1199 = new BitSet(new ulong[]{0x0020000000000000UL});
+		public static readonly BitSet _OP_END_in_funcDeclare1201 = new BitSet(new ulong[]{0x0000000000040400UL});
+		public static readonly BitSet _bodyFuncProcExpr_in_funcDeclare1205 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _PROCEDURE_in_procedureDeclare1230 = new BitSet(new ulong[]{0x0080000000000000UL});
+		public static readonly BitSet _VARIABLE_in_procedureDeclare1232 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
+		public static readonly BitSet _argDeclExpr_in_procedureDeclare1234 = new BitSet(new ulong[]{0x0020000000000000UL});
+		public static readonly BitSet _OP_END_in_procedureDeclare1236 = new BitSet(new ulong[]{0x0000000000040400UL});
+		public static readonly BitSet _bodyFuncProcExpr_in_procedureDeclare1238 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _ELSE_in_conditionElseExpr1265 = new BitSet(new ulong[]{0x0000000000000400UL});
+		public static readonly BitSet _bodyExpr_in_conditionElseExpr1268 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _expressions_in_condExpr1290 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _IF_in_conditionExpr1309 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _condExpr_in_conditionExpr1311 = new BitSet(new ulong[]{0x0000000000001000UL});
+		public static readonly BitSet _THEN_in_conditionExpr1313 = new BitSet(new ulong[]{0x0000000000000400UL});
+		public static readonly BitSet _bodyExpr_in_conditionExpr1316 = new BitSet(new ulong[]{0x0000000000002002UL});
+		public static readonly BitSet _conditionElseExpr_in_conditionExpr1318 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _assExpr_in_forExpr1344 = new BitSet(new ulong[]{0x0000000000020000UL});
+		public static readonly BitSet _TO_in_forExpr1346 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _expressions_in_forExpr1349 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _WHILE_in_loopExpr1359 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _condExpr_in_loopExpr1361 = new BitSet(new ulong[]{0x0000000000000040UL});
+		public static readonly BitSet _DO_in_loopExpr1363 = new BitSet(new ulong[]{0x0000000000000400UL});
+		public static readonly BitSet _bodyExpr_in_loopExpr1366 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _FOR_in_loopExpr1382 = new BitSet(new ulong[]{0x008000000F000000UL,0x0000000000000040UL});
+		public static readonly BitSet _forExpr_in_loopExpr1384 = new BitSet(new ulong[]{0x0000000000000040UL});
+		public static readonly BitSet _DO_in_loopExpr1386 = new BitSet(new ulong[]{0x0000000000000400UL});
+		public static readonly BitSet _bodyExpr_in_loopExpr1388 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _REPEAT_in_loopExpr1404 = new BitSet(new ulong[]{0x0000000000000400UL});
+		public static readonly BitSet _bodyExpr_in_loopExpr1406 = new BitSet(new ulong[]{0x0010000000000000UL});
+		public static readonly BitSet _UNTIL_in_loopExpr1408 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _condExpr_in_loopExpr1410 = new BitSet(new ulong[]{0x0020000000000000UL});
+		public static readonly BitSet _OP_END_in_loopExpr1412 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _VARIABLE_in_assExpr1435 = new BitSet(new ulong[]{0x1000000000000000UL});
+		public static readonly BitSet _ASSIGN_in_assExpr1437 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _expressions_in_assExpr1440 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _arrayCall_in_assExpr1446 = new BitSet(new ulong[]{0x1000000000000000UL});
+		public static readonly BitSet _ASSIGN_in_assExpr1448 = new BitSet(new ulong[]{0x008000000F010000UL,0x0000000000000040UL});
+		public static readonly BitSet _expressions_in_assExpr1451 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _varTypeDeclW_in_argTypeDecl1461 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _VARIABLE_in_partArgDecl1480 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _72_in_partArgDecl1482 = new BitSet(new ulong[]{0x0080000000000000UL});
+		public static readonly BitSet _VARIABLE_in_partArgDecl1485 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _VARIABLE_in_argDecl1495 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000300UL});
+		public static readonly BitSet _72_in_argDecl1497 = new BitSet(new ulong[]{0x0080000000000000UL});
+		public static readonly BitSet _VARIABLE_in_argDecl1500 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000300UL});
+		public static readonly BitSet _73_in_argDecl1504 = new BitSet(new ulong[]{0x0000100000780000UL});
+		public static readonly BitSet _argTypeDecl_in_argDecl1507 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _VAR_in_argDecl1513 = new BitSet(new ulong[]{0x0080000000000000UL});
+		public static readonly BitSet _partArgDecl_in_argDecl1515 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000200UL});
+		public static readonly BitSet _73_in_argDecl1516 = new BitSet(new ulong[]{0x0000100000780000UL});
+		public static readonly BitSet _argTypeDecl_in_argDecl1519 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _argDecl_in_argDeclManyW1540 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _72_in_argDeclManyW1542 = new BitSet(new ulong[]{0x0080000000040000UL});
+		public static readonly BitSet _argDecl_in_argDeclManyW1545 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _argDeclManyW_in_argDeclMany1558 = new BitSet(new ulong[]{0x0000000000000002UL});
 		public static readonly BitSet _set_in_typeDecl0 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _typeDecl_in_varTypeDeclW1593 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _arrayDecl_in_varTypeDeclW1595 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _varTypeDeclW_in_varTypeDecl1608 = new BitSet(new ulong[]{0x0020000000000000UL});
-		public static readonly BitSet _OP_END_in_varTypeDecl1610 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _VARIABLE_in_varDecl21631 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _72_in_varDecl21633 = new BitSet(new ulong[]{0x0080000000000000UL});
-		public static readonly BitSet _VARIABLE_in_varDecl21636 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
-		public static readonly BitSet _varDecl2_in_varDecl1646 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _varDecl_in_varDecl12W1656 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000200UL});
-		public static readonly BitSet _73_in_varDecl12W1658 = new BitSet(new ulong[]{0x0000100000780000UL});
-		public static readonly BitSet _varTypeDecl_in_varDecl12W1661 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _VAR_in_varDeclW1673 = new BitSet(new ulong[]{0x0080000000000000UL});
-		public static readonly BitSet _varDecl12W_in_varDeclW1676 = new BitSet(new ulong[]{0x0080000000000002UL});
-		public static readonly BitSet _BEGIN_in_bodyExpr1702 = new BitSet(new ulong[]{0x008800000F8108A0UL,0x0000000000000040UL});
-		public static readonly BitSet _bodyOper_in_bodyExpr1705 = new BitSet(new ulong[]{0x008800000F8108A0UL,0x0000000000000040UL});
-		public static readonly BitSet _END_in_bodyExpr1708 = new BitSet(new ulong[]{0x0020000000000000UL});
-		public static readonly BitSet _OP_END_in_bodyExpr1711 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _BEGIN_in_mainBodyExpr1732 = new BitSet(new ulong[]{0x008800000F8108A0UL,0x0000000000000040UL});
-		public static readonly BitSet _bodyOper_in_mainBodyExpr1735 = new BitSet(new ulong[]{0x008800000F8108A0UL,0x0000000000000040UL});
-		public static readonly BitSet _END_in_mainBodyExpr1738 = new BitSet(new ulong[]{0x0020000000000000UL});
-		public static readonly BitSet _OP_END_in_mainBodyExpr1741 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _funcDeclare_in_func_proc_expr1762 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _procedureDeclare_in_func_proc_expr1764 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _func_proc_expr_in_fpExprW1773 = new BitSet(new ulong[]{0x0000000000000302UL});
-		public static readonly BitSet _varDeclW_in_wrapToBody1791 = new BitSet(new ulong[]{0x0000000000000300UL});
-		public static readonly BitSet _fpExprW_in_wrapToBody1794 = new BitSet(new ulong[]{0x0000000000000400UL});
-		public static readonly BitSet _mainBodyExpr_in_wrapToBody1796 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _PROGRAM_in_expr1822 = new BitSet(new ulong[]{0x0080000000000000UL});
-		public static readonly BitSet _VARIABLE_in_expr1824 = new BitSet(new ulong[]{0x0020000000000000UL});
-		public static readonly BitSet _OP_END_in_expr1826 = new BitSet(new ulong[]{0x0000000000040300UL});
-		public static readonly BitSet _wrapToBody_in_expr1829 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _expr_in_program1849 = new BitSet(new ulong[]{0x0000000000000012UL});
-		public static readonly BitSet _program_in_result1858 = new BitSet(new ulong[]{0x0000000000000000UL});
-		public static readonly BitSet _EOF_in_result1860 = new BitSet(new ulong[]{0x0000000000000002UL});
-		public static readonly BitSet _result_in_execute1877 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _typeDecl_in_varTypeDeclW1592 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _arrayDecl_in_varTypeDeclW1594 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _varTypeDeclW_in_varTypeDecl1607 = new BitSet(new ulong[]{0x0020000000000000UL});
+		public static readonly BitSet _OP_END_in_varTypeDecl1609 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _VARIABLE_in_varDecl21630 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _72_in_varDecl21632 = new BitSet(new ulong[]{0x0080000000000000UL});
+		public static readonly BitSet _VARIABLE_in_varDecl21635 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000100UL});
+		public static readonly BitSet _varDecl2_in_varDecl1645 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _varDecl_in_varDecl12W1655 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000200UL});
+		public static readonly BitSet _73_in_varDecl12W1657 = new BitSet(new ulong[]{0x0000100000780000UL});
+		public static readonly BitSet _varTypeDecl_in_varDecl12W1660 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _VAR_in_varDeclW1672 = new BitSet(new ulong[]{0x0080000000000000UL});
+		public static readonly BitSet _varDecl12W_in_varDeclW1675 = new BitSet(new ulong[]{0x0080000000000002UL});
+		public static readonly BitSet _BEGIN_in_bodyExpr1701 = new BitSet(new ulong[]{0x008800000F8008A0UL,0x0000000000000040UL});
+		public static readonly BitSet _bodyOper_in_bodyExpr1704 = new BitSet(new ulong[]{0x008800000F8008A0UL,0x0000000000000040UL});
+		public static readonly BitSet _END_in_bodyExpr1707 = new BitSet(new ulong[]{0x0020000000000000UL});
+		public static readonly BitSet _OP_END_in_bodyExpr1710 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _BEGIN_in_mainBodyExpr1731 = new BitSet(new ulong[]{0x008800000F8008A0UL,0x0000000000000040UL});
+		public static readonly BitSet _bodyOper_in_mainBodyExpr1734 = new BitSet(new ulong[]{0x008800000F8008A0UL,0x0000000000000040UL});
+		public static readonly BitSet _END_in_mainBodyExpr1737 = new BitSet(new ulong[]{0x0020000000000000UL});
+		public static readonly BitSet _OP_END_in_mainBodyExpr1740 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _funcDeclare_in_func_proc_expr1761 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _procedureDeclare_in_func_proc_expr1763 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _func_proc_expr_in_fpExprW1772 = new BitSet(new ulong[]{0x0000000000000302UL});
+		public static readonly BitSet _varDeclW_in_wrapToBody1790 = new BitSet(new ulong[]{0x0000000000000300UL});
+		public static readonly BitSet _fpExprW_in_wrapToBody1793 = new BitSet(new ulong[]{0x0000000000000400UL});
+		public static readonly BitSet _mainBodyExpr_in_wrapToBody1795 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _PROGRAM_in_expr1821 = new BitSet(new ulong[]{0x0080000000000000UL});
+		public static readonly BitSet _VARIABLE_in_expr1823 = new BitSet(new ulong[]{0x0020000000000000UL});
+		public static readonly BitSet _OP_END_in_expr1825 = new BitSet(new ulong[]{0x0000000000040300UL});
+		public static readonly BitSet _wrapToBody_in_expr1828 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _expr_in_program1848 = new BitSet(new ulong[]{0x0000000000000012UL});
+		public static readonly BitSet _program_in_result1857 = new BitSet(new ulong[]{0x0000000000000000UL});
+		public static readonly BitSet _EOF_in_result1859 = new BitSet(new ulong[]{0x0000000000000002UL});
+		public static readonly BitSet _result_in_execute1876 = new BitSet(new ulong[]{0x0000000000000002UL});
 
 	}
 	#endregion Follow sets

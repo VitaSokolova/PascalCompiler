@@ -12,6 +12,16 @@ namespace CompilerConsole.Parser.CallNodes {
 
         public Node Assign { get; set; }
 
+        public Node OffsetIndex {
+            get {
+                //Вычисляем смещение в виде n-index;
+                var offset = new Expression(new Literal(DataType.VarInt, this.Arr.LeftSize), this.Index, ExprToken.Sub );
+                //Оно либо ноль либо отрицательное - умножаем на -1 чтобы получить положительное
+                var toPositive = new Expression(offset, new Literal(DataType.VarInt, -1), ExprToken.Mult);
+                return toPositive;
+            }
+        }
+
         public ArrCall(ArrNode arr) : base(ArrNode.ArrTypeToVarType(arr.DataType), "%ac" + arr.Name) {
             this.Arr = arr;
         }

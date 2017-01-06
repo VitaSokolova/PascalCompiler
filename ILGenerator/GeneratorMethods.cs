@@ -37,14 +37,26 @@ namespace CompilerConsole.CILGenerator
             Counter = 0;
             StringBuilder methodCIL = new StringBuilder();
             string startMethodCIL;
-
+            //Дело в том, что массивы в паскале не канает инитить так же ка и в си. Поэтому будем извращаться
+            StringBuilder arrays = new StringBuilder();
             #region Method start
             if (method.Name == "main" || method.Name == "Main") {
                 startMethodCIL = this.Reader(Template.DeclMainFunc);
+
+                foreach (var node in method.ParentBodyNode) {
+                    if (node is ArrNode) {
+                        arrays.AppendLine(this.ExpressionToIL(node));
+                    }
+                }
             }
             else {
                 startMethodCIL = this.Reader(Template.StartFuncDecl);
                 startMethodCIL = startMethodCIL.Replace("{type}", this.ToCILVariableType(method.DataType));
+                foreach (var node in method) {
+                    if (node is ArrNode) {
+                        arrays.AppendLine(this.ExpressionToIL(node));
+                    }
+                }
             }
           
             startMethodCIL = startMethodCIL.Replace(this.cilReplacedToken[CILReplacedToken.MethodName], method.Name);
@@ -58,7 +70,9 @@ namespace CompilerConsole.CILGenerator
             string localVardeclTemplate = this.Reader(Template.LocalvariableDeclaration);
             localVardeclTemplate =  localVardeclTemplate.Replace(this.cilReplacedToken[CILReplacedToken.Variables], this.GenerateLocalVariableDeclaration(method.BodyTable));
             methodCIL.AppendLine(localVardeclTemplate);
+
             //Генерация IL кода для выражений
+            methodCIL.AppendLine(arrays.ToString());
             methodCIL.AppendLine(this.GenerateExpression(method));
             #endregion
 
@@ -349,7 +363,7 @@ namespace CompilerConsole.CILGenerator
                 }
                 var operation = varNode.IsMethodArg ? this._operationDictionary[ILOperation.ReadMethodArg] : this._operationDictionary[ILOperation.ReadLocalVariable];
 
-                return  LineNumber + operation + this.Offset + varNode.Number;
+                return  this.LineNumber + operation + this.Offset + varNode.Number;
             }
 
             if (node is ArrCall)
@@ -357,7 +371,12 @@ namespace CompilerConsole.CILGenerator
                 var arr = (ArrCall) node;
                 string arrCall;
                 if (arr.Arr.IsGlobal) {
-                    arrCall = LineNumber +  this._operationDictionary[ILOperation.ReadField] + this.Offset + arr.Name +
+
+                    string callField = this.Reader(Template.CallField)
+                        .Replace("{type}", this.ToCILVariableType(arr.Arr.DataType));
+                    callField = callField.Replace("{name}", arr.Arr.Name);
+
+                    arrCall = LineNumber +  this._operationDictionary[ILOperation.ReadField] + this.Offset + callField +
                               Environment.NewLine;
                 }
                 else {
@@ -372,7 +391,7 @@ namespace CompilerConsole.CILGenerator
 
                     
                 }
-                string index = this.ExpressionToIL(arr.Index) + Environment.NewLine;
+                string index = this.ExpressionToIL(arr.OffsetIndex) + Environment.NewLine;
                 string load;
                 if (arr.Arr.DataType == DataType.ArrString) {
                     load = this._operationDictionary[ILOperation.ReadArrRefElement];
@@ -382,7 +401,7 @@ namespace CompilerConsole.CILGenerator
                 }
 
                 
-                return arrCall + index + LineNumber +load;
+                return arrCall + index + this.LineNumber +load;
             }
 
             if (node is FuncCall) {
@@ -396,26 +415,29 @@ namespace CompilerConsole.CILGenerator
 
             if (node is Literal)
             {
-                return LineNumber + this.GenerateConstIL((Literal) node);
+                return this.LineNumber + this.GenerateConstIL((Literal) node);
             }
             if (node is ArrNode) {
-                //var arr = (ArrNode) node;
-                //string arrSize = this.ExpressionToIL(arr.Length) + Environment.NewLine;
-                //string arrDecl = this.Reader(Template.ArrDecl);
-                //string t = this.ToCILVariableType(arr.DataType);
-                //t = t.Replace("[]", "");
-                //char fc = t[0];
-                //t = t.Remove(0, 1);
-                //t = t.Insert(0, char.ToUpper(fc).ToString());
-                //arrDecl = LineNumber + arrDecl.Replace("{type}", t) + Environment.NewLine;
-                //string writeArr = "";
-                //if (arr.IsGlobal) {
-                //    writeArr = this._operationDictionary[ILOperation.WriteField] + this.Offset + arr.Name;
-                //}
-                //else {
-                //    writeArr = this._operationDictionary[ILOperation.WriteLocalVariable] + this.Offset + arr.Number;
-                //}
-                //return  arrSize + arrDecl + LineNumber + writeArr;
+                var arr = (ArrNode) node;
+                string arrSize = this.ExpressionToIL(new Literal(DataType.VarInt, arr.Length)) + Environment.NewLine;
+                string arrDecl = this.Reader(Template.ArrDecl);
+                string t = this.ToCILVariableType(arr.DataType);
+                t = t.Replace("[]", "");
+                char fc = t[0];
+                t = t.Remove(0, 1);
+                t = t.Insert(0, char.ToUpper(fc).ToString());
+                arrDecl = this.LineNumber + arrDecl.Replace("{type}", t) + Environment.NewLine;
+                string writeArr = "";
+                if (arr.IsGlobal) {
+                    string callField = this.Reader(Template.CallField)
+                       .Replace("{type}", this.ToCILVariableType(arr.DataType));
+                    callField = callField.Replace("{name}", arr.Name);
+                    writeArr = this._operationDictionary[ILOperation.WriteField] + this.Offset + callField;
+                }
+                else {
+                    writeArr = this._operationDictionary[ILOperation.WriteLocalVariable] + this.Offset + arr.Number;
+                }
+                return arrSize + arrDecl + this.LineNumber + writeArr;
             }
             if (node is IfNode) {
                 var ifNode = (IfNode) node;
@@ -573,24 +595,27 @@ namespace CompilerConsole.CILGenerator
                 string arrCall;
                 if (arr.Arr.IsGlobal)
                 {
-                    arrCall = LineNumber + this._operationDictionary[ILOperation.ReadField] + this.Offset + arr.Name +
+                    string callField = this.Reader(Template.CallField)
+                        .Replace("{type}", this.ToCILVariableType(arr.Arr.DataType));
+                    callField = callField.Replace("{name}", arr.Arr.Name);
+                    arrCall = this.LineNumber + this._operationDictionary[ILOperation.ReadField] + this.Offset + callField +
                               Environment.NewLine;
                 }
                 else
                 {
                     if (arr.Arr.IsMethodArg)
                     {
-                        arrCall = LineNumber + this._operationDictionary[ILOperation.ReadMethodArg] + this.Offset +
+                        arrCall = this.LineNumber + this._operationDictionary[ILOperation.ReadMethodArg] + this.Offset +
                               arr.Arr.Number + Environment.NewLine;
                     }
                     else
                     {
-                        arrCall = LineNumber + this._operationDictionary[ILOperation.ReadLocalVariable] + this.Offset +
+                        arrCall = this.LineNumber + this._operationDictionary[ILOperation.ReadLocalVariable] + this.Offset +
                               arr.Arr.Number + Environment.NewLine;
                     }
                 }
 
-                string index = this.ExpressionToIL(arr.Index) + Environment.NewLine;
+                string index = this.ExpressionToIL(arr.OffsetIndex) + Environment.NewLine;
                 string righte = this.ExpressionToIL(node.RightNode) + Environment.NewLine;
                 string write;
                 if (arr.Arr.DataType == DataType.ArrString) {

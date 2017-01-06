@@ -136,6 +136,7 @@ mathGroup	:	'('!expressions')'!
 			|STRING
 			|VARIABLE
 			|funcCall
+			|arrayCall
 		;
 
 
@@ -175,7 +176,6 @@ bodyOper	:	assExpr OP_END!
 				;
 
 expressions	:	mathExpr
-				|arrayCall
 				;
 
 funcCallArgs	:	 mathExpr(','! mathExpr)* 
