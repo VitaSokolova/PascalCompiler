@@ -19,6 +19,7 @@ namespace CompilerConsole.Parser {
         private const string RefDecl = "var";
         private const string FuncCall = "FUNC_CALL";
         private const string ArrCall = "ARR_CALL";
+        private const string Negate = "NOT";
 
         #endregion
 
@@ -184,8 +185,14 @@ namespace CompilerConsole.Parser {
             #region Expression
 
             if (this.IsExpr(tree.Text)) {
+
+                if (tree.Text == Negate) {
+
+                }
+
                 ITree leftNode = tree.GetChild(0);
                 ITree rightNode = tree.GetChild(1);
+
                 Node left = this.ParseExpression(leftNode, bodyNode);
                 Node right = null;
 

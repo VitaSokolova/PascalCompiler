@@ -20,7 +20,7 @@ tokens{
 	ELSE = 'else';
 	DIV	= 'div';
 	MOD	= 'mod';
-	NOT	= 'not';
+	NOT	= 'NOT';
 	TO = 'to';
 	VAR = 'var';
 	T_CHAR = 'char';
@@ -148,7 +148,7 @@ boolAdd	:	boolMult(BOOL_ADD^ boolMult)*
 boolElse	:	boolAdd(boolOperator^ boolAdd)*
 			;
 
-boolNegative : boolElse (NOT^ boolElse)*
+boolNegative : (boolElse)| (NOT^ boolElse)
 			;
 
 useDiv	: boolNegative((DIV|MOD)^ '('! boolNegative ')'! )*
