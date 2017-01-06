@@ -237,15 +237,37 @@ namespace CompilerConsole.ILGenerator {
             if (node is ForLoop) {
                 return this.GenerateILForLoop((ForLoop) node);
             }
+            if (node is WhileLoop) {
+                return this.GenerateILWhileLoop((WhileLoop) node);
+            }
             return null;
         }
 
         #region Generarate IL for non expression nodes
 
+        private string GenerateILWhileLoop(WhileLoop whileNode) {
+            /*
+             {start line}  br.s {cond line}
+             {body}
+                {cond line}  {condition}
+                {end line}  brtrue.s {body line}
+             */
+            var template = this.Reader(Template.While);
+            template = template.Replace("{start line}", this.LineNumber);
+            var loopBody = this.ParseBody(whileNode);
+            var counter = GetLineNumber(loopBody);
+            template = template.Replace("{cond line}", this.PreLineNumber + this.Counter);
+            var cond = this.ExpressionToIL(whileNode.Condition);
+            template = template.Replace("{condition}", cond);
+            template = template.Replace("{end line}", this.LineNumber);
+            template = template.Replace("{body line}", this.PreLineNumber + counter);
+            return template.Replace("{body}", loopBody);
+        }
+
         private string GenerateILForLoop(ForLoop forNode) {
             var varE = this.ExpressionToIL(forNode.VarNode) + Environment.NewLine;
             var goToCondition = this.LineNumber + "br" + this.Offset;
-            var body = this.ParseBody(forNode.BodyTable);
+            var body = this.ParseBody(forNode);
             var counter = GetLineNumber(body);
             var incremental = this.ExpressionToIL(forNode.Incremental) + Environment.NewLine;
             goToCondition += this.PreLineNumber + this.Counter + Environment.NewLine;
@@ -259,14 +281,14 @@ namespace CompilerConsole.ILGenerator {
             cond = cond.Replace("{end line}", this.PreLineNumber + this.Counter);
             var goTo = this.LineNumber + this.Offset + "brfalse"; //Сюда еще бы доваить ссылку на елс
 
-            var body = this.ParseBody(ifNode.BodyTable); //Генерируем IL код для тела ифа
+            var body = this.ParseBody(ifNode); //Генерируем IL код для тела ифа
 
             var tempCounter = this.Counter;
             var elseBody = "";
             if (ifNode.ElseBody != null) {
                 tempCounter++;
                 body += this.LineNumber + this.Offset + "br" + this.Offset;
-                elseBody = this.ParseBody(ifNode.ElseBody.BodyTable);
+                elseBody = this.ParseBody(ifNode.ElseBody);
                 body += this.PreLineNumber + this.Counter;
             }
             goTo += this.Offset + this.PreLineNumber + tempCounter + Environment.NewLine;
@@ -423,10 +445,10 @@ namespace CompilerConsole.ILGenerator {
 
         #endregion
 
-        private string ParseBody(Body body) {
+        private string ParseBody(BodyNode body) {
             StringBuilder expressions = new StringBuilder();
             //Начинаем парсить выражения
-            foreach (Node node in body.Nodes) {
+            foreach (Node node in body) {
                 string result = this.ExpressionToIL(node);
 
                 if (!String.IsNullOrEmpty(result)) {

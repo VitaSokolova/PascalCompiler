@@ -46,7 +46,8 @@ namespace CompilerConsole.ILGenerator
         ArrDecl,
         Conj,
         Dij,
-        ReadFile
+        ReadFile,
+        While
     }
 
     public enum ILToken
@@ -147,7 +148,7 @@ namespace CompilerConsole.ILGenerator
                     body += this.GenerateILMethod(node as FuncNode);
                 }
             }
-
+    
             return body;
         }
 
@@ -169,7 +170,8 @@ namespace CompilerConsole.ILGenerator
                 {Template.ArrDecl, "ArrDecl.txt"},
                 {Template.Conj, "ConjTemplate.txt"},
                 {Template.Dij, "DijTemplate.txt"},
-                {Template.ReadFile, "ReadFileTemplate.txt"}
+                {Template.ReadFile, "ReadFileTemplate.txt"},
+                {Template.While, "WhileTemplate.txt"}
             };
 
             this._cilReplacedToken = new Dictionary<ILReplacedToken, string>() {

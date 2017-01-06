@@ -60,7 +60,6 @@ namespace CompilerConsole {
 
                 fileStream?.Close();
                 reader?.Close();
-                
             }
             catch (Exception e)
             {

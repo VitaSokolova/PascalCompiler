@@ -92,6 +92,7 @@
     <Content Include="Templates\ReadLineTemplate.txt" />
     <Content Include="Templates\StartFucDecl.txt" />
     <Content Include="Templates\StartProgramTempate.txt" />
+    <Content Include="Templates\WhileTemplate.txt" />
     <Content Include="Templates\WriteLineTemplate.txt" />
     <Content Include="Как компилировать.txt" />
   </ItemGroup>
