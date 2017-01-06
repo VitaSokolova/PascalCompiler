@@ -255,7 +255,7 @@ namespace CompilerConsole.CILGenerator
                 }               
             }
 
-            if (methCallNode.Method.Name.Contains(Parser.Parser.WriteMethodName)) {
+            if (methCallNode.Method.Name == Parser.Parser.WriteMethodName) {
                 string t = this.Reader(Template.ConsoleWriteLine);
                 methodCall.Append(LineNumber + this._operationDictionary[ILOperation.Call] + this.Offset + this.Reader(Template.ConsoleWriteLine)
                     .Replace("{type}", this.ToCILVariableType(methCallNode.SendArgs[0].DataType)));

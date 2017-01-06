@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2017-01-06 03:51:50
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2017-01-06 05:08:13
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -1484,80 +1484,53 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = INT;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:84:6: ( ( '-' )? ( '0' .. '9' )+ )
+    		// Lang2.g:84:6: ( ( '0' .. '9' )+ )
     		DebugEnterAlt(1);
-    		// Lang2.g:84:8: ( '-' )? ( '0' .. '9' )+
+    		// Lang2.g:84:8: ( '0' .. '9' )+
     		{
     		DebugLocation(84, 8);
-    		// Lang2.g:84:8: ( '-' )?
-    		int alt3=2;
+    		// Lang2.g:84:8: ( '0' .. '9' )+
+    		int cnt3=0;
     		try { DebugEnterSubRule(3);
-    		try { DebugEnterDecision(3, decisionCanBacktrack[3]);
-    		int LA3_0 = input.LA(1);
-
-    		if ((LA3_0=='-'))
-    		{
-    			alt3=1;
-    		}
-    		} finally { DebugExitDecision(3); }
-    		switch (alt3)
-    		{
-    		case 1:
-    			DebugEnterAlt(1);
-    			// Lang2.g:84:8: '-'
-    			{
-    			DebugLocation(84, 8);
-    			Match('-'); 
-
-    			}
-    			break;
-
-    		}
-    		} finally { DebugExitSubRule(3); }
-
-    		DebugLocation(84, 12);
-    		// Lang2.g:84:12: ( '0' .. '9' )+
-    		int cnt4=0;
-    		try { DebugEnterSubRule(4);
     		while (true)
     		{
-    			int alt4=2;
-    			try { DebugEnterDecision(4, decisionCanBacktrack[4]);
-    			int LA4_0 = input.LA(1);
+    			int alt3=2;
+    			try { DebugEnterDecision(3, decisionCanBacktrack[3]);
+    			int LA3_0 = input.LA(1);
 
-    			if (((LA4_0>='0' && LA4_0<='9')))
+    			if (((LA3_0>='0' && LA3_0<='9')))
     			{
-    				alt4=1;
+    				alt3=1;
     			}
 
 
-    			} finally { DebugExitDecision(4); }
-    			switch (alt4)
+    			} finally { DebugExitDecision(3); }
+    			switch (alt3)
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:84:13: '0' .. '9'
+    				// Lang2.g:84:9: '0' .. '9'
     				{
-    				DebugLocation(84, 13);
+    				DebugLocation(84, 9);
     				MatchRange('0','9'); 
 
     				}
     				break;
 
     			default:
-    				if (cnt4 >= 1)
-    					goto loop4;
+    				if (cnt3 >= 1)
+    					goto loop3;
 
-    				EarlyExitException eee4 = new EarlyExitException( 4, input );
-    				DebugRecognitionException(eee4);
-    				throw eee4;
+    				EarlyExitException eee3 = new EarlyExitException( 3, input );
+    				DebugRecognitionException(eee3);
+    				throw eee3;
     			}
-    			cnt4++;
+    			cnt3++;
     		}
-    		loop4:
+    		loop3:
     			;
 
-    		} finally { DebugExitSubRule(4); }
+    		} finally { DebugExitSubRule(3); }
 
 
     		}
@@ -1591,25 +1564,25 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		Match('\"'); 
     		DebugLocation(86, 16);
     		// Lang2.g:86:16: ( options {greedy=false; } : . )*
-    		try { DebugEnterSubRule(5);
+    		try { DebugEnterSubRule(4);
     		while (true)
     		{
-    			int alt5=2;
-    			try { DebugEnterDecision(5, decisionCanBacktrack[5]);
-    			int LA5_0 = input.LA(1);
+    			int alt4=2;
+    			try { DebugEnterDecision(4, decisionCanBacktrack[4]);
+    			int LA4_0 = input.LA(1);
 
-    			if ((LA5_0=='\"'))
+    			if ((LA4_0=='\"'))
     			{
-    				alt5=2;
+    				alt4=2;
     			}
-    			else if (((LA5_0>='\u0000' && LA5_0<='!')||(LA5_0>='#' && LA5_0<='\uFFFF')))
+    			else if (((LA4_0>='\u0000' && LA4_0<='!')||(LA4_0>='#' && LA4_0<='\uFFFF')))
     			{
-    				alt5=1;
+    				alt4=1;
     			}
 
 
-    			} finally { DebugExitDecision(5); }
-    			switch ( alt5 )
+    			} finally { DebugExitDecision(4); }
+    			switch ( alt4 )
     			{
     			case 1:
     				DebugEnterAlt(1);
@@ -1622,14 +1595,14 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     				break;
 
     			default:
-    				goto loop5;
+    				goto loop4;
     			}
     		}
 
-    		loop5:
+    		loop4:
     			;
 
-    		} finally { DebugExitSubRule(5); }
+    		} finally { DebugExitSubRule(4); }
 
     		DebugLocation(86, 52);
     		Match('\"'); 
@@ -1658,27 +1631,27 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		int _type = BOOLEAN;
     		int _channel = DefaultTokenChannel;
     		// Lang2.g:89:9: ( TRUE | FALSE )
-    		int alt6=2;
-    		try { DebugEnterDecision(6, decisionCanBacktrack[6]);
-    		int LA6_0 = input.LA(1);
+    		int alt5=2;
+    		try { DebugEnterDecision(5, decisionCanBacktrack[5]);
+    		int LA5_0 = input.LA(1);
 
-    		if ((LA6_0=='t'))
+    		if ((LA5_0=='t'))
     		{
-    			alt6=1;
+    			alt5=1;
     		}
-    		else if ((LA6_0=='f'))
+    		else if ((LA5_0=='f'))
     		{
-    			alt6=2;
+    			alt5=2;
     		}
     		else
     		{
-    			NoViableAltException nvae = new NoViableAltException("", 6, 0, input);
+    			NoViableAltException nvae = new NoViableAltException("", 5, 0, input);
 
     			DebugRecognitionException(nvae);
     			throw nvae;
     		}
-    		} finally { DebugExitDecision(6); }
-    		switch (alt6)
+    		} finally { DebugExitDecision(5); }
+    		switch (alt5)
     		{
     		case 1:
     			DebugEnterAlt(1);
@@ -2015,19 +1988,19 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     public override void mTokens()
     {
     	// Lang2.g:1:8: ( PROGRAM | WHILE | DO | FOR | FUNCTION | PROCEDURE | BEGIN | END | THEN | ELSE | DIV | MOD | NOT | TO | VAR | T_CHAR | T_BOOL | T_INT | T_STRING | IF | FALSE | TRUE | BOOL_MULT | BOOL_ADD | ARRAY | OF | VOID | REPEAT | UNTIL | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | OP_END | WS | VARIABLE | CHAR | INT | STRING | BOOLEAN | ADD | REM | MULT | DIVIDE | ASSIGN | GREATER | LESS | EQUAL | LESS_OR_EQUAL | GREATER_OR_EQUAL )
-    	int alt7=53;
-    	try { DebugEnterDecision(7, decisionCanBacktrack[7]);
+    	int alt6=53;
+    	try { DebugEnterDecision(6, decisionCanBacktrack[6]);
     	try
     	{
-    		alt7 = dfa7.Predict(input);
+    		alt6 = dfa6.Predict(input);
     	}
     	catch (NoViableAltException nvae)
     	{
     		DebugRecognitionException(nvae);
     		throw;
     	}
-    	} finally { DebugExitDecision(7); }
-    	switch (alt7)
+    	} finally { DebugExitDecision(6); }
+    	switch (alt6)
     	{
     	case 1:
     		DebugEnterAlt(1);
@@ -2513,82 +2486,82 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 
 
 	#region DFA
-	DFA7 dfa7;
+	DFA6 dfa6;
 
 	protected override void InitDFAs()
 	{
 		base.InitDFAs();
-		dfa7 = new DFA7(this);
+		dfa6 = new DFA6(this);
 	}
 
-	private class DFA7 : DFA
+	private class DFA6 : DFA
 	{
-		private const string DFA7_eotS =
-			"\x01\uffff\x13\x1d\x06\uffff\x01\x45\x04\uffff\x01\x46\x05\uffff\x01"+
-			"\x48\x01\x4a\x01\uffff\x02\x1d\x01\x4d\x09\x1d\x01\x57\x07\x1d\x01\x5f"+
-			"\x02\x1d\x01\x62\x01\x1d\x01\x64\x02\x1d\x07\uffff\x02\x1d\x01\uffff"+
-			"\x01\x6a\x01\x6b\x04\x1d\x01\x70\x02\x1d\x01\uffff\x01\x1d\x01\x74\x01"+
-			"\x75\x01\x76\x03\x1d\x01\uffff\x01\x1d\x01\x7b\x01\uffff\x01\x1d\x01"+
-			"\uffff\x05\x1d\x02\uffff\x04\x1d\x01\uffff\x01\u0086\x01\u0087\x01\u0088"+
-			"\x03\uffff\x01\u0089\x01\u008a\x02\x1d\x01\uffff\x05\x1d\x01\u0092\x01"+
-			"\x1d\x01\u0094\x01\u0095\x01\x1d\x05\uffff\x02\x1d\x01\u0099\x01\x1d"+
-			"\x01\u009b\x02\x1d\x01\uffff\x01\x1d\x02\uffff\x02\x1d\x01\u00a1\x01"+
-			"\uffff\x01\u00a2\x01\uffff\x01\u00a3\x02\x1d\x01\u00a6\x01\u00a7\x03"+
-			"\uffff\x01\x1d\x01\u00a9\x02\uffff\x01\u00aa\x02\uffff";
-		private const string DFA7_eofS =
-			"\u00ab\uffff";
-		private const string DFA7_minS =
+		private const string DFA6_eotS =
+			"\x01\uffff\x13\x1d\x06\uffff\x01\x45\x0a\uffff\x01\x47\x01\x49\x01\uffff"+
+			"\x02\x1d\x01\x4c\x09\x1d\x01\x56\x07\x1d\x01\x5e\x02\x1d\x01\x61\x01"+
+			"\x1d\x01\x63\x02\x1d\x06\uffff\x02\x1d\x01\uffff\x01\x69\x01\x6a\x04"+
+			"\x1d\x01\x6f\x02\x1d\x01\uffff\x01\x1d\x01\x73\x01\x74\x01\x75\x03\x1d"+
+			"\x01\uffff\x01\x1d\x01\x7a\x01\uffff\x01\x1d\x01\uffff\x05\x1d\x02\uffff"+
+			"\x04\x1d\x01\uffff\x01\u0085\x01\u0086\x01\u0087\x03\uffff\x01\u0088"+
+			"\x01\u0089\x02\x1d\x01\uffff\x05\x1d\x01\u0091\x01\x1d\x01\u0093\x01"+
+			"\u0094\x01\x1d\x05\uffff\x02\x1d\x01\u0098\x01\x1d\x01\u009a\x02\x1d"+
+			"\x01\uffff\x01\x1d\x02\uffff\x02\x1d\x01\u00a0\x01\uffff\x01\u00a1\x01"+
+			"\uffff\x01\u00a2\x02\x1d\x01\u00a5\x01\u00a6\x03\uffff\x01\x1d\x01\u00a8"+
+			"\x02\uffff\x01\u00a9\x02\uffff";
+		private const string DFA6_eofS =
+			"\u00aa\uffff";
+		private const string DFA6_minS =
 			"\x01\x09\x01\x72\x01\x68\x01\x69\x01\x61\x01\x65\x01\x6c\x01\x68\x01"+
 			"\x6f\x01\x4f\x01\x61\x01\x68\x01\x66\x01\x74\x01\x4e\x01\x52\x01\x72"+
-			"\x01\x66\x01\x65\x01\x6e\x06\uffff\x01\x3d\x04\uffff\x01\x30\x05\uffff"+
-			"\x02\x3d\x01\uffff\x01\x6f\x01\x69\x01\x41\x01\x76\x01\x72\x01\x6e\x01"+
-			"\x6c\x01\x67\x01\x6f\x01\x64\x01\x73\x01\x65\x01\x41\x01\x75\x01\x64"+
-			"\x01\x54\x01\x72\x01\x69\x01\x61\x01\x74\x01\x41\x01\x72\x01\x44\x01"+
-			"\x41\x01\x72\x01\x41\x01\x70\x01\x74\x07\uffff\x01\x63\x01\x6c\x01\uffff"+
-			"\x02\x41\x01\x63\x01\x73\x01\x69\x01\x6c\x01\x41\x01\x65\x01\x6e\x01"+
-			"\uffff\x01\x65\x03\x41\x01\x64\x01\x72\x01\x65\x01\uffff\x01\x69\x01"+
-			"\x41\x01\uffff\x01\x61\x01\uffff\x01\x65\x01\x69\x01\x72\x02\x65\x02"+
-			"\uffff\x01\x74\x01\x65\x01\x6e\x01\x65\x01\uffff\x03\x41\x03\uffff\x02"+
-			"\x41\x01\x67\x01\x6e\x01\uffff\x01\x79\x01\x61\x01\x6c\x01\x61\x01\x64"+
-			"\x01\x41\x01\x69\x02\x41\x01\x61\x05\uffff\x01\x65\x01\x67\x01\x41\x01"+
-			"\x74\x01\x41\x01\x6d\x01\x75\x01\uffff\x01\x6f\x02\uffff\x01\x6e\x01"+
-			"\x72\x01\x41\x01\uffff\x01\x41\x01\uffff\x01\x41\x01\x72\x01\x6e\x02"+
-			"\x41\x03\uffff\x01\x65\x01\x41\x02\uffff\x01\x41\x02\uffff";
-		private const string DFA7_maxS =
+			"\x01\x66\x01\x65\x01\x6e\x06\uffff\x01\x3d\x0a\uffff\x02\x3d\x01\uffff"+
+			"\x01\x6f\x01\x69\x01\x41\x01\x76\x01\x72\x01\x6e\x01\x6c\x01\x67\x01"+
+			"\x6f\x01\x64\x01\x73\x01\x65\x01\x41\x01\x75\x01\x64\x01\x54\x01\x72"+
+			"\x01\x69\x01\x61\x01\x74\x01\x41\x01\x72\x01\x44\x01\x41\x01\x72\x01"+
+			"\x41\x01\x70\x01\x74\x06\uffff\x01\x63\x01\x6c\x01\uffff\x02\x41\x01"+
+			"\x63\x01\x73\x01\x69\x01\x6c\x01\x41\x01\x65\x01\x6e\x01\uffff\x01\x65"+
+			"\x03\x41\x01\x64\x01\x72\x01\x65\x01\uffff\x01\x69\x01\x41\x01\uffff"+
+			"\x01\x61\x01\uffff\x01\x65\x01\x69\x01\x72\x02\x65\x02\uffff\x01\x74"+
+			"\x01\x65\x01\x6e\x01\x65\x01\uffff\x03\x41\x03\uffff\x02\x41\x01\x67"+
+			"\x01\x6e\x01\uffff\x01\x79\x01\x61\x01\x6c\x01\x61\x01\x64\x01\x41\x01"+
+			"\x69\x02\x41\x01\x61\x05\uffff\x01\x65\x01\x67\x01\x41\x01\x74\x01\x41"+
+			"\x01\x6d\x01\x75\x01\uffff\x01\x6f\x02\uffff\x01\x6e\x01\x72\x01\x41"+
+			"\x01\uffff\x01\x41\x01\uffff\x01\x41\x01\x72\x01\x6e\x02\x41\x03\uffff"+
+			"\x01\x65\x01\x41\x02\uffff\x01\x41\x02\uffff";
+		private const string DFA6_maxS =
 			"\x01\x7a\x01\x72\x01\x68\x01\x6f\x01\x75\x01\x6f\x01\x6e\x01\x72\x01"+
 			"\x6f\x01\x4f\x01\x6f\x01\x68\x01\x6e\x01\x74\x01\x4e\x01\x52\x01\x72"+
-			"\x01\x66\x01\x65\x01\x6e\x06\uffff\x01\x3d\x04\uffff\x01\x39\x05\uffff"+
-			"\x02\x3d\x01\uffff\x01\x6f\x01\x69\x01\x7a\x01\x76\x01\x72\x01\x6e\x01"+
-			"\x6c\x01\x67\x01\x6f\x01\x64\x01\x73\x01\x65\x01\x7a\x01\x75\x01\x64"+
-			"\x01\x54\x01\x72\x01\x69\x01\x61\x01\x74\x01\x7a\x01\x72\x01\x44\x01"+
-			"\x7a\x01\x72\x01\x7a\x01\x70\x01\x74\x07\uffff\x01\x67\x01\x6c\x01\uffff"+
-			"\x02\x7a\x01\x63\x01\x73\x01\x69\x01\x6c\x01\x7a\x01\x65\x01\x6e\x01"+
-			"\uffff\x01\x65\x03\x7a\x01\x64\x01\x72\x01\x65\x01\uffff\x01\x69\x01"+
-			"\x7a\x01\uffff\x01\x61\x01\uffff\x01\x65\x01\x69\x01\x72\x02\x65\x02"+
-			"\uffff\x01\x74\x01\x65\x01\x6e\x01\x65\x01\uffff\x03\x7a\x03\uffff\x02"+
-			"\x7a\x01\x67\x01\x6e\x01\uffff\x01\x79\x01\x61\x01\x6c\x01\x61\x01\x64"+
-			"\x01\x7a\x01\x69\x02\x7a\x01\x61\x05\uffff\x01\x65\x01\x67\x01\x7a\x01"+
-			"\x74\x01\x7a\x01\x6d\x01\x75\x01\uffff\x01\x6f\x02\uffff\x01\x6e\x01"+
-			"\x72\x01\x7a\x01\uffff\x01\x7a\x01\uffff\x01\x7a\x01\x72\x01\x6e\x02"+
-			"\x7a\x03\uffff\x01\x65\x01\x7a\x02\uffff\x01\x7a\x02\uffff";
-		private const string DFA7_acceptS =
+			"\x01\x66\x01\x65\x01\x6e\x06\uffff\x01\x3d\x0a\uffff\x02\x3d\x01\uffff"+
+			"\x01\x6f\x01\x69\x01\x7a\x01\x76\x01\x72\x01\x6e\x01\x6c\x01\x67\x01"+
+			"\x6f\x01\x64\x01\x73\x01\x65\x01\x7a\x01\x75\x01\x64\x01\x54\x01\x72"+
+			"\x01\x69\x01\x61\x01\x74\x01\x7a\x01\x72\x01\x44\x01\x7a\x01\x72\x01"+
+			"\x7a\x01\x70\x01\x74\x06\uffff\x01\x67\x01\x6c\x01\uffff\x02\x7a\x01"+
+			"\x63\x01\x73\x01\x69\x01\x6c\x01\x7a\x01\x65\x01\x6e\x01\uffff\x01\x65"+
+			"\x03\x7a\x01\x64\x01\x72\x01\x65\x01\uffff\x01\x69\x01\x7a\x01\uffff"+
+			"\x01\x61\x01\uffff\x01\x65\x01\x69\x01\x72\x02\x65\x02\uffff\x01\x74"+
+			"\x01\x65\x01\x6e\x01\x65\x01\uffff\x03\x7a\x03\uffff\x02\x7a\x01\x67"+
+			"\x01\x6e\x01\uffff\x01\x79\x01\x61\x01\x6c\x01\x61\x01\x64\x01\x7a\x01"+
+			"\x69\x02\x7a\x01\x61\x05\uffff\x01\x65\x01\x67\x01\x7a\x01\x74\x01\x7a"+
+			"\x01\x6d\x01\x75\x01\uffff\x01\x6f\x02\uffff\x01\x6e\x01\x72\x01\x7a"+
+			"\x01\uffff\x01\x7a\x01\uffff\x01\x7a\x01\x72\x01\x6e\x02\x7a\x03\uffff"+
+			"\x01\x65\x01\x7a\x02\uffff\x01\x7a\x02\uffff";
+		private const string DFA6_acceptS =
 			"\x14\uffff\x01\x1e\x01\x1f\x01\x20\x01\x21\x01\x22\x01\x23\x01\uffff"+
-			"\x01\x25\x01\x26\x01\x27\x01\x28\x01\uffff\x01\x29\x01\x2a\x01\x2c\x01"+
-			"\x2e\x01\x2f\x02\uffff\x01\x33\x1c\uffff\x01\x30\x01\x24\x01\x2d\x01"+
-			"\x35\x01\x31\x01\x34\x01\x32\x02\uffff\x01\x03\x09\uffff\x01\x0e\x07"+
-			"\uffff\x01\x14\x02\uffff\x01\x18\x01\uffff\x01\x1a\x05\uffff\x01\x0b"+
-			"\x01\x04\x04\uffff\x01\x08\x03\uffff\x01\x0c\x01\x0d\x01\x0f\x04\uffff"+
-			"\x01\x17\x0a\uffff\x01\x0a\x01\x09\x01\x16\x01\x1b\x01\x10\x07\uffff"+
-			"\x01\x02\x01\uffff\x01\x15\x01\x07\x03\uffff\x01\x19\x01\uffff\x01\x1d"+
-			"\x05\uffff\x01\x13\x01\x1c\x01\x01\x02\uffff\x01\x11\x01\x12\x01\uffff"+
-			"\x01\x05\x01\x06";
-		private const string DFA7_specialS =
-			"\u00ab\uffff}>";
-		private static readonly string[] DFA7_transitionS =
+			"\x01\x25\x01\x26\x01\x27\x01\x28\x01\x29\x01\x2a\x01\x2c\x01\x2d\x01"+
+			"\x2e\x01\x2f\x02\uffff\x01\x33\x1c\uffff\x01\x30\x01\x24\x01\x35\x01"+
+			"\x31\x01\x34\x01\x32\x02\uffff\x01\x03\x09\uffff\x01\x0e\x07\uffff\x01"+
+			"\x14\x02\uffff\x01\x18\x01\uffff\x01\x1a\x05\uffff\x01\x0b\x01\x04\x04"+
+			"\uffff\x01\x08\x03\uffff\x01\x0c\x01\x0d\x01\x0f\x04\uffff\x01\x17\x0a"+
+			"\uffff\x01\x0a\x01\x09\x01\x16\x01\x1b\x01\x10\x07\uffff\x01\x02\x01"+
+			"\uffff\x01\x15\x01\x07\x03\uffff\x01\x19\x01\uffff\x01\x1d\x05\uffff"+
+			"\x01\x13\x01\x1c\x01\x01\x02\uffff\x01\x11\x01\x12\x01\uffff\x01\x05"+
+			"\x01\x06";
+		private const string DFA6_specialS =
+			"\u00aa\uffff}>";
+		private static readonly string[] DFA6_transitionS =
 			{
-				"\x02\x1c\x01\uffff\x02\x1c\x12\uffff\x01\x1c\x01\uffff\x01\x21\x04"+
-				"\uffff\x01\x1e\x01\x17\x01\x18\x01\x23\x01\x22\x01\x19\x01\x1f\x01\x15"+
-				"\x01\x24\x0a\x20\x01\x1a\x01\x1b\x01\x26\x01\x27\x01\x25\x02\uffff\x01"+
+				"\x02\x1c\x01\uffff\x02\x1c\x12\uffff\x01\x1c\x01\uffff\x01\x20\x04"+
+				"\uffff\x01\x1e\x01\x17\x01\x18\x01\x23\x01\x21\x01\x19\x01\x22\x01\x15"+
+				"\x01\x24\x0a\x1f\x01\x1a\x01\x1b\x01\x26\x01\x27\x01\x25\x02\uffff\x01"+
 				"\x0e\x0c\x1d\x01\x09\x01\x0f\x0b\x1d\x01\x14\x01\uffff\x01\x16\x03\uffff"+
 				"\x01\x10\x01\x05\x01\x0b\x01\x03\x01\x06\x01\x04\x02\x1d\x01\x0c\x03"+
 				"\x1d\x01\x08\x01\x1d\x01\x11\x01\x01\x01\x1d\x01\x12\x01\x0d\x01\x07"+
@@ -2623,18 +2596,19 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 				"",
 				"",
 				"",
-				"\x0a\x20",
 				"",
 				"",
 				"",
 				"",
 				"",
-				"\x01\x47",
-				"\x01\x49",
 				"",
+				"\x01\x46",
+				"\x01\x48",
+				"",
+				"\x01\x4a",
 				"\x01\x4b",
-				"\x01\x4c",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\x4d",
 				"\x01\x4e",
 				"\x01\x4f",
 				"\x01\x50",
@@ -2643,67 +2617,65 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 				"\x01\x53",
 				"\x01\x54",
 				"\x01\x55",
-				"\x01\x56",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\x57",
 				"\x01\x58",
 				"\x01\x59",
 				"\x01\x5a",
 				"\x01\x5b",
 				"\x01\x5c",
 				"\x01\x5d",
-				"\x01\x5e",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\x5f",
 				"\x01\x60",
-				"\x01\x61",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
-				"\x01\x63",
+				"\x01\x62",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\x64",
 				"\x01\x65",
-				"\x01\x66",
 				"",
 				"",
 				"",
 				"",
 				"",
 				"",
-				"",
-				"\x01\x68\x03\uffff\x01\x67",
-				"\x01\x69",
+				"\x01\x67\x03\uffff\x01\x66",
+				"\x01\x68",
 				"",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\x6b",
 				"\x01\x6c",
 				"\x01\x6d",
 				"\x01\x6e",
-				"\x01\x6f",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\x70",
 				"\x01\x71",
-				"\x01\x72",
 				"",
-				"\x01\x73",
+				"\x01\x72",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\x76",
 				"\x01\x77",
 				"\x01\x78",
-				"\x01\x79",
 				"",
-				"\x01\x7a",
+				"\x01\x79",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"",
-				"\x01\x7c",
+				"\x01\x7b",
 				"",
+				"\x01\x7c",
 				"\x01\x7d",
 				"\x01\x7e",
 				"\x01\x7f",
 				"\x01\u0080",
+				"",
+				"",
 				"\x01\u0081",
-				"",
-				"",
 				"\x01\u0082",
 				"\x01\u0083",
 				"\x01\u0084",
-				"\x01\u0085",
 				"",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
@@ -2713,50 +2685,50 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 				"",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\u008a",
 				"\x01\u008b",
-				"\x01\u008c",
 				"",
+				"\x01\u008c",
 				"\x01\u008d",
 				"\x01\u008e",
 				"\x01\u008f",
 				"\x01\u0090",
-				"\x01\u0091",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
-				"\x01\u0093",
+				"\x01\u0092",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\u0095",
+				"",
+				"",
+				"",
+				"",
+				"",
 				"\x01\u0096",
-				"",
-				"",
-				"",
-				"",
-				"",
 				"\x01\u0097",
-				"\x01\u0098",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
-				"\x01\u009a",
+				"\x01\u0099",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\u009b",
 				"\x01\u009c",
+				"",
 				"\x01\u009d",
 				"",
+				"",
 				"\x01\u009e",
-				"",
-				"",
 				"\x01\u009f",
-				"\x01\u00a0",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
+				"\x01\u00a3",
 				"\x01\u00a4",
-				"\x01\u00a5",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"",
 				"",
 				"",
-				"\x01\u00a8",
+				"\x01\u00a7",
 				"\x1a\x1d\x06\uffff\x1a\x1d",
 				"",
 				"",
@@ -2765,35 +2737,35 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 				""
 			};
 
-		private static readonly short[] DFA7_eot = DFA.UnpackEncodedString(DFA7_eotS);
-		private static readonly short[] DFA7_eof = DFA.UnpackEncodedString(DFA7_eofS);
-		private static readonly char[] DFA7_min = DFA.UnpackEncodedStringToUnsignedChars(DFA7_minS);
-		private static readonly char[] DFA7_max = DFA.UnpackEncodedStringToUnsignedChars(DFA7_maxS);
-		private static readonly short[] DFA7_accept = DFA.UnpackEncodedString(DFA7_acceptS);
-		private static readonly short[] DFA7_special = DFA.UnpackEncodedString(DFA7_specialS);
-		private static readonly short[][] DFA7_transition;
+		private static readonly short[] DFA6_eot = DFA.UnpackEncodedString(DFA6_eotS);
+		private static readonly short[] DFA6_eof = DFA.UnpackEncodedString(DFA6_eofS);
+		private static readonly char[] DFA6_min = DFA.UnpackEncodedStringToUnsignedChars(DFA6_minS);
+		private static readonly char[] DFA6_max = DFA.UnpackEncodedStringToUnsignedChars(DFA6_maxS);
+		private static readonly short[] DFA6_accept = DFA.UnpackEncodedString(DFA6_acceptS);
+		private static readonly short[] DFA6_special = DFA.UnpackEncodedString(DFA6_specialS);
+		private static readonly short[][] DFA6_transition;
 
-		static DFA7()
+		static DFA6()
 		{
-			int numStates = DFA7_transitionS.Length;
-			DFA7_transition = new short[numStates][];
+			int numStates = DFA6_transitionS.Length;
+			DFA6_transition = new short[numStates][];
 			for ( int i=0; i < numStates; i++ )
 			{
-				DFA7_transition[i] = DFA.UnpackEncodedString(DFA7_transitionS[i]);
+				DFA6_transition[i] = DFA.UnpackEncodedString(DFA6_transitionS[i]);
 			}
 		}
 
-		public DFA7( BaseRecognizer recognizer )
+		public DFA6( BaseRecognizer recognizer )
 		{
 			this.recognizer = recognizer;
-			this.decisionNumber = 7;
-			this.eot = DFA7_eot;
-			this.eof = DFA7_eof;
-			this.min = DFA7_min;
-			this.max = DFA7_max;
-			this.accept = DFA7_accept;
-			this.special = DFA7_special;
-			this.transition = DFA7_transition;
+			this.decisionNumber = 6;
+			this.eot = DFA6_eot;
+			this.eof = DFA6_eof;
+			this.min = DFA6_min;
+			this.max = DFA6_max;
+			this.accept = DFA6_accept;
+			this.special = DFA6_special;
+			this.transition = DFA6_transition;
 		}
 
 		public override string Description { get { return "1:1: Tokens : ( PROGRAM | WHILE | DO | FOR | FUNCTION | PROCEDURE | BEGIN | END | THEN | ELSE | DIV | MOD | NOT | TO | VAR | T_CHAR | T_BOOL | T_INT | T_STRING | IF | FALSE | TRUE | BOOL_MULT | BOOL_ADD | ARRAY | OF | VOID | REPEAT | UNTIL | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | OP_END | WS | VARIABLE | CHAR | INT | STRING | BOOLEAN | ADD | REM | MULT | DIVIDE | ASSIGN | GREATER | LESS | EQUAL | LESS_OR_EQUAL | GREATER_OR_EQUAL );"; } }

@@ -81,7 +81,7 @@ WS:
 
 CHAR	:	'\'' ( options {greedy=false;} : . ) '\''
 	;	
-INT		:	'-'?('0'..'9')+
+INT		:	('0'..'9')+
 	;
 STRING	:	 '"'! ( options {greedy=false;} : . )* '"'!
 		;

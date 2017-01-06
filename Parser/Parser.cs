@@ -27,11 +27,13 @@ namespace CompilerConsole.Parser {
     /// </summary>
     public partial class Parser {
         #region Consts
+
         public const string WriteMethodName = "writeln";
         public const string ReadMethodName = "readln";
         public const string ReadFile = "fileRead";
         public const string Main = "Main";
         public const string ResultVariableName = "result";
+
         #endregion
 
 
@@ -47,15 +49,15 @@ namespace CompilerConsole.Parser {
 
         private void InitializeDictionary() {
             this._tokenDictionary = new Dictionary<string, Token>() {
-                { "BODY_EXPR", Token.Body },
-                { "MAIN_BODY", Token.MainBody },
-                { "FUNC_PROC_EXPR", Token.FuncProcDecl },
-                { "VAR_DECL", Token.VarDecl },
-                { "FUNC_CALL", Token.FuncCall },
-                { "if", Token.If },
-                { "for", Token.For },
-                { "while", Token.While},
-                { "repeat", Token.Repeat}
+                {"BODY_EXPR", Token.Body},
+                {"MAIN_BODY", Token.MainBody},
+                {"FUNC_PROC_EXPR", Token.FuncProcDecl},
+                {"VAR_DECL", Token.VarDecl},
+                {"FUNC_CALL", Token.FuncCall},
+                {"if", Token.If},
+                {"for", Token.For},
+                {"while", Token.While},
+                {"repeat", Token.Repeat}
             };
 
             #region exprTokensDictionary initialize
@@ -78,12 +80,20 @@ namespace CompilerConsole.Parser {
 
             #endregion
 
-            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName, new List<VariableNode>() { new StructVarNode(DataType.VarInt, "var") }, new Body(), FuncType.Libr));
-            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName, new List<VariableNode>() { new StructVarNode(DataType.VarChar, "var") }, new Body(), FuncType.Libr));
-            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName, new List<VariableNode>() { new StructVarNode(DataType.VarBool, "var") }, new Body(), FuncType.Libr));
-            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName, new List<VariableNode>() { new StructVarNode(DataType.VarString, "var") }, new Body(), FuncType.Libr));
-            this.ProgramNode.AddNode(new FuncNode(DataType.VarString, ReadFile, new List<VariableNode>() { new StructVarNode(DataType.VarString, "var") }, new Body(), FuncType.Libr));
-            this.ProgramNode.AddNode(new FuncNode(DataType.VarString, ReadMethodName,  new List<VariableNode>(), new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName,
+                new List<VariableNode>() {new StructVarNode(DataType.VarInt, "var")}, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName, new List<VariableNode>(), new Body(),
+                FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName,
+                new List<VariableNode>() {new StructVarNode(DataType.VarChar, "var")}, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName,
+                new List<VariableNode>() {new StructVarNode(DataType.VarBool, "var")}, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, WriteMethodName,
+                new List<VariableNode>() {new StructVarNode(DataType.VarString, "var")}, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.VarString, ReadFile,
+                new List<VariableNode>() {new StructVarNode(DataType.VarString, "var")}, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.VarString, ReadMethodName, new List<VariableNode>(),
+                new Body(), FuncType.Libr));
 
         }
 
@@ -115,23 +125,23 @@ namespace CompilerConsole.Parser {
                     }
                     return;
                 }
-                    case Token.FuncCall: {
-                        bodyNode.AddNode(this.ParseFuncCall(treeNode,bodyNode));
+                case Token.FuncCall: {
+                    bodyNode.AddNode(this.ParseFuncCall(treeNode, bodyNode));
                     return;
                 }
-                    case Token.If: {
+                case Token.If: {
                     bodyNode.AddNode(this.ParseIf(treeNode, bodyNode));
                     return;
                 }
-                    case Token.For: {
+                case Token.For: {
                     bodyNode.AddNode(this.ParseForLoop(treeNode, bodyNode));
                     return;
                 }
-                    case Token.While: {
-                        bodyNode.AddNode(this.ParseWhileLoop(treeNode, bodyNode));
+                case Token.While: {
+                    bodyNode.AddNode(this.ParseWhileLoop(treeNode, bodyNode));
                     return;
                 }
-                    case Token.Repeat: {
+                case Token.Repeat: {
                     bodyNode.AddNode(this.ParseDoLoop(treeNode, bodyNode));
                     return;
                 }
@@ -150,7 +160,14 @@ namespace CompilerConsole.Parser {
                 bodyNode.AddNode(this.ParseExpression(treeNode, bodyNode));
             }
             else {
-                this.Action(treeNode, bodyNode, this._tokenDictionary[treeNode.Text]);
+                try {
+                    this.Action(treeNode, bodyNode, this._tokenDictionary[treeNode.Text]);
+                }
+                catch (Exception) {
+                    Console.WriteLine(treeNode.Text);
+                    throw;
+                }
+                
             }
         }
 
