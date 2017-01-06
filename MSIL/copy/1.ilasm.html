@@ -32,13 +32,13 @@
   <B><FONT COLOR=NAVY>.ver</FONT></B> 0:0:0:0
 }
 <B><FONT COLOR=NAVY>.module</FONT></B> '1.exe'
-<I><FONT COLOR=GREEN>// MVID: {105C15D8-D34A-4F1B-AA86-0E6625EE728B}</FONT></I>
+<I><FONT COLOR=GREEN>// MVID: {0AD6E592-07C1-456E-A696-999EFCC4685C}</FONT></I>
 <B><FONT COLOR=NAVY>.imagebase</FONT></B> 0x00400000
 <B><FONT COLOR=NAVY>.file alignment</FONT></B> 0x00000200
 <B><FONT COLOR=NAVY>.stackreserve</FONT></B> 0x00100000
 <B><FONT COLOR=NAVY>.subsystem</FONT></B> 0x0003       <I><FONT COLOR=GREEN>// WINDOWS_CUI</FONT></I>
 <B><FONT COLOR=NAVY>.corflags</FONT></B> 0x00000001<I><FONT COLOR=GREEN>    //  ILONLY</FONT></I>
-<I><FONT COLOR=GREEN>// Image base: 0x00DD0000</FONT></I>
+<I><FONT COLOR=GREEN>// Image base: 0x012B0000</FONT></I>
 
 
 <I><FONT COLOR=GREEN>// =============== CLASS MEMBERS DECLARATION ===================</FONT></I>
@@ -50,49 +50,19 @@
   <A NAME=A06000001><B><FONT COLOR=NAVY>.method</FONT></B></A> <B><FONT COLOR=NAVY>public hidebysig static </FONT></B><B><FONT COLOR=NAVY></FONT></B><B><FONT COLOR=NAVY>void</FONT></B>  Main()<B><FONT COLOR=NAVY> cil managed</FONT></B>
   {
     <B><FONT COLOR=NAVY>.entrypoint</FONT></B>
-    // Размер кода:       71 (0x47)
-    <B><FONT COLOR=NAVY>.maxstack</FONT></B>  2
-    <B><FONT COLOR=NAVY>.locals </FONT></B><B><FONT COLOR=NAVY>init </FONT></B>([0] <B><FONT COLOR=NAVY>bool</FONT></B> flag)
+    // Размер кода:       21 (0x15)
+    <B><FONT COLOR=NAVY>.maxstack</FONT></B>  8
     <B><FONT COLOR=NAVY>.language</FONT></B> '{3F5162F8-07C6-11D3-9053-00C04FA302A1}', '{994B45C4-E6E9-11D2-903F-00C04FA302A1}', '{5A869D0B-6611-11D3-BD2A-0000F80849BD}'
 <I><FONT COLOR=GREEN>// Source File 'c:\Users\Александр\Source\Repos\PascalCompiler\MSIL\copy\1.cs' </FONT></I>
-<I><FONT COLOR=GREEN>//000006:           s = System.IO.File.ReadAllText("test.txt");</FONT></I>
-    IL_0000:  <B><FONT COLOR=NAVY>ldstr</FONT></B> "test.txt"
-    IL_0005:  <B><FONT COLOR=NAVY>call</FONT></B> <B><FONT COLOR=NAVY></FONT></B><B><FONT COLOR=NAVY>string</FONT></B> [<A HREF=#A23000001>mscorlib</A>]System.IO.File::ReadAllText(<B><FONT COLOR=NAVY>string</FONT></B>)
-    IL_000a:  <B><FONT COLOR=NAVY>stsfld</FONT></B> <B><FONT COLOR=NAVY>string</FONT></B> <A HREF=#A02000002>Program.Program</A>::<A HREF=#A04000001>s</A>
-<I><FONT COLOR=GREEN>//000007:           char r;</FONT></I>
-<I><FONT COLOR=GREEN>//000008:           bool flag = true;</FONT></I>
-    IL_000f:  <B><FONT COLOR=NAVY>ldc.i4.1</FONT></B>
-    IL_0010:  <B><FONT COLOR=NAVY>stloc.0</FONT></B>
-    IL_0011:  <B><FONT COLOR=NAVY>br.s</FONT></B> IL_001d
-
-<I><FONT COLOR=GREEN>//000009:           while(flag){</FONT></I>
-<I><FONT COLOR=GREEN>//000010:           Console.Write(s);</FONT></I>
-    IL_0013:  <B><FONT COLOR=NAVY>ldsfld</FONT></B> <B><FONT COLOR=NAVY>string</FONT></B> <A HREF=#A02000002>Program.Program</A>::<A HREF=#A04000001>s</A>
-    IL_0018:  <B><FONT COLOR=NAVY>call</FONT></B> <B><FONT COLOR=NAVY></FONT></B><B><FONT COLOR=NAVY>void</FONT></B> [<A HREF=#A23000001>mscorlib</A>]System.Console::Write(<B><FONT COLOR=NAVY>string</FONT></B>)
-<I><FONT COLOR=GREEN>//000009:           while(flag){</FONT></I>
-    IL_001d:  <B><FONT COLOR=NAVY>ldloc.0</FONT></B>
-    IL_001e:  <B><FONT COLOR=NAVY>brtrue.s</FONT></B> IL_0013
-
-<I><FONT COLOR=GREEN>//000010:           Console.Write(s);</FONT></I>
-<I><FONT COLOR=GREEN>//000011:           }</FONT></I>
-<I><FONT COLOR=GREEN>//000012:           do{</FONT></I>
-<I><FONT COLOR=GREEN>//000013:             s=s+s;</FONT></I>
-    IL_0020:  <B><FONT COLOR=NAVY>ldsfld</FONT></B> <B><FONT COLOR=NAVY>string</FONT></B> <A HREF=#A02000002>Program.Program</A>::<A HREF=#A04000001>s</A>
-    IL_0025:  <B><FONT COLOR=NAVY>ldsfld</FONT></B> <B><FONT COLOR=NAVY>string</FONT></B> <A HREF=#A02000002>Program.Program</A>::<A HREF=#A04000001>s</A>
-    IL_002a:  <B><FONT COLOR=NAVY>call</FONT></B> <B><FONT COLOR=NAVY></FONT></B><B><FONT COLOR=NAVY>string</FONT></B> [<A HREF=#A23000001>mscorlib</A>]System.String::Concat(<B><FONT COLOR=NAVY>string</FONT></B>,
-                                                                                                                                                                              <B><FONT COLOR=NAVY>string</FONT></B>)
-    IL_002f:  <B><FONT COLOR=NAVY>stsfld</FONT></B> <B><FONT COLOR=NAVY>string</FONT></B> <A HREF=#A02000002>Program.Program</A>::<A HREF=#A04000001>s</A>
-<I><FONT COLOR=GREEN>//000014:           }while(flag);</FONT></I>
-    IL_0034:  <B><FONT COLOR=NAVY>ldloc.0</FONT></B>
-    IL_0035:  <B><FONT COLOR=NAVY>brtrue.s</FONT></B> IL_0020
-
-<I><FONT COLOR=GREEN>//000015:          System.IO.File.WriteAllText("test.txt",s);</FONT></I>
-    IL_0037:  <B><FONT COLOR=NAVY>ldstr</FONT></B> "test.txt"
-    IL_003c:  <B><FONT COLOR=NAVY>ldsfld</FONT></B> <B><FONT COLOR=NAVY>string</FONT></B> <A HREF=#A02000002>Program.Program</A>::<A HREF=#A04000001>s</A>
-    IL_0041:  <B><FONT COLOR=NAVY>call</FONT></B> <B><FONT COLOR=NAVY></FONT></B><B><FONT COLOR=NAVY>void</FONT></B> [<A HREF=#A23000001>mscorlib</A>]System.IO.File::WriteAllText(<B><FONT COLOR=NAVY>string</FONT></B>,
-                                                                                                                                                                                   <B><FONT COLOR=NAVY>string</FONT></B>)
-<I><FONT COLOR=GREEN>//000016:       }</FONT></I>
-    IL_0046:  <B><FONT COLOR=NAVY>ret</FONT></B>
+<I><FONT COLOR=GREEN>//000006:         System.IO.File.WriteAllText("text","test", System.Text.Encoding.Unicode);</FONT></I>
+    IL_0000:  <B><FONT COLOR=NAVY>ldstr</FONT></B> "text"
+    IL_0005:  <B><FONT COLOR=NAVY>ldstr</FONT></B> "test"
+    IL_000a:  <B><FONT COLOR=NAVY>call</FONT></B> <B><FONT COLOR=NAVY></FONT></B><B><FONT COLOR=NAVY>class </FONT></B>[<A HREF=#A23000001>mscorlib</A>]System.Text.Encoding [<A HREF=#A23000001>mscorlib</A>]System.Text.Encoding::get_Unicode()
+    IL_000f:  <B><FONT COLOR=NAVY>call</FONT></B> <B><FONT COLOR=NAVY></FONT></B><B><FONT COLOR=NAVY>void</FONT></B> [<A HREF=#A23000001>mscorlib</A>]System.IO.File::WriteAllText(<B><FONT COLOR=NAVY>string</FONT></B>,
+                                                                                                                                                                                   <B><FONT COLOR=NAVY>string</FONT></B>,
+                                                                                                                                                                                   <B><FONT COLOR=NAVY>class </FONT></B>[<A HREF=#A23000001>mscorlib</A>]System.Text.Encoding)
+<I><FONT COLOR=GREEN>//000007:       }</FONT></I>
+    IL_0014:  <B><FONT COLOR=NAVY>ret</FONT></B>
   } <I><FONT COLOR=GREEN>// end of method Program::</FONT></I><I><FONT COLOR=GREEN>Main</FONT></I>
 
   <A NAME=A06000002><B><FONT COLOR=NAVY>.method</FONT></B></A> <B><FONT COLOR=NAVY>public hidebysig specialname rtspecialname </FONT></B><B><FONT COLOR=NAVY>instance </FONT></B><B><FONT COLOR=NAVY></FONT></B><B><FONT COLOR=NAVY>void</FONT></B> 

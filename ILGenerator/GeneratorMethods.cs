@@ -396,9 +396,10 @@ namespace CompilerConsole.ILGenerator {
             switch (methCallNode.Method.Name) {
                 case Parser.Parser.WriteMethodName: {
                     var type = methCallNode.SendArgs.Count != 0 ? methCallNode.SendArgs[0].DataType : DataType.Void;
+                    var strType = type == DataType.Void ? "" : ToCILVariableType(type);
                     methodCall.Append(this.LineNumber + this._operationDictionary[ILOperation.Call] + this.Offset +
                                       this.Reader(Template.ConsoleWriteLine)
-                                          .Replace("{type}", ToCILVariableType(type)));
+                                          .Replace("{type}", strType));
                     break;
                 }
                 case Parser.Parser.ReadMethodName: {
@@ -410,6 +411,30 @@ namespace CompilerConsole.ILGenerator {
                 case Parser.Parser.ReadFile: {
                     methodCall.Append(this.LineNumber + this._operationDictionary[ILOperation.Call] + this.Offset +
                                       this.Reader(Template.ReadFile));
+                    break;
+                }
+                case Parser.Parser.Concate: {
+                    methodCall.Append(this.LineNumber + this._operationDictionary[ILOperation.Call] + this.Offset +
+                                      this.Reader(Template.Concate));
+                    break;
+                }
+                case Parser.Parser.Write: {
+                        var type = methCallNode.SendArgs.Count != 0 ? methCallNode.SendArgs[0].DataType : DataType.Void;
+                        var strType = type == DataType.Void ? "" : ToCILVariableType(type);
+                        methodCall.Append(this.LineNumber + this._operationDictionary[ILOperation.Call] + this.Offset +
+                                          this.Reader(Template.Write)
+                                              .Replace("{type}", strType));
+                        break;
+                }
+                case Parser.Parser.ConvertToString: {
+                    methodCall.Append(this.LineNumber + this._operationDictionary[ILOperation.Call] + this.Offset +
+                                      this.Reader(Template.Convert));
+                    break;
+                }
+                case Parser.Parser.WriteFile: {
+                    var tmp = this.Reader(Template.WriteFile).Replace("{line}", this.LineNumber);
+                    tmp = tmp.Replace("{line1}", this.LineNumber);
+                    methodCall.Append(tmp);
                     break;
                 }
                 default: {

@@ -23,13 +23,13 @@
   .ver 0:0:0:0
 }
 .module '1.exe'
-// MVID: {105C15D8-D34A-4F1B-AA86-0E6625EE728B}
+// MVID: {0AD6E592-07C1-456E-A696-999EFCC4685C}
 .imagebase 0x00400000
 .file alignment 0x00000200
 .stackreserve 0x00100000
 .subsystem 0x0003       // WINDOWS_CUI
 .corflags 0x00000001    //  ILONLY
-// Image base: 0x019A0000
+// Image base: 0x011F0000
 
 
 // =============== CLASS MEMBERS DECLARATION ===================
@@ -41,34 +41,15 @@
   .method public hidebysig static void  Main() cil managed
   {
     .entrypoint
-    // Размер кода:       71 (0x47)
-    .maxstack  2
-    .locals init ([0] bool flag)
-    IL_0000:  ldstr      "test.txt"
-    IL_0005:  call       string [mscorlib]System.IO.File::ReadAllText(string)
-    IL_000a:  stsfld     string Program.Program::s
-    IL_000f:  ldc.i4.1
-    IL_0010:  stloc.0
-    IL_0011:  br.s       IL_001d
-
-    IL_0013:  ldsfld     string Program.Program::s
-    IL_0018:  call       void [mscorlib]System.Console::Write(string)
-    IL_001d:  ldloc.0
-    IL_001e:  brtrue.s   IL_0013
-
-    IL_0020:  ldsfld     string Program.Program::s
-    IL_0025:  ldsfld     string Program.Program::s
-    IL_002a:  call       string [mscorlib]System.String::Concat(string,
-                                                                string)
-    IL_002f:  stsfld     string Program.Program::s
-    IL_0034:  ldloc.0
-    IL_0035:  brtrue.s   IL_0020
-
-    IL_0037:  ldstr      "test.txt"
-    IL_003c:  ldsfld     string Program.Program::s
-    IL_0041:  call       void [mscorlib]System.IO.File::WriteAllText(string,
-                                                                     string)
-    IL_0046:  ret
+    // Размер кода:       21 (0x15)
+    .maxstack  8
+    IL_0000:  ldstr      "text"
+    IL_0005:  ldstr      "test"
+    IL_000a:  call       class [mscorlib]System.Text.Encoding [mscorlib]System.Text.Encoding::get_Unicode()
+    IL_000f:  call       void [mscorlib]System.IO.File::WriteAllText(string,
+                                                                     string,
+                                                                     class [mscorlib]System.Text.Encoding)
+    IL_0014:  ret
   } // end of method Program::Main
 
   .method public hidebysig specialname rtspecialname 

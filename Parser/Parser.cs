@@ -33,6 +33,10 @@ namespace CompilerConsole.Parser {
         public const string ReadFile = "fileRead";
         public const string Main = "Main";
         public const string ResultVariableName = "result";
+        public const string WriteFile = "fileWrite";
+        public const string ConvertToString = "toString";
+        public const string Write = "write";
+        public const string Concate = "concate";
 
         #endregion
 
@@ -94,7 +98,34 @@ namespace CompilerConsole.Parser {
                 new List<VariableNode>() {new StructVarNode(DataType.VarString, "var")}, new Body(), FuncType.Libr));
             this.ProgramNode.AddNode(new FuncNode(DataType.VarString, ReadMethodName, new List<VariableNode>(),
                 new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.VarString, WriteFile,
+                new List<VariableNode>() {
+                    new StructVarNode(DataType.VarString, "path"),
+                    new StructVarNode(DataType.VarString, "content")
+                },
+                new Body(), FuncType.Libr));
 
+            this.ProgramNode.AddNode(new FuncNode(DataType.VarString, Concate,
+                new List<VariableNode>() {
+                    new StructVarNode(DataType.VarString, "path"),
+                    new StructVarNode(DataType.VarString, "content")
+                },
+                new Body(), FuncType.Libr));
+
+            this.ProgramNode.AddNode(new FuncNode(DataType.VarString, ConvertToString,
+                new List<VariableNode>() {new StructVarNode(DataType.VarInt, "var")},
+                new Body(), FuncType.Libr));
+
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, Write,
+                new List<VariableNode>() {new StructVarNode(DataType.VarInt, "var")}, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, Write, new List<VariableNode>(), new Body(),
+                FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, Write,
+                new List<VariableNode>() {new StructVarNode(DataType.VarChar, "var")}, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, Write,
+                new List<VariableNode>() {new StructVarNode(DataType.VarBool, "var")}, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.Void, Write,
+                new List<VariableNode>() {new StructVarNode(DataType.VarString, "var")}, new Body(), FuncType.Libr));
         }
 
         public void Parse(ITree root) {

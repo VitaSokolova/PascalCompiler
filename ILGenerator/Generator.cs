@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using CompilerConsole.Parser.Abstract;
@@ -48,7 +49,11 @@ namespace CompilerConsole.ILGenerator
         Dij,
         ReadFile,
         While,
-        DoWhile
+        DoWhile,
+        WriteFile,
+        Write,
+        Convert,
+        Concate
     }
 
     public enum ILToken
@@ -173,7 +178,11 @@ namespace CompilerConsole.ILGenerator
                 {Template.Dij, "DijTemplate.txt"},
                 {Template.ReadFile, "ReadFileTemplate.txt"},
                 {Template.While, "WhileTemplate.txt"},
-                {Template.DoWhile, "DoWhileTemplate.txt"}
+                {Template.DoWhile, "DoWhileTemplate.txt"},
+                {Template.Concate, "ConcateTemplate.txt" },
+                {Template.Convert, "ConvertTemplate.txt" },
+                {Template.Write, "WriteTemplate.txt" },
+                {Template.WriteFile, "WriteFileTemplate.txt" }
             };
 
             this._cilReplacedToken = new Dictionary<ILReplacedToken, string>() {
@@ -182,7 +191,6 @@ namespace CompilerConsole.ILGenerator
                 {ILReplacedToken.Variables, "{variables}"},
                 {ILReplacedToken.ClassBody, "{classBody}"},
             };
-
             this._operationDictionary = new Dictionary<ILOperation, string>() {
                 {ILOperation.IntConstLoad, "ldc.i4"},
                 {ILOperation.ReadLocalVariable, "ldloc"},
