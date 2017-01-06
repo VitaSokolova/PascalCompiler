@@ -420,6 +420,7 @@ namespace CompilerConsole.CILGenerator
             if (node is IfNode) {
                 var ifNode = (IfNode) node;
                 string cond = this.ExpressionToIL(ifNode.Condition) + Environment.NewLine;
+                cond = cond.Replace("{end line}", this.PreLineNumber + this.Counter);
                 string goTo = this.LineNumber + this.Offset + "brfalse";    //Сюда еще бы доваить ссылку на елс
 
                 string body = this.ParseBody(ifNode.BodyTable);
