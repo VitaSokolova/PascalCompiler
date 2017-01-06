@@ -47,7 +47,8 @@ namespace CompilerConsole.ILGenerator
         Conj,
         Dij,
         ReadFile,
-        While
+        While,
+        DoWhile
     }
 
     public enum ILToken
@@ -171,7 +172,8 @@ namespace CompilerConsole.ILGenerator
                 {Template.Conj, "ConjTemplate.txt"},
                 {Template.Dij, "DijTemplate.txt"},
                 {Template.ReadFile, "ReadFileTemplate.txt"},
-                {Template.While, "WhileTemplate.txt"}
+                {Template.While, "WhileTemplate.txt"},
+                {Template.DoWhile, "DoWhileTemplate.txt"}
             };
 
             this._cilReplacedToken = new Dictionary<ILReplacedToken, string>() {

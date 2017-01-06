@@ -86,6 +86,7 @@
     <Content Include="Templates\DeclFuncFinish.txt" />
     <Content Include="Templates\DeclMainFuncStart.txt" />
     <Content Include="Templates\DijTemplate.txt" />
+    <Content Include="Templates\DoWhileTemplate.txt" />
     <Content Include="Templates\FieldDeclTemplate.txt" />
     <Content Include="Templates\LocalvariableDeclaration.txt" />
     <Content Include="Templates\ReadFileTemplate.txt" />

@@ -240,10 +240,30 @@ namespace CompilerConsole.ILGenerator {
             if (node is WhileLoop) {
                 return this.GenerateILWhileLoop((WhileLoop) node);
             }
+            if (node is DoLoop) {
+                return this.GenerateILDoLoop((DoLoop) node);
+            }
             return null;
         }
 
         #region Generarate IL for non expression nodes
+
+        private string GenerateILDoLoop(DoLoop doLoop)
+        {
+            /*
+            {body}
+            {cond}
+            {end line} brtrue.s {body line}
+             */
+            var template = this.Reader(Template.DoWhile);
+            var loopBody = this.ParseBody(doLoop);
+            var counter = GetLineNumber(loopBody);
+            var cond = this.ExpressionToIL(doLoop.Condition);
+            template = template.Replace("{cond}", cond);
+            template = template.Replace("{end line}", this.LineNumber);
+            template = template.Replace("{body line}", this.PreLineNumber + counter);
+            return template.Replace("{body}", loopBody);
+        }
 
         private string GenerateILWhileLoop(WhileLoop whileNode) {
             /*

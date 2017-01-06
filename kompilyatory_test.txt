@@ -382,3 +382,18 @@ end;
 
 readln();
 end;
+
+
+program t;
+var
+    i:integer;
+begin
+
+i:=0;
+
+while i<30 do begin
+writeln(i);
+i:=i+1;
+end;
+readln();
+end;
