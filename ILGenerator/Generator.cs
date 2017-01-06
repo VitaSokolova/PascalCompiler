@@ -2,21 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using CompilerConsole.Parser.Abstract;
 using CompilerConsole.Parser.BodyNodes;
 using CompilerConsole.Utils;
 
-namespace CompilerConsole.CILGenerator
+namespace CompilerConsole.ILGenerator
 {
-
-    /*
-     bge: <
-     ble: >
-     bne.un: ==
-     beq: !=
-     bgt: <=
-     blt: >=
-         */
-
     #region Enums
     enum Template {
         ClassDecl,
@@ -58,13 +49,13 @@ namespace CompilerConsole.CILGenerator
         ReadFile
     }
 
-    public enum CILToken
+    public enum ILToken
     {
         Method,
 
     }
 
-    public enum CILReplacedToken
+    public enum ILReplacedToken
     {
         MethodName,
         MethodArgs,
@@ -127,33 +118,33 @@ namespace CompilerConsole.CILGenerator
 #endregion
 
     public partial class Generator {
-        private  Dictionary<ILOperation, string> _operationDictionary;
-        private Dictionary<Template, string> templatesDictionary;
-        private Dictionary<CILReplacedToken, string> cilReplacedToken;
+        private Dictionary<ILOperation, string> _operationDictionary;
+        private Dictionary<Template, string> _templatesDictionary;
+        private Dictionary<ILReplacedToken, string> _cilReplacedToken;
 
-        private StringBuilder cilCode { get; set; }
+        private readonly StringBuilder _cilCode;
 
         public Generator() {
-            this.cilCode = new StringBuilder();
+            this._cilCode = new StringBuilder();
             this.InitializeTemplates();
         }
 
-        public void Generate(Parser.Parser parser)
-        {
-            this.cilCode.Append(this.Reader(Template.StartProgram));
-            this.cilCode.AppendLine();
-            string classDecl = this.Reader(Template.ClassDecl);
-            classDecl = classDecl.Replace(this.cilReplacedToken[CILReplacedToken.ClassBody], this.ParseClass(parser.ProgramNode.BodyTable));
-            this.cilCode.AppendLine(classDecl);
-            this.Writer(this.cilCode.ToString());
+        public void Generate(Parser.Parser parser) {
+            this._cilCode.Append(this.Reader(Template.StartProgram));
+            this._cilCode.AppendLine();
+            var classDecl = this.Reader(Template.ClassDecl);
+            classDecl = classDecl.Replace(this._cilReplacedToken[ILReplacedToken.ClassBody],
+                this.ParseClass(parser.ProgramNode));
+            this._cilCode.AppendLine(classDecl);
+            this.Writer(this._cilCode.ToString());
         }
 
-        private string ParseClass(Body classBody) {
-            string body = this.GenerateGlobalVar(classBody);
+        private string ParseClass(BodyNode classBody) {
+            var body = this.GenerateGlobalVar(classBody);
 
-            foreach (var node in classBody.Nodes) {
+            foreach (var node in classBody) {
                 if (node is FuncNode && (node as FuncNode).FuncType == FuncType.Cust) {
-                    body += this.GenerateCILMethod(node as FuncNode);
+                    body += this.GenerateILMethod(node as FuncNode);
                 }
             }
 
@@ -161,73 +152,74 @@ namespace CompilerConsole.CILGenerator
         }
 
         #region Addition
+
         private void InitializeTemplates() {
-            this.templatesDictionary = new Dictionary<Template, string>() {
-                { Template.ClassDecl , "ClassDeclTemplate.txt" },
-                { Template.DeclFuncFinich, "DeclFuncFinish.txt" },
-                { Template.DeclMainFunc, "DeclMainFuncStart.txt" },
-                { Template.StartFuncDecl, "StartFucDecl.txt" },
-                { Template.StartProgram, "StartProgramTempate.txt" },
-                { Template.LocalvariableDeclaration, "LocalvariableDeclaration.txt" },
-                { Template.ConsoleWriteLine, "WriteLineTemplate.txt" },
-                { Template.ConsoleReadLine, "ReadLineTemplate.txt" },
-                { Template.CallMethod, "CallMethod.txt" },
-                { Template.FieldDecl, "FieldDeclTemplate.txt" },
-                { Template.CallField, "CallField.txt" },
-                { Template.ArrDecl, "ArrDecl.txt" },
-                { Template.Conj, "ConjTemplate.txt" },
-                { Template.Dij, "DijTemplate.txt" },
-                { Template.ReadFile, "ReadFileTemplate.txt"}
+            this._templatesDictionary = new Dictionary<Template, string>() {
+                {Template.ClassDecl, "ClassDeclTemplate.txt"},
+                {Template.DeclFuncFinich, "DeclFuncFinish.txt"},
+                {Template.DeclMainFunc, "DeclMainFuncStart.txt"},
+                {Template.StartFuncDecl, "StartFucDecl.txt"},
+                {Template.StartProgram, "StartProgramTempate.txt"},
+                {Template.LocalvariableDeclaration, "LocalvariableDeclaration.txt"},
+                {Template.ConsoleWriteLine, "WriteLineTemplate.txt"},
+                {Template.ConsoleReadLine, "ReadLineTemplate.txt"},
+                {Template.CallMethod, "CallMethod.txt"},
+                {Template.FieldDecl, "FieldDeclTemplate.txt"},
+                {Template.CallField, "CallField.txt"},
+                {Template.ArrDecl, "ArrDecl.txt"},
+                {Template.Conj, "ConjTemplate.txt"},
+                {Template.Dij, "DijTemplate.txt"},
+                {Template.ReadFile, "ReadFileTemplate.txt"}
             };
 
-            this.cilReplacedToken = new Dictionary<CILReplacedToken, string>() {
-                { CILReplacedToken.MethodName, "{name}" },
-                { CILReplacedToken.MethodArgs, "{args}" },
-                { CILReplacedToken.Variables, "{variables}" },
-                { CILReplacedToken.ClassBody, "{classBody}" },
+            this._cilReplacedToken = new Dictionary<ILReplacedToken, string>() {
+                {ILReplacedToken.MethodName, "{name}"},
+                {ILReplacedToken.MethodArgs, "{args}"},
+                {ILReplacedToken.Variables, "{variables}"},
+                {ILReplacedToken.ClassBody, "{classBody}"},
             };
 
             this._operationDictionary = new Dictionary<ILOperation, string>() {
-                { ILOperation.IntConstLoad, "ldc.i4" },
-                { ILOperation.ReadLocalVariable, "ldloc" },
-                { ILOperation.WriteLocalVariable, "stloc" },
-                { ILOperation.WriteMethodArg, "starg" },
-                { ILOperation.ReadMethodArg, "ldarg" },
-                { ILOperation.WriteField, "stsfld" },
-                { ILOperation.ReadField, "ldsfld" },
-                { ILOperation.StringConstLoad, "ldstr" },
-                { ILOperation.Add, "add" },
-                { ILOperation.Sub, "sub" },
-                { ILOperation.Div, "div" },
-                { ILOperation.Mul, "mul" },
-                { ILOperation.Call, "call" },
-                { ILOperation.ReadArrStructElement, "ldelem.i4" },
-                { ILOperation.WriteArrStructElement, "stelem.i4" },
-                { ILOperation.ReadArrRefElement, "ldelem.ref" },
-                { ILOperation.WriteArrRefElement, "stelem.ref" },
-                { ILOperation.Ret, "ret" },
-                { ILOperation.Conj, "{opline} brfalse {const line}" },
-                { ILOperation.Dij, "{opline} brtrue {const line}" },
-                { ILOperation.Neg, "ceq"},
-                { ILOperation.Less, "clt"},
-                { ILOperation.More, "cgt"}
+                {ILOperation.IntConstLoad, "ldc.i4"},
+                {ILOperation.ReadLocalVariable, "ldloc"},
+                {ILOperation.WriteLocalVariable, "stloc"},
+                {ILOperation.WriteMethodArg, "starg"},
+                {ILOperation.ReadMethodArg, "ldarg"},
+                {ILOperation.WriteField, "stsfld"},
+                {ILOperation.ReadField, "ldsfld"},
+                {ILOperation.StringConstLoad, "ldstr"},
+                {ILOperation.Add, "add"},
+                {ILOperation.Sub, "sub"},
+                {ILOperation.Div, "div"},
+                {ILOperation.Mul, "mul"},
+                {ILOperation.Call, "call"},
+                {ILOperation.ReadArrStructElement, "ldelem.i4"},
+                {ILOperation.WriteArrStructElement, "stelem.i4"},
+                {ILOperation.ReadArrRefElement, "ldelem.ref"},
+                {ILOperation.WriteArrRefElement, "stelem.ref"},
+                {ILOperation.Ret, "ret"},
+                {ILOperation.Conj, "{opline} brfalse {const line}"},
+                {ILOperation.Dij, "{opline} brtrue {const line}"},
+                {ILOperation.Neg, "ceq"},
+                {ILOperation.Less, "clt"},
+                {ILOperation.More, "cgt"}
             };
         }
 
         private string Reader(Template template) {
-            string fileName =Environment.CurrentDirectory + "..\\..\\..\\Templates\\"+ this.templatesDictionary[template];
+            var fileName = Environment.CurrentDirectory + "..\\..\\..\\Templates\\" + this._templatesDictionary[template];
 
-            FileStream file = new FileStream(fileName, FileMode.Open);
-            StreamReader reader = new StreamReader(file);
-            string result = reader.ReadToEnd();
+            var file = new FileStream(fileName, FileMode.Open);
+            var reader = new StreamReader(file);
+            var result = reader.ReadToEnd();
             reader.Close();
             file.Close();
             return result;
         }
 
         private void Writer(string cilCode) {
-            FileStream file = new FileStream("cil.il", FileMode.Create);
-            StreamWriter reader = new StreamWriter(file);
+            var file = new FileStream("cil.il", FileMode.Create);
+            var reader = new StreamWriter(file);
             reader.Write(cilCode);
             reader.Close();
             file.Close();

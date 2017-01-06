@@ -4,8 +4,8 @@ using System.IO;
 using System.Text;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
-using CompilerConsole.CILGenerator;
 using Lang2;
+using Generator = CompilerConsole.ILGenerator.Generator;
 
 namespace CompilerConsole {
     class Program {
@@ -54,7 +54,7 @@ namespace CompilerConsole {
                     Console.WriteLine("Ошибка при генерации XML документа");
                 }
                 
-                CILGenerator.Generator tp = new Generator();
+                Generator tp = new Generator();
                 tp.Generate(p);
                 Console.WriteLine("Генерация IL кода успешно завершена");
 

@@ -29,6 +29,10 @@ namespace CompilerConsole.Parser.Abstract {
             this.BodyTable.Nodes.Add(node);
         }
 
+        public void RemoveNode(Node node) {
+            this.BodyTable.Nodes.Remove(node);
+        }
+
         #region IXmlSerializable implementation
 
         public BodyNode() {
@@ -62,38 +66,6 @@ namespace CompilerConsole.Parser.Abstract {
 
         public virtual T FindNodeByName<T>(string name) where T : Node {
             return this.FindNodeByName<T>(name, this);
-        }
-
-        [Obsolete]
-        public virtual FuncNode FindFuncByNameAndArgs(string name, List<Node> args) {
-            if (this is FuncNode) {
-                var func = (FuncNode) this;
-                var findFlag = false;
-                if (func.Args.Count == args.Count && this.Name == name) {
-                    findFlag = true;
-                    for (int i = 0; i < func.Args.Count; i++) {
-                        var variableNode = func.Args[i];
-                        if (variableNode.DataType != args[i].DataType) {
-                            findFlag = false;
-                            break;
-                        }
-                    }
-                }
-
-                if (findFlag) {
-                    return this as FuncNode;
-                }
-            }
-            foreach (var node in this) {
-                if (node is FuncNode) {
-                    var func = (FuncNode) node;
-                    var tempNode = func.FindFuncByNameAndArgs(name, args);
-                    if (tempNode != null) {
-                        return tempNode;
-                    }
-                }
-            }
-            return this.ParentBodyNode?.FindFuncByNameAndArgs(name, args);
         }
 
         #region IEnumerable implementation

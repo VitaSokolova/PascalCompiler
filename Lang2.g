@@ -122,7 +122,6 @@ LESS_OR_EQUAL		:	'<='
 GREATER_OR_EQUAL		:	'>='
 	;
 
-
 //----------------Boolean Operations-----------------------//
 			
 boolOperator: MORE|LESS|EQUAL|LESS_OR_EQUAL|GREATER_OR_EQUAL|GREATER
