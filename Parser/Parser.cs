@@ -152,7 +152,7 @@ namespace CompilerConsole.Parser {
                 case Token.FuncProcDecl: {
                     for (int i = 0; i < treeNode.ChildCount; i++) {
                         var meth = this.ParseFuncDeclare(treeNode.GetChild(i), bodyNode);
-                        bodyNode.AddNode(meth);
+                        
                     }
                     return;
                 }

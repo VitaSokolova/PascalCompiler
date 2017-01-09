@@ -165,17 +165,10 @@ end;
 program t;
 var 
 b:integer;
-A: array [1..10] of integer;
-
-procedure a(i:integer);
+A: array [5..10] of integer;
 begin
-i:=0;
-end;
-function fac(a: array [1..10] of integer):integer;
-var t:integer;
-begin
-a[1+5-b]:=0;
-result := 0;
+A[5]:= "ERROR";
+write(A[5]);
 end;
 
 begin
@@ -395,5 +388,28 @@ while i<30 do begin
 writeln(i);
 i:=i+1;
 end;
+readln();
+end;
+
+
+program t;
+var i:integer;
+c:char;
+
+procedure a();
+begin
+if i<10 begin
+writeln(i);
+i:=i+1;
+a();
+end;
+else begin
+writeln("Rec end");
+end;
+end;
+
+begin
+a();
+c:='c';
 readln();
 end;

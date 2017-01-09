@@ -127,6 +127,7 @@ namespace CompilerConsole.Parser {
                 args = this.ParseVarDecl(tree.GetChild(1).GetChild(0), bodyNode);
                 funcNode = new FuncNode(returnType, name, args, new Body());
                 funcNode.ParentBodyNode = bodyNode;
+                bodyNode.AddNode(funcNode);
                 ITree bodyTree = tree.GetChild(3);
                 this.Parse(tree.GetChild(2), funcNode);
                 if (bodyTree != null) {
@@ -136,6 +137,7 @@ namespace CompilerConsole.Parser {
             else {
                 returnType = this.StringToVarDataType(tree.GetChild(2).GetChild(0).Text);
                 funcNode = new FuncNode(returnType, name, new List<VariableNode>(), new Body());
+                bodyNode.AddNode(funcNode);
                 StructVarNode result = new StructVarNode(returnType, ResultVariableName);
                 funcNode.AddNode(result);
                 funcNode.Args = this.ParseVarDecl(tree.GetChild(1).GetChild(0), bodyNode);
@@ -245,6 +247,7 @@ namespace CompilerConsole.Parser {
             if (method == null) {
                 throw new Exception($"Метод с именем {methName.Text} не найден в текущем контексте");
             }
+
 
             FuncCall call = new FuncCall(method);
             call.SendArgs = argList;

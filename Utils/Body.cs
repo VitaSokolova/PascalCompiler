@@ -12,7 +12,7 @@ namespace CompilerConsole.Utils {
         public List<Node> Nodes { get; set; }
 
         public Body(List<Node> nodes) {
-            this.Nodes = new List<Node>(nodes);
+            this.Nodes = nodes;
         }
 
         #region IXmlSerializable implementation
