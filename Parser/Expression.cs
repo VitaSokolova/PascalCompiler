@@ -64,6 +64,7 @@ namespace CompilerConsole.Parser {
                     bool type = this.DataType == DataType.VarBool;
                     type = type || this.DataType == DataType.VarChar;
                     type = type || this.DataType == DataType.VarInt;
+                    type = type || this.DataType == DataType.VarString;
                     if (!type) {
                         this.DataType = DataType.Error;
                     }

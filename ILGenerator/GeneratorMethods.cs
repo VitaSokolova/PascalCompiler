@@ -508,6 +508,12 @@ namespace CompilerConsole.ILGenerator {
                 case ExprToken.IsEqual: {
                     string exprl = this.ExpressionToIL(node.LeftNode) + Environment.NewLine;
                     string exprr = this.ExpressionToIL(node.RightNode) + Environment.NewLine;
+                    var temp = "";
+                    if (node.LeftNode.DataType == DataType.VarString) {
+                        temp = this.LineNumber + "call bool [mscorlib]System.String::op_Equality(string,string)" +
+                               Environment.NewLine;
+                        return exprl + exprr + temp;
+                    }
                     string op = this.LineNumber + this._operationDictionary[ILOperation.Neg];
                     return exprl + exprr + op;
                 }

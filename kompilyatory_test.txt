@@ -413,3 +413,31 @@ a();
 c:='c';
 readln();
 end;
+
+
+program t;
+var a,b,c:string;
+begin
+
+a:="abc";
+b:="bca";
+c:="abc";
+
+if a = b then begin
+writeln(a);
+end;
+
+else begin
+writeln(b);
+end;
+
+if a = c then begin
+writeln(a);
+end;
+
+else begin
+writeln(c);
+end;
+
+readln();
+end;
