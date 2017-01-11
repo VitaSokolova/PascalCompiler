@@ -218,7 +218,7 @@ namespace CompilerConsole.ILGenerator {
             }
 
             if (node is FuncCall) {
-                return this.GenerateILMethCall((FuncCall) node);
+                return this.GenerateILFuncCall((FuncCall) node);
             }
 
             if (node is Expression) {
@@ -382,7 +382,7 @@ namespace CompilerConsole.ILGenerator {
             return this.LineNumber + operation + this.Offset + varNode.Number;
         }
 
-        private string GenerateILMethCall(FuncCall methCallNode) {
+        private string GenerateILFuncCall(FuncCall methCallNode) {
             StringBuilder methodCall = new StringBuilder();
             foreach (var sendArg in methCallNode.SendArgs) {
                 if (sendArg is ArrNode) {
@@ -437,6 +437,11 @@ namespace CompilerConsole.ILGenerator {
                     methodCall.Append(tmp);
                     break;
                 }
+                case Parser.Parser.ParseMeth: {
+                    var tmp = this.LineNumber + this._operationDictionary[ILOperation.Call] + this.Offset + this.Reader(Template.Parse);
+                    methodCall.Append(tmp);
+                    break;
+                    }
                 default: {
                     string method = this.Reader(Template.CallMethod);
                     method = method.Replace("{type}", ToCILVariableType(methCallNode.Method.DataType));
@@ -721,6 +726,12 @@ namespace CompilerConsole.ILGenerator {
         private string GenerateAddExpr(Expression node) {
             var left = this.ExpressionToIL(node.LeftNode) + Environment.NewLine;
             var right = this.ExpressionToIL(node.RightNode) + Environment.NewLine;
+
+            if (node.LeftNode.DataType == DataType.VarString) {
+                return left + right + this.LineNumber + this._operationDictionary[ILOperation.Call] + this.Offset +
+                       this.Reader(Template.Concate);
+            }
+
             return left + right + this.LineNumber + this._operationDictionary[ILOperation.Add];
         }
 

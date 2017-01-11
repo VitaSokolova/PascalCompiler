@@ -110,7 +110,8 @@ namespace CompilerConsole.Parser {
                 case ExprToken.Add: {
                     bool type = this.DataType == DataType.VarChar;
                     type = type || this.DataType == DataType.VarInt;
-                    if (!type) {
+                        type = type || this.DataType == DataType.VarString;
+                        if (!type) {
                         this.DataType = DataType.Error;
                     }
                     break;

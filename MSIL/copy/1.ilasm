@@ -23,13 +23,13 @@
   .ver 0:0:0:0
 }
 .module '1.exe'
-// MVID: {0AD6E592-07C1-456E-A696-999EFCC4685C}
+// MVID: {93920A3C-2086-413F-BB46-896979A4B8EC}
 .imagebase 0x00400000
 .file alignment 0x00000200
 .stackreserve 0x00100000
 .subsystem 0x0003       // WINDOWS_CUI
 .corflags 0x00000001    //  ILONLY
-// Image base: 0x011F0000
+// Image base: 0x016E0000
 
 
 // =============== CLASS MEMBERS DECLARATION ===================
@@ -41,15 +41,15 @@
   .method public hidebysig static void  Main() cil managed
   {
     .entrypoint
-    // Размер кода:       21 (0x15)
-    .maxstack  8
-    IL_0000:  ldstr      "text"
-    IL_0005:  ldstr      "test"
-    IL_000a:  call       class [mscorlib]System.Text.Encoding [mscorlib]System.Text.Encoding::get_Unicode()
-    IL_000f:  call       void [mscorlib]System.IO.File::WriteAllText(string,
-                                                                     string,
-                                                                     class [mscorlib]System.Text.Encoding)
-    IL_0014:  ret
+    // Размер кода:       18 (0x12)
+    .maxstack  1
+    .locals init ([0] int32 a)
+    IL_0000:  ldstr      "123"
+    IL_0005:  call       int32 [mscorlib]System.Int32::Parse(string)
+    IL_000a:  stloc.0
+    IL_000b:  ldloc.0
+    IL_000c:  call       void [mscorlib]System.Console::WriteLine(int32)
+    IL_0011:  ret
   } // end of method Program::Main
 
   .method public hidebysig specialname rtspecialname 

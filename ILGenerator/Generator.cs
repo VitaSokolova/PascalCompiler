@@ -53,7 +53,8 @@ namespace CompilerConsole.ILGenerator
         WriteFile,
         Write,
         Convert,
-        Concate
+        Concate,
+        Parse
     }
 
     public enum ILToken
@@ -182,7 +183,8 @@ namespace CompilerConsole.ILGenerator
                 {Template.Concate, "ConcateTemplate.txt" },
                 {Template.Convert, "ConvertTemplate.txt" },
                 {Template.Write, "WriteTemplate.txt" },
-                {Template.WriteFile, "WriteFileTemplate.txt" }
+                {Template.WriteFile, "WriteFileTemplate.txt" },
+                {Template.Parse, "Parse.txt" }
             };
 
             this._cilReplacedToken = new Dictionary<ILReplacedToken, string>() {

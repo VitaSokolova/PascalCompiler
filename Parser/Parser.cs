@@ -37,6 +37,7 @@ namespace CompilerConsole.Parser {
         public const string ConvertToString = "toString";
         public const string Write = "write";
         public const string Concate = "concate";
+        public const string ParseMeth = "parse";
 
         #endregion
 
@@ -126,6 +127,8 @@ namespace CompilerConsole.Parser {
                 new List<VariableNode>() {new StructVarNode(DataType.VarBool, "var")}, new Body(), FuncType.Libr));
             this.ProgramNode.AddNode(new FuncNode(DataType.Void, Write,
                 new List<VariableNode>() {new StructVarNode(DataType.VarString, "var")}, new Body(), FuncType.Libr));
+            this.ProgramNode.AddNode(new FuncNode(DataType.VarInt, ParseMeth,
+               new List<VariableNode>() { new StructVarNode(DataType.VarString, "var") }, new Body(), FuncType.Libr));
         }
 
         public void Parse(ITree root) {

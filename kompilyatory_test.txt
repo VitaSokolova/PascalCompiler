@@ -441,3 +441,17 @@ end;
 
 readln();
 end;
+
+
+program t;
+var i:integer;
+ss,sss:string;
+
+begin
+ss:="abs";
+i := parse(readln());
+writeln(i+10);
+sss :="123";
+writeln(ss + " " + sss);
+readln();
+end;
