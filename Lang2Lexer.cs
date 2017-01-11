@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2017-01-06 05:43:56
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 Lang2.g 2017-01-11 20:55:30
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -1242,11 +1242,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = OP_END;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:70:8: ( ';' )
+    		// Lang2.g:71:8: ( ';' )
     		DebugEnterAlt(1);
-    		// Lang2.g:70:10: ';'
+    		// Lang2.g:71:10: ';'
     		{
-    		DebugLocation(70, 10);
+    		DebugLocation(71, 10);
     		Match(';'); 
 
     		}
@@ -1272,12 +1272,12 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = WS;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:73:3: ( ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+ )
+    		// Lang2.g:74:3: ( ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+ )
     		DebugEnterAlt(1);
-    		// Lang2.g:74:3: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
+    		// Lang2.g:75:3: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
     		{
-    		DebugLocation(74, 3);
-    		// Lang2.g:74:3: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
+    		DebugLocation(75, 3);
+    		// Lang2.g:75:3: ( ' ' | '\\t' | '\\f' | '\\r' | '\\n' )+
     		int cnt1=0;
     		try { DebugEnterSubRule(1);
     		while (true)
@@ -1299,7 +1299,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// Lang2.g:
     				{
-    				DebugLocation(74, 3);
+    				DebugLocation(75, 3);
     				if ((input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ')
     				{
     					input.Consume();
@@ -1331,7 +1331,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 
     		} finally { DebugExitSubRule(1); }
 
-    		DebugLocation(74, 41);
+    		DebugLocation(75, 41);
 
     		    _channel=Hidden;
     		  
@@ -1359,12 +1359,12 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = VARIABLE;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:78:10: ( ( 'a' .. 'z' | 'A' .. 'Z' )+ )
+    		// Lang2.g:79:10: ( ( 'a' .. 'z' | 'A' .. 'Z' )+ )
     		DebugEnterAlt(1);
-    		// Lang2.g:78:12: ( 'a' .. 'z' | 'A' .. 'Z' )+
+    		// Lang2.g:79:12: ( 'a' .. 'z' | 'A' .. 'Z' )+
     		{
-    		DebugLocation(78, 12);
-    		// Lang2.g:78:12: ( 'a' .. 'z' | 'A' .. 'Z' )+
+    		DebugLocation(79, 12);
+    		// Lang2.g:79:12: ( 'a' .. 'z' | 'A' .. 'Z' )+
     		int cnt2=0;
     		try { DebugEnterSubRule(2);
     		while (true)
@@ -1386,7 +1386,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     				DebugEnterAlt(1);
     				// Lang2.g:
     				{
-    				DebugLocation(78, 12);
+    				DebugLocation(79, 12);
     				if ((input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z'))
     				{
     					input.Consume();
@@ -1442,23 +1442,23 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = CHAR;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:82:6: ( '\\'' ( options {greedy=false; } : . ) '\\'' )
+    		// Lang2.g:83:6: ( '\\'' ( options {greedy=false; } : . ) '\\'' )
     		DebugEnterAlt(1);
-    		// Lang2.g:82:8: '\\'' ( options {greedy=false; } : . ) '\\''
+    		// Lang2.g:83:8: '\\'' ( options {greedy=false; } : . ) '\\''
     		{
-    		DebugLocation(82, 8);
+    		DebugLocation(83, 8);
     		Match('\''); 
-    		DebugLocation(82, 13);
-    		// Lang2.g:82:13: ( options {greedy=false; } : . )
+    		DebugLocation(83, 13);
+    		// Lang2.g:83:13: ( options {greedy=false; } : . )
     		DebugEnterAlt(1);
-    		// Lang2.g:82:41: .
+    		// Lang2.g:83:41: .
     		{
-    		DebugLocation(82, 41);
+    		DebugLocation(83, 41);
     		MatchAny(); 
 
     		}
 
-    		DebugLocation(82, 45);
+    		DebugLocation(83, 45);
     		Match('\''); 
 
     		}
@@ -1484,12 +1484,12 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = INT;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:84:6: ( ( '0' .. '9' )+ )
+    		// Lang2.g:85:6: ( ( '0' .. '9' )+ )
     		DebugEnterAlt(1);
-    		// Lang2.g:84:8: ( '0' .. '9' )+
+    		// Lang2.g:85:8: ( '0' .. '9' )+
     		{
-    		DebugLocation(84, 8);
-    		// Lang2.g:84:8: ( '0' .. '9' )+
+    		DebugLocation(85, 8);
+    		// Lang2.g:85:8: ( '0' .. '9' )+
     		int cnt3=0;
     		try { DebugEnterSubRule(3);
     		while (true)
@@ -1509,9 +1509,9 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:84:9: '0' .. '9'
+    				// Lang2.g:85:9: '0' .. '9'
     				{
-    				DebugLocation(84, 9);
+    				DebugLocation(85, 9);
     				MatchRange('0','9'); 
 
     				}
@@ -1556,14 +1556,14 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = STRING;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:86:8: ( '\"' ( options {greedy=false; } : . )* '\"' )
+    		// Lang2.g:87:8: ( '\"' ( options {greedy=false; } : . )* '\"' )
     		DebugEnterAlt(1);
-    		// Lang2.g:86:11: '\"' ( options {greedy=false; } : . )* '\"'
+    		// Lang2.g:87:11: '\"' ( options {greedy=false; } : . )* '\"'
     		{
-    		DebugLocation(86, 14);
+    		DebugLocation(87, 14);
     		Match('\"'); 
-    		DebugLocation(86, 16);
-    		// Lang2.g:86:16: ( options {greedy=false; } : . )*
+    		DebugLocation(87, 16);
+    		// Lang2.g:87:16: ( options {greedy=false; } : . )*
     		try { DebugEnterSubRule(4);
     		while (true)
     		{
@@ -1586,9 +1586,9 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     			{
     			case 1:
     				DebugEnterAlt(1);
-    				// Lang2.g:86:44: .
+    				// Lang2.g:87:44: .
     				{
-    				DebugLocation(86, 44);
+    				DebugLocation(87, 44);
     				MatchAny(); 
 
     				}
@@ -1604,7 +1604,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
 
     		} finally { DebugExitSubRule(4); }
 
-    		DebugLocation(86, 52);
+    		DebugLocation(87, 52);
     		Match('\"'); 
 
     		}
@@ -1630,7 +1630,7 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = BOOLEAN;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:89:9: ( TRUE | FALSE )
+    		// Lang2.g:90:9: ( TRUE | FALSE )
     		int alt5=2;
     		try { DebugEnterDecision(5, decisionCanBacktrack[5]);
     		int LA5_0 = input.LA(1);
@@ -1655,18 +1655,18 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		case 1:
     			DebugEnterAlt(1);
-    			// Lang2.g:89:11: TRUE
+    			// Lang2.g:90:11: TRUE
     			{
-    			DebugLocation(89, 11);
+    			DebugLocation(90, 11);
     			mTRUE(); 
 
     			}
     			break;
     		case 2:
     			DebugEnterAlt(2);
-    			// Lang2.g:89:16: FALSE
+    			// Lang2.g:90:16: FALSE
     			{
-    			DebugLocation(89, 16);
+    			DebugLocation(90, 16);
     			mFALSE(); 
 
     			}
@@ -1694,11 +1694,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = ADD;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:104:6: ( '+' )
+    		// Lang2.g:105:6: ( '+' )
     		DebugEnterAlt(1);
-    		// Lang2.g:104:8: '+'
+    		// Lang2.g:105:8: '+'
     		{
-    		DebugLocation(104, 8);
+    		DebugLocation(105, 8);
     		Match('+'); 
 
     		}
@@ -1724,11 +1724,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = REM;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:106:6: ( '-' )
+    		// Lang2.g:107:6: ( '-' )
     		DebugEnterAlt(1);
-    		// Lang2.g:106:8: '-'
+    		// Lang2.g:107:8: '-'
     		{
-    		DebugLocation(106, 8);
+    		DebugLocation(107, 8);
     		Match('-'); 
 
     		}
@@ -1754,11 +1754,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = MULT;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:108:6: ( '*' )
+    		// Lang2.g:109:6: ( '*' )
     		DebugEnterAlt(1);
-    		// Lang2.g:108:8: '*'
+    		// Lang2.g:109:8: '*'
     		{
-    		DebugLocation(108, 8);
+    		DebugLocation(109, 8);
     		Match('*'); 
 
     		}
@@ -1784,11 +1784,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = DIVIDE;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:110:8: ( '/' )
+    		// Lang2.g:111:8: ( '/' )
     		DebugEnterAlt(1);
-    		// Lang2.g:110:10: '/'
+    		// Lang2.g:111:10: '/'
     		{
-    		DebugLocation(110, 10);
+    		DebugLocation(111, 10);
     		Match('/'); 
 
     		}
@@ -1814,11 +1814,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = ASSIGN;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:112:9: ( ':=' )
+    		// Lang2.g:113:9: ( ':=' )
     		DebugEnterAlt(1);
-    		// Lang2.g:112:11: ':='
+    		// Lang2.g:113:11: ':='
     		{
-    		DebugLocation(112, 11);
+    		DebugLocation(113, 11);
     		Match(":="); 
 
 
@@ -1845,11 +1845,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = GREATER;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:114:10: ( '>' )
+    		// Lang2.g:115:10: ( '>' )
     		DebugEnterAlt(1);
-    		// Lang2.g:114:12: '>'
+    		// Lang2.g:115:12: '>'
     		{
-    		DebugLocation(114, 12);
+    		DebugLocation(115, 12);
     		Match('>'); 
 
     		}
@@ -1875,11 +1875,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = LESS;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:116:6: ( '<' )
+    		// Lang2.g:117:6: ( '<' )
     		DebugEnterAlt(1);
-    		// Lang2.g:116:8: '<'
+    		// Lang2.g:117:8: '<'
     		{
-    		DebugLocation(116, 8);
+    		DebugLocation(117, 8);
     		Match('<'); 
 
     		}
@@ -1905,11 +1905,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = EQUAL;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:118:7: ( '=' )
+    		// Lang2.g:119:7: ( '=' )
     		DebugEnterAlt(1);
-    		// Lang2.g:118:9: '='
+    		// Lang2.g:119:9: '='
     		{
-    		DebugLocation(118, 9);
+    		DebugLocation(119, 9);
     		Match('='); 
 
     		}
@@ -1935,11 +1935,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = LESS_OR_EQUAL;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:120:16: ( '<=' )
+    		// Lang2.g:121:16: ( '<=' )
     		DebugEnterAlt(1);
-    		// Lang2.g:120:18: '<='
+    		// Lang2.g:121:18: '<='
     		{
-    		DebugLocation(120, 18);
+    		DebugLocation(121, 18);
     		Match("<="); 
 
 
@@ -1966,11 +1966,11 @@ public partial class Lang2Lexer : Antlr.Runtime.Lexer
     		{
     		int _type = GREATER_OR_EQUAL;
     		int _channel = DefaultTokenChannel;
-    		// Lang2.g:122:19: ( '>=' )
+    		// Lang2.g:123:19: ( '>=' )
     		DebugEnterAlt(1);
-    		// Lang2.g:122:21: '>='
+    		// Lang2.g:123:21: '>='
     		{
-    		DebugLocation(122, 21);
+    		DebugLocation(123, 21);
     		Match(">="); 
 
 

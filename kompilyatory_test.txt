@@ -455,3 +455,11 @@ sss :="123";
 writeln(ss + " " + sss);
 readln();
 end;
+
+
+program t;
+
+begin
+writeln("Виточка программист (:");
+readln();
+end;

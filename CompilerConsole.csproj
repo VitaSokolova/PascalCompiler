@@ -122,7 +122,7 @@
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
-    <JavaHome>C:\Program Files\Java\jdk1.7.0_79</JavaHome>
+    <JavaHome>C:\Program Files (x86)\Java\jdk1.7.0_55</JavaHome>
   </PropertyGroup>
   <Target Name="GenerateAntlrCode" Inputs="@(AntlrGrammarFile)" Outputs="$(AntlrLexerFile);$(AntlrParserFile)">
     <Exec Command="&quot;$(JavaHome)\bin\java&quot; -classpath antlr\java\antlr-3.3-complete.jar org.antlr.Tool -message-format vs2005 @(AntlrGrammarFile)" />

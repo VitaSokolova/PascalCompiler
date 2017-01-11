@@ -23,13 +23,13 @@
   .ver 0:0:0:0
 }
 .module '1.exe'
-// MVID: {93920A3C-2086-413F-BB46-896979A4B8EC}
+// MVID: {86646962-9182-4176-AED5-1F7EEA8BD62B}
 .imagebase 0x00400000
 .file alignment 0x00000200
 .stackreserve 0x00100000
 .subsystem 0x0003       // WINDOWS_CUI
 .corflags 0x00000001    //  ILONLY
-// Image base: 0x016E0000
+// Image base: 0x034F0000
 
 
 // =============== CLASS MEMBERS DECLARATION ===================
@@ -41,15 +41,18 @@
   .method public hidebysig static void  Main() cil managed
   {
     .entrypoint
-    // Размер кода:       18 (0x12)
-    .maxstack  1
-    .locals init ([0] int32 a)
+    // Размер кода:       28 (0x1c)
+    .maxstack  8
     IL_0000:  ldstr      "123"
     IL_0005:  call       int32 [mscorlib]System.Int32::Parse(string)
-    IL_000a:  stloc.0
-    IL_000b:  ldloc.0
-    IL_000c:  call       void [mscorlib]System.Console::WriteLine(int32)
-    IL_0011:  ret
+    IL_000a:  pop
+    IL_000b:  ldstr      bytearray (12 04 38 04 42 04 3E 04 47 04 3A 04 30 04 20 00   // ..8.B.>.G.:.0. .
+                                    3F 04 40 04 3E 04 33 04 40 04 30 04 3C 04 3C 04   // ?.@.>.3.@.0.<.<.
+                                    38 04 41 04 42 04 20 00 28 00 3A 00 )             // 8.A.B. .(.:.
+    IL_0010:  call       void [mscorlib]System.Console::WriteLine(string)
+    IL_0015:  call       valuetype [mscorlib]System.ConsoleKeyInfo [mscorlib]System.Console::ReadKey()
+    IL_001a:  pop
+    IL_001b:  ret
   } // end of method Program::Main
 
   .method public hidebysig specialname rtspecialname 

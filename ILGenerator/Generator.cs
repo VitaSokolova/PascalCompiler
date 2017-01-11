@@ -233,7 +233,7 @@ namespace CompilerConsole.ILGenerator
 
         private void Writer(string cilCode) {
             var file = new FileStream("cil.il", FileMode.Create);
-            var reader = new StreamWriter(file);
+            var reader = new StreamWriter(file, Encoding.Unicode);
             reader.Write(cilCode);
             reader.Close();
             file.Close();

@@ -20,7 +20,8 @@ namespace CompilerConsole {
                     input = new ANTLRReaderStream(reader);
                 }
                 else {
-                    input = new ANTLRReaderStream(Console.In);
+                  // input = new ANTLRReaderStream(Console.In);
+                   input = new ANTLRInputStream(Console.OpenStandardInput(), Console.OutputEncoding);
                 }
 
                 Lang2Lexer lexer = new Lang2Lexer(input);

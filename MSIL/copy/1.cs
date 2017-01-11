@@ -4,7 +4,8 @@ namespace Program {
   private static string s;
       public static void Main() {
         int a = Int32.Parse("123");
-        Console.WriteLine(a);
+        Console.WriteLine("Виточка программист (:");
+        Console.ReadKey();
       }
   }
 }

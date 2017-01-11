@@ -1,4 +1,6 @@
-﻿using System.Xml;
+﻿using System;
+using System.Text;
+using System.Xml;
 using CompilerConsole.Parser.Abstract;
 
 namespace CompilerConsole.Parser {
@@ -8,6 +10,7 @@ namespace CompilerConsole.Parser {
 
         public Literal(DataType dataType,object value, string name = "%lit") : base(dataType, name) {
             this.Value = value;
+
         }
 
 

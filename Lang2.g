@@ -3,6 +3,7 @@ grammar Lang2;
 options{
 	language=CSharp2;
 	output=AST;
+	charVocabulary='\u0000'..'\uFFFE';
 }
 
 
